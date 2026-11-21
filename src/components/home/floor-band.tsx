@@ -7,25 +7,27 @@ import { ADDRESS } from "@/lib/site";
 
 const panelTitle = "font-label text-[1.5rem] leading-none tracking-[0.06em] uppercase";
 
-/** One horizontal band: the floor photo, the pitch, and the practical details (hours + location). */
+/** One horizontal band: full-bleed left floor photo, the pitch, and practical details (hours + location). */
 export function FloorBand() {
   return (
-    <section aria-labelledby="floor-title" className="mx-auto max-w-[1280px] px-6 py-16 md:px-10 lg:py-24">
-      <div className="grid gap-10 lg:grid-cols-12 lg:items-stretch lg:gap-8">
-        <div className="lg:col-span-4">
-          <div className="relative aspect-[4/5] overflow-hidden border border-line lg:aspect-auto lg:h-full lg:min-h-[480px]">
-            <Image
-              src="/images/training-floor.jpg"
-              alt="The training floor at Gold's Gym Iloilo: hexagon ceiling lights over dumbbell racks, power racks and benches"
-              fill
-              sizes="(min-width: 1024px) 28vw, 100vw"
-              quality={85}
-              className="object-cover"
-            />
-          </div>
+    <section aria-labelledby="floor-title" className="w-full overflow-hidden py-16 lg:py-24">
+      <div className="grid gap-10 px-6 md:px-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-10 lg:pl-0 lg:pr-[max(2.5rem,calc((100vw-1440px)/2+2.5rem))]">
+        <div className="group relative aspect-[4/3] overflow-hidden border border-line sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[560px] lg:border-l-0">
+          <Image
+            src="/images/training-floor.jpg"
+            alt="The training floor at Gold's Gym Iloilo: hexagon ceiling lights over dumbbell racks, power racks and benches"
+            fill
+            sizes="(min-width: 1024px) 44vw, 100vw"
+            quality={88}
+            className="object-cover object-center transition-transform duration-500 ease-[var(--ease-out)] group-hover:scale-[1.04]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas/35 via-transparent to-transparent"
+          />
         </div>
 
-        <div className="flex flex-col justify-center lg:col-span-4">
+        <div className="flex flex-col justify-center">
           <p className="font-label text-[1.25rem] leading-none tracking-[0.14em] text-gold uppercase">
             The training floor
           </p>
@@ -46,7 +48,7 @@ export function FloorBand() {
           </ButtonLink>
         </div>
 
-        <div className="border border-line bg-elevated p-8 lg:col-span-4">
+        <div className="border border-line bg-elevated p-8">
           <h2 className={panelTitle}>Opening hours</h2>
           <OpenBadge className="mt-5" />
           <dl className="mt-6 divide-y divide-line-subtle border-y border-line-subtle">
