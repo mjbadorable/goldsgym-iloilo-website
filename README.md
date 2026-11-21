@@ -16,7 +16,7 @@ Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, migrated from the Framer
 ## Structure
 
 - `src/app/`: routes `/`, `/why-gold-s-gym`, `/coaches`, `/reviews-faq`, plus 404, sitemap, robots.
-- `src/content/`: all copy and data (zones, coaches, reviews, FAQ, tour photos and Reels). Edit here, not in components.
+- `src/content/`: all copy and data (zones, coaches, reviews, FAQ, tour photos and the promo video). Edit here, not in components.
 - `src/lib/hours.ts`: opening hours and the live Open/Closed status (Asia/Manila). Tested.
 - `src/components/ui/sheet.tsx`: shared slide-over (native dialog) used by the Free Day Pass drawer (`day-pass/`, every day-pass button opens it) and the Watch the Gym dialog (`gym-tour/`).
 - `DESIGN.md`: tokens, type, motion rules. `PRODUCT.md`: audience, facts, constraints.
@@ -33,4 +33,4 @@ Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, migrated from the Framer
 - Next 16 with Cache Components: anything reading the clock stays in a client component (`OpenBadge`).
 - `next/image` qualities are restricted to `[75, 85]` in `next.config.ts`; use one of those.
 - Originals are untouched in `assets/framer-originals/` and `assets/supplied/`; `npm run images` writes the web versions. The site never requests Framer.
-- Facebook Reels open on facebook.com in a new tab; nothing from Facebook is embedded.
+- The promo video is a Google Drive embed (`PROMO_VIDEO` in `src/content/tour.ts`). Its iframe is mounted only while the Watch the gym dialog is open, so Google is not contacted on page load and closing the dialog stops playback. The Drive file must stay shared as "anyone with the link".

@@ -55,12 +55,11 @@ export const TOUR_PHOTOS: TourPhoto[] = [
   },
 ];
 
-export type Reel = { id: string; url: string };
-
-// Facebook Reels supplied by the gym. Titles are not known (Facebook does not expose them to us),
-// so the cards are numbered rather than given invented descriptions.
-export const REELS: Reel[] = [
-  { id: "reel-1", url: "https://www.facebook.com/reel/1295719865403361" },
-  { id: "reel-2", url: "https://www.facebook.com/reel/1030726489032321" },
-  { id: "reel-3", url: "https://www.facebook.com/reel/1280569820783478" },
-];
+// The gym's promotional video: a portrait (9:16) file hosted on the owner's Google Drive.
+// `previewUrl` is the embeddable player (it is only mounted while the Watch dialog is open, so
+// Google is not contacted on page load). `shareUrl` is the plain Drive page, used as a fallback link.
+export const PROMO_VIDEO = {
+  title: "Gold's Gym Iloilo Promotional Video",
+  previewUrl: "https://drive.google.com/file/d/1ODQmIN1EYtLAtDI8moIGlnFPxrCacpXQ/preview",
+  shareUrl: "https://drive.google.com/file/d/1ODQmIN1EYtLAtDI8moIGlnFPxrCacpXQ/view?usp=sharing",
+} as const;

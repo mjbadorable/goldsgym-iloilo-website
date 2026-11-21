@@ -4,7 +4,7 @@ import { existsSync } from "node:fs";
 import { ADDRESS, CONTACT } from "../lib/site.ts";
 import { COACHES } from "./coaches.ts";
 import { REVIEWS } from "./reviews.ts";
-import { REELS, TOUR_PHOTOS } from "./tour.ts";
+import { PROMO_VIDEO, TOUR_PHOTOS } from "./tour.ts";
 import { EXPERIENCES, ZONES } from "./zones.ts";
 
 test("real address and contact details are unchanged", () => {
@@ -22,16 +22,16 @@ test("no wrong-location copy anywhere in site data", () => {
   assert.doesNotMatch(everything, /SM City/i);
 });
 
-test("the three supplied Facebook Reels are present, in order, and safe to link", () => {
-  assert.deepEqual(
-    REELS.map((r) => r.url),
-    [
-      "https://www.facebook.com/reel/1295719865403361",
-      "https://www.facebook.com/reel/1030726489032321",
-      "https://www.facebook.com/reel/1280569820783478",
-    ],
-  );
-  for (const reel of REELS) assert.match(reel.url, /^https:\/\/www\.facebook\.com\/reel\/\d+$/);
+test("the promo video is the owner's Google Drive file, embeddable and with a share fallback", () => {
+  const ID = "1ODQmIN1EYtLAtDI8moIGlnFPxrCacpXQ";
+  assert.equal(PROMO_VIDEO.previewUrl, `https://drive.google.com/file/d/${ID}/preview`);
+  assert.match(PROMO_VIDEO.shareUrl, /^https:\/\/drive\.google\.com\/file\/d\/[\w-]+\/view(\?usp=sharing)?$/);
+  assert.ok(PROMO_VIDEO.shareUrl.includes(ID), "share URL must point at the same file as the preview");
+  assert.equal(PROMO_VIDEO.title, "Gold's Gym Iloilo Promotional Video");
+});
+
+test("no Facebook links remain in tour content", () => {
+  assert.doesNotMatch(JSON.stringify({ PROMO_VIDEO, TOUR_PHOTOS }), /facebook|fb\.com|reel/i);
 });
 
 test("every image referenced by content exists in public/", () => {

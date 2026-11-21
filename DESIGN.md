@@ -25,7 +25,7 @@ Contrast checked: gold on canvas about 12:1, `#070708` on gold about 12:1, muted
 
 ## Fluid layout and type
 
-Defined once in `:root` in `globals.css`; components use the utilities and `text-[length:var(--text-*)]`, never ad-hoc clamps for display text.
+Defined once in `:root` in `globals.css`; components use the `.shell` utilities and the type tokens below (for example `text-[length:var(--text-display)]`), never ad-hoc clamps for display text.
 
 | Token | Value | Use |
 |---|---|---|

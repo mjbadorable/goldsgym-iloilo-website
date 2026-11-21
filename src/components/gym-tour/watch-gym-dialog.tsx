@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Close, Play } from "@/components/ui/icons";
 import { Sheet } from "@/components/ui/sheet";
 import { cn } from "@/lib/cn";
-import { REELS, TOUR_PHOTOS } from "@/content/tour";
+import { PROMO_VIDEO, TOUR_PHOTOS } from "@/content/tour";
 
 /**
- * "Watch the gym": a button plus a slide-over with a photo switcher and links to three Facebook
- * Reels. The reels open on facebook.com in a new tab; nothing is embedded, so no third-party
- * scripts or cookies load on this site.
+ * "Watch the gym": a button plus a slide-over with a photo switcher and the gym's portrait (9:16)
+ * promotional video. The video is a Google Drive embed that is mounted ONLY while the dialog is
+ * open: no request goes to Google on page load, and closing the dialog removes the iframe, which
+ * stops playback and audio immediately.
  */
 export function WatchGymButton({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,37 +87,44 @@ export function WatchGymButton({ className }: { className?: string }) {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-line-subtle pt-8">
-          <h3 className="font-label text-[1.5rem] leading-none tracking-[0.06em] uppercase">
-            Watch the Reels
+        <section aria-labelledby="promo-video-title" className="mt-10 border-t border-line-subtle pt-8">
+          <h3
+            id="promo-video-title"
+            className="font-label text-[1.5rem] leading-none tracking-[0.06em] uppercase"
+          >
+            Promotional Video
           </h3>
-          <ul className="mt-5 grid gap-3 sm:grid-cols-3">
-            {REELS.map((reel, i) => (
-              <li key={reel.id}>
-                <a
-                  href={reel.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hairline flex h-full flex-col justify-between gap-6 bg-surface p-5 transition-colors duration-[160ms] hover:bg-elevated"
-                >
-                  <span className="inline-flex size-10 items-center justify-center border border-line text-gold">
-                    <Play className="size-5" />
-                  </span>
-                  <span>
-                    <span className="block font-label text-[1.25rem] leading-none tracking-[0.04em] uppercase">
-                      Facebook Reel {i + 1}
-                    </span>
-                    <span className="mt-2 flex items-center gap-1.5 font-mono text-[0.8125rem] text-muted">
-                      Opens on Facebook
-                      <ArrowUpRight className="size-4 text-gold" />
-                    </span>
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+
+          {/* Portrait 9:16 frame. The iframe only exists while the dialog is open. */}
+          <div className="relative mx-auto mt-5 aspect-[9/16] w-full max-w-[340px] overflow-hidden border border-line bg-canvas">
+            <p className="absolute inset-0 grid place-items-center font-mono text-[0.8125rem] text-muted">
+              Loading video&hellip;
+            </p>
+            {isOpen ? (
+              <iframe
+                src={PROMO_VIDEO.previewUrl}
+                title={PROMO_VIDEO.title}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                className="absolute inset-0 h-full w-full border-0"
+              />
+            ) : null}
+          </div>
+
+          <p className="mt-4 text-center">
+            <a
+              href={PROMO_VIDEO.shareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline inline-flex items-center gap-1.5 font-mono text-[0.8125rem] text-muted hover:text-fg"
+            >
+              Open video in new tab
+              <ArrowUpRight className="size-4 text-gold" />
+              <span className="sr-only"> (opens Google Drive in a new tab)</span>
+            </a>
+          </p>
+        </section>
       </Sheet>
     </>
   );

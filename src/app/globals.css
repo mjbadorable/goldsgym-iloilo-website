@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind scans every project file for class names. Documentation is prose, and a class-like
+   snippet in it that contains a wildcard character otherwise turns into invalid CSS and breaks
+   the dev server (this happened once). Only source code should be scanned. */
+@source not "../../*.md";
+
 /* ------------------------------------------------------------------
    Gold's Gym Iloilo design tokens. See DESIGN.md.
    Colours live here once; components use the semantic utilities
