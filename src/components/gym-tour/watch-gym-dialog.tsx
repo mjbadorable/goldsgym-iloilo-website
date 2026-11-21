@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDayPass } from "@/components/day-pass/day-pass-provider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowUpRight, Clock, Close, MapPin, Play } from "@/components/ui/icons";
@@ -15,16 +15,25 @@ import { DIALOG_CLOSE_MS } from "@/lib/use-modal-dialog";
 
 /**
  * "Watch the gym": a button plus a slide-over with a photo switcher and the gym's portrait (9:16)
- * promotional video. The video is a Google Drive embed that is mounted ONLY while the dialog is
- * open: no request goes to Google on page load, and closing the dialog removes the iframe, which
- * stops playback and audio immediately.
+ * promotional video. The Google Drive iframe mounts only after the slide-in finishes (keeping the
+ * drawer motion at 60fps) and unmounts immediately on close so playback and audio stop at once.
  */
 export function WatchGymButton({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const [index, setIndex] = useState(0);
   const { open: openDayPass } = useDayPass();
   const photo = TOUR_PHOTOS[index];
-  const close = () => setIsOpen(false);
+  const close = () => {
+    setVideoReady(false);
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const timer = setTimeout(() => setVideoReady(true), DIALOG_CLOSE_MS + 40);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
   function claimPass() {
     close();
@@ -105,7 +114,7 @@ export function WatchGymButton({ className }: { className?: string }) {
               <p className="absolute inset-0 grid place-items-center font-mono text-[0.8125rem] text-muted">
                 Loading video&hellip;
               </p>
-              {isOpen ? (
+              {isOpen && videoReady ? (
                 <iframe
                   src={PROMO_VIDEO.previewUrl}
                   title={PROMO_VIDEO.title}

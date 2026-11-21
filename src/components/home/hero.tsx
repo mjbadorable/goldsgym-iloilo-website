@@ -12,8 +12,8 @@ const line = (i: number) => ({ "--i": i }) as CSSProperties;
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
-      {/* Athlete anchored right and blended into the canvas: scrims keep all copy on near-solid dark. */}
-      <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 w-full lg:w-[62%]">
+      {/* Athlete anchored right and blended into the canvas: overflow-hidden clips hero-settle cleanly. */}
+      <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 w-full overflow-hidden lg:w-[62%]">
         <Image
           src="/images/hero-athlete.jpg"
           alt=""
@@ -25,8 +25,8 @@ export function Hero() {
           className="hero-settle object-cover object-[60%_30%] lg:object-[50%_38%]"
         />
         <div className="absolute inset-0 bg-canvas/65 lg:bg-transparent" />
-        <div className="scrim-x absolute inset-0" />
-        <div className="scrim-y absolute inset-0" />
+        <div className="scrim-x absolute -inset-px" />
+        <div className="scrim-y absolute -inset-px" />
       </div>
 
       <div className="shell flex min-h-[calc(100svh-var(--nav-h)-116px)] items-center py-12 lg:min-h-[min(calc(100svh-var(--nav-h)-116px),860px)] lg:py-14">
