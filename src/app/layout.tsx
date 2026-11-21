@@ -1,0 +1,62 @@
+import type { Metadata, Viewport } from "next";
+import { Anton, Bebas_Neue, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { DayPassProvider } from "@/components/day-pass/day-pass-provider";
+import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { SITE, SITE_URL } from "@/lib/site";
+import "./globals.css";
+
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: "swap" });
+const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas", display: "swap" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE.name} | Free weights, Gym80 strength, cardio and coaches`,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.description,
+  applicationName: SITE.name,
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    locale: "en_PH",
+    title: `${SITE.name}: your strongest starts here`,
+    description: SITE.description,
+    images: [{ url: "/images/og-share.jpg", width: 1080, height: 630, alt: "The training floor at Gold's Gym Iloilo" }],
+  },
+  twitter: { card: "summary_large_image" },
+  icons: { icon: "/images/gold-logo.png", apple: "/images/gold-logo.png" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#070708",
+  colorScheme: "dark",
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="en"
+      className={`${anton.variable} ${bebas.variable} ${jakarta.variable} ${jetbrains.variable}`}
+    >
+      <body className="flex min-h-svh flex-col">
+        <DayPassProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-gold focus:px-4 focus:py-3 focus:font-label focus:text-[1.25rem] focus:text-gold-ink"
+          >
+            Skip to content
+          </a>
+          <Navbar />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </DayPassProvider>
+      </body>
+    </html>
+  );
+}

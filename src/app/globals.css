@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Gold's Gym Iloilo design tokens. See DESIGN.md.
+   Colours live here once; components use the semantic utilities
+   (bg-canvas, text-fg, border-line, text-gold ...) and never raw hex.
+------------------------------------------------------------------- */
+:root {
+  --bg-canvas: #070708; /* Obsidian */
+  --bg-surface: #101115;
+  --bg-elevated: #16181e;
+
+  --accent: #f5c400; /* Gold's Gym yellow */
+  --accent-hover: #ffd014;
+  --accent-ink: #070708; /* text on gold */
+
+  --border-hairline: rgba(245, 196, 0, 0.25);
+  --border-subtle: rgba(248, 250, 252, 0.12);
+
+  --text-primary: #f8fafc;
+  --text-muted: #a1a1aa;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+
+  --nav-h: 72px;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  --color-gold: var(--accent);
+  --color-gold-hover: var(--accent-hover);
+  --color-gold-ink: var(--accent-ink);
+  --color-line: var(--border-hairline);
+  --color-line-subtle: var(--border-subtle);
+  --color-fg: var(--text-primary);
+  --color-muted: var(--text-muted);
+
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-label: var(--font-bebas), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+/* ---------------- Base ---------------- */
+html {
+  background: var(--bg-canvas);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 24px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Browser surfaces that would otherwise keep default styling. */
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+* {
+  caret-color: var(--accent);
+  scrollbar-color: var(--bg-elevated) var(--bg-canvas);
+  scrollbar-width: thin;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+:where(button, a, summary, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------------- Motion primitives ---------------- */
+
+/* Hero headline: each line rises out of its own mask. CSS-only, so content is
+   never hidden if JS fails. Delay comes from --i (line index). */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  /* room for the line box so the mask never clips letterforms */
+  padding-block: 0.04em;
+  margin-block: -0.04em;
+}
+.reveal-line > span {
+  display: block;
+  animation: line-up 640ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 60ms);
+}
+@keyframes line-up {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Hero image settles from 1.03 to 1.00. */
+.hero-settle {
+  animation: hero-settle 1100ms var(--ease-out) both;
+  transform-origin: 50% 40%;
+}
+@keyframes hero-settle {
+  from {
+    transform: scale(1.03);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Cards rest with a faint gold hairline; hover or focus draws a full 1px gold
+   border in around it. Works on touch because the resting hairline is already visible. */
+.hairline {
+  position: relative;
+  border: 1px solid var(--border-hairline);
+}
+.hairline::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--accent);
+  pointer-events: none;
+  clip-path: inset(0 100% 100% 0);
+  transition: clip-path var(--dur-base) var(--ease-out);
+}
+.hairline:hover::after,
+.hairline:focus-within::after {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Gold V-chevron divider: a thin gold rule that drops into a V at centre.
+   It is the brand's torso-taper silhouette, reused as a structural break. */
+.v-divider {
+  height: 56px;
+  background: var(--accent);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 4px,
+    calc(50% + 56px) 4px,
+    50% 56px,
+    calc(50% - 56px) 4px,
+    0 4px
+  );
+}
+
+/* Underline that grows from the left on hover. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size var(--dur-base) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  padding-bottom: 2px;
+}
+.link-underline:hover {
+  background-size: 100% 2px;
+}
+
+/* FAQ accordion: animate real content height with grid rows (0fr to 1fr). */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base) var(--ease-out);
+}
+.accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.accordion-panel > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Free Day Pass slide-over (native <dialog>). Slides in from the right; the backdrop fades. */
+html {
+  scrollbar-gutter: stable;
+}
+html:has(dialog.day-pass[open]) {
+  overflow: hidden;
+}
+.day-pass {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+.day-pass::backdrop {
+  background: color-mix(in srgb, var(--bg-canvas) 78%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.day-pass[data-state="open"]::backdrop {
+  opacity: 1;
+}
+.day-pass-panel {
+  margin-left: auto;
+  height: 100%;
+  width: min(100%, 30rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px;
+  background: var(--bg-elevated);
+  border-left: 1px solid var(--border-hairline);
+  transform: translateX(100%);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+@media (min-width: 768px) {
+  .day-pass-panel {
+    padding: 40px;
+  }
+}
+.day-pass[data-state="open"] .day-pass-panel {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
