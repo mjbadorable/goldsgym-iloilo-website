@@ -310,7 +310,7 @@ html:has(dialog.sheet[open]) {
   }
 }
 .sheet--wide .sheet-panel {
-  width: min(100%, 46rem);
+  width: min(100%, 62rem);
 }
 .sheet[data-state="open"] .sheet-panel {
   transform: none;

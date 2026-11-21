@@ -60,7 +60,7 @@ export function WatchGymButton({ className }: { className?: string }) {
               src={photo.src}
               alt={photo.alt}
               fill
-              sizes="(min-width: 768px) 46rem, 100vw"
+              sizes="(min-width: 768px) 62rem, 100vw"
               quality={85}
               className="object-cover"
               style={{ objectPosition: photo.position }}
@@ -98,9 +98,9 @@ export function WatchGymButton({ className }: { className?: string }) {
         </div>
 
         <section aria-labelledby="promo-video-title" className="mt-10 border-t border-line-subtle pt-8">
-          <div className="grid gap-6 sm:grid-cols-[minmax(0,300px)_1fr] sm:items-stretch">
+          <div className="grid gap-6 sm:grid-cols-[minmax(0,350px)_1fr] sm:items-stretch lg:gap-8">
             {/* Portrait 9:16 frame. The iframe only exists while the dialog is open. */}
-            <div className="relative mx-auto aspect-[9/16] w-full max-w-[300px] overflow-hidden border border-line bg-canvas sm:mx-0">
+            <div className="relative mx-auto aspect-[9/16] w-full max-w-[350px] overflow-hidden border border-line bg-canvas sm:mx-0">
               <p className="absolute inset-0 grid place-items-center font-mono text-[0.8125rem] text-muted">
                 Loading video&hellip;
               </p>
