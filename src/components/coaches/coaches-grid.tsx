@@ -37,7 +37,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
 
   return (
     <>
-      <section aria-labelledby="coaches-list-title" className="mx-auto max-w-[1280px] px-6 pb-16 md:px-10 lg:pb-24">
+      <section aria-labelledby="coaches-list-title" className="shell pb-[var(--section-y)]">
         <h2 id="coaches-list-title" className="sr-only">
           Our coaches
         </h2>

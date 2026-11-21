@@ -26,10 +26,11 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line-subtle bg-canvas">
-      <div className="mx-auto flex h-[var(--nav-h)] max-w-[1280px] items-center justify-between gap-6 px-6 md:px-10">
+      {/* Edge to edge: logo anchors left, links sit centred, the CTA anchors right (3-column grid on md+). */}
+      <div className="shell-full flex h-[var(--nav-h)] items-center justify-between gap-6 md:grid md:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 md:justify-self-start"
           aria-label={`${SITE.name}, home`}
         >
           <Image
@@ -66,7 +67,7 @@ export function Navbar() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 md:justify-self-end">
           {/* Wrapper handles visibility: a `hidden` class on the button itself would fight its inline-flex. */}
           <div className="hidden md:block">
             <DayPassButton size="sm">Free day pass</DayPassButton>
@@ -89,7 +90,7 @@ export function Navbar() {
         hidden={!menuOpen}
         className="absolute inset-x-0 top-full border-b border-line-subtle bg-canvas md:hidden"
       >
-        <nav aria-label="Mobile" className="px-6 pt-2 pb-8">
+        <nav aria-label="Mobile" className="px-[var(--gutter)] pt-2 pb-8">
           <ul>
             {NAV.map((item) => (
               <li key={item.href} className="border-b border-line-subtle">

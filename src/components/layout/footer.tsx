@@ -9,14 +9,14 @@ export function Footer() {
   return (
     <footer className="mt-auto bg-surface">
       <VDivider />
-      <div className="mx-auto grid max-w-[1280px] gap-16 px-6 pt-16 pb-12 md:px-10 lg:grid-cols-12 lg:gap-8 lg:pt-24">
+      <div className="shell grid gap-16 pt-[var(--section-y)] pb-12 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-6">
-          <h2 className="font-display text-[clamp(3rem,6vw,4.5rem)] leading-[0.95] uppercase">
+          <h2 className="font-display text-[length:var(--text-display)] leading-[0.92] uppercase">
             <span className="text-gold">Your strongest</span>
             <br />
             <span className="text-fg">starts here.</span>
           </h2>
-          <p className="mt-6 max-w-[44ch] text-lg text-muted">
+          <p className="mt-6 max-w-[44ch] text-[length:var(--text-body)] text-muted">
             Train with purpose. Build strength. Keep progressing.
           </p>
           <DayPassButton className="mt-8" />
@@ -70,7 +70,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-line-subtle">
-        <div className="mx-auto flex max-w-[1280px] items-center gap-3 px-6 py-6 md:px-10">
+        <div className="shell flex items-center gap-3 py-6">
           <Image src="/images/gold-logo.png" alt="" width={24} height={24} className="size-6" />
           <p className="text-sm text-muted">&copy; {SITE.name}</p>
         </div>

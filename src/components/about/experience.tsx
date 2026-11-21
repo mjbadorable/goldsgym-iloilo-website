@@ -6,9 +6,9 @@ import { EXPERIENCES } from "@/content/zones";
 export function Experience() {
   return (
     <section aria-label="The Gym Experience" className="border-t border-line-subtle bg-surface">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 lg:py-28">
-        <div className="max-w-[46rem]">
-          <h2 className="font-display text-[clamp(2.5rem,5vw,4.25rem)] leading-[0.96] uppercase">
+      <div className="shell py-[var(--section-y)]">
+        <div className="max-w-[min(100%,52rem)]">
+          <h2 className="font-display text-[length:var(--text-display)] leading-[0.96] uppercase">
             Everything you need to train comfortably.
           </h2>
         </div>
@@ -41,7 +41,7 @@ export function Experience() {
                       {item.title}
                     </h3>
                   </div>
-                  <p className="mt-4 text-[1rem] leading-relaxed text-muted">{item.description}</p>
+                  <p className="mt-4 max-w-[65ch] text-[1rem] leading-relaxed text-muted">{item.description}</p>
                 </div>
               </article>
             </li>

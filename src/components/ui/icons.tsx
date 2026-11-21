@@ -196,3 +196,9 @@ export const Trophy = (p: IconProps) => (
     <path d="M8 6H4.5v1.5A3.5 3.5 0 0 0 8 11M16 6h3.5v1.5A3.5 3.5 0 0 1 16 11M12 13v4M10 17h4M8.5 20h7" />
   </Icon>
 );
+
+export const Pause = (p: IconProps) => (
+  <Icon {...p} strokeWidth={2.25}>
+    <path d="M8.5 5.5v13M15.5 5.5v13" />
+  </Icon>
+);

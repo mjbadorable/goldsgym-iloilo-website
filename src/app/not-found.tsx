@@ -6,8 +6,8 @@ export const metadata: Metadata = { title: "Page not found", robots: { index: fa
 
 export default function NotFound() {
   return (
-    <section className="mx-auto max-w-[1280px] px-6 py-24 md:px-10 lg:py-32">
-      <h1 className="max-w-[14ch] font-display text-[clamp(3.5rem,11vw,6rem)] leading-[0.95] uppercase">
+    <section className="shell py-24 lg:py-32">
+      <h1 className="max-w-[14ch] font-display text-[length:var(--text-display)] leading-[0.95] uppercase">
         That page skipped leg day.
       </h1>
       <p className="mt-6 max-w-[44ch] text-[1.125rem] text-muted">

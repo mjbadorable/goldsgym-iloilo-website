@@ -26,7 +26,7 @@ export function FloorBand() {
   return (
     <section
       aria-labelledby="floor-title"
-      className="relative isolate overflow-hidden bg-canvas py-16 lg:py-24"
+      className="relative isolate overflow-hidden bg-canvas py-[var(--section-y)]"
     >
       {/* Decorative brand watermark behind the right half. Very low opacity so text contrast is unaffected. */}
       <div
@@ -36,7 +36,7 @@ export function FloorBand() {
         <Image src="/images/gold-logo.png" alt="" width={640} height={637} className="size-full object-contain" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-[1600px] gap-10 px-6 md:px-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1.1fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-12 lg:px-12">
+      <div className="shell grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1.1fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-10">
         {/* Left: floor photo. Rectangular with a gold bottom rule below lg; slanted with a gold slash on lg+. */}
         <div className="group relative aspect-[4/3] border-b-[3px] border-gold sm:aspect-[16/10] lg:aspect-auto lg:min-h-[600px] lg:border-b-0">
           <div className="floor-photo absolute inset-0 overflow-hidden">
@@ -64,12 +64,12 @@ export function FloorBand() {
           </p>
           <h2
             id="floor-title"
-            className="mt-4 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-[0.92] uppercase italic"
+            className="mt-4 font-display text-[length:var(--text-display)] leading-[0.92] uppercase italic"
           >
             <span className="block text-fg">Built for</span>
             <span className="block text-gold">Serious work.</span>
           </h2>
-          <p className="mt-6 max-w-[52ch] text-[1.0625rem] text-muted">
+          <p className="mt-6 max-w-[52ch] text-[length:var(--text-body)] text-muted">
             Gold&rsquo;s Gym Iloilo is more than a place to work out. It&rsquo;s a community built around
             strength, discipline, and progress. Whether you&rsquo;re starting your fitness journey or pushing
             toward your next personal best, our space is designed to help you become stronger every day.
@@ -93,7 +93,7 @@ export function FloorBand() {
         </div>
 
         {/* Right: hours + location card */}
-        <div className="flex flex-col justify-between rounded-xl border border-gold/45 bg-elevated/95 p-7 shadow-[inset_0_1px_0_0_var(--border-subtle)] lg:p-8">
+        <div className="flex flex-col justify-between rounded-xl border border-gold/45 bg-elevated/95 p-7 shadow-[inset_0_1px_0_0_var(--border-subtle)]">
           <div>
             <h2 className={`${panelTitle} flex items-center gap-3`}>
               <Clock className="size-6 shrink-0 text-gold" />

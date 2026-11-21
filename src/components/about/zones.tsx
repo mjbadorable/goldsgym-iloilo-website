@@ -5,7 +5,7 @@ import { ZONES } from "@/content/zones";
 /** Four training zones side by side on wide screens; enlarged responsive photos with subtle hover motion. */
 export function Zones() {
   return (
-    <section aria-labelledby="zones-title" className="mx-auto max-w-[1440px] px-6 py-16 md:px-10 lg:py-28">
+    <section aria-labelledby="zones-title" className="shell py-[var(--section-y)]">
       <h2 id="zones-title" className="sr-only">
         Training zones
       </h2>
@@ -37,7 +37,7 @@ export function Zones() {
                     {zone.name}
                   </h3>
                 </div>
-                <p className="mt-4 text-[0.98rem] leading-relaxed text-muted">{zone.description}</p>
+                <p className="mt-4 max-w-[65ch] text-[0.98rem] leading-relaxed text-muted">{zone.description}</p>
               </div>
             </article>
           </li>

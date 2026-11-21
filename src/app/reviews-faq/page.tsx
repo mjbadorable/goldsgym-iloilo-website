@@ -37,7 +37,7 @@ export default function ReviewsFaqPage() {
           intro="Members say it better than we can. These are verified five-star reviews from Google."
         />
 
-        <section aria-label="Member reviews" className="mx-auto max-w-[1280px] px-6 pb-16 md:px-10 lg:pb-24">
+        <section aria-label="Member reviews" className="shell pb-[var(--section-y)]">
           <ul className="grid gap-6 lg:grid-cols-3">
             {REVIEWS.map((review) => (
               <li key={review.id} className="flex">
@@ -74,11 +74,11 @@ export default function ReviewsFaqPage() {
         aria-labelledby="faq-title"
         className="relative isolate overflow-hidden border-t border-line-subtle bg-surface"
       >
-        <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-16 md:px-10 lg:grid-cols-12 lg:gap-8 lg:py-24">
+        <div className="shell grid gap-12 py-[var(--section-y)] lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
             <h2
               id="faq-title"
-              className="font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-[0.95] uppercase"
+              className="font-display text-[length:var(--text-display)] leading-[0.95] uppercase"
             >
               Here&rsquo;s what a first visit looks like.
             </h2>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
 import { FloorBand } from "@/components/home/floor-band";
 import { HighlightStrip } from "@/components/home/highlight-strip";
+import { Ticker } from "@/components/home/ticker";
 import { HOURS } from "@/lib/hours";
 import { ADDRESS, CONTACT, SITE, SITE_URL } from "@/lib/site";
 
@@ -43,6 +44,7 @@ export default function HomePage() {
       <Hero />
       <HighlightStrip />
       <FloorBand />
+      <Ticker />
       <script
         type="application/ld+json"
         // "<" is escaped so the JSON can never close the script tag.

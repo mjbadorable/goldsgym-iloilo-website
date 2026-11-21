@@ -23,6 +23,28 @@ Source of truth for values is `src/app/globals.css`. Components use semantic uti
 
 Contrast checked: gold on canvas about 12:1, `#070708` on gold about 12:1, muted on surface about 7.3:1. All pass AA for body text.
 
+## Fluid layout and type
+
+Defined once in `:root` in `globals.css`; components use the utilities and `text-[length:var(--text-*)]`, never ad-hoc clamps for display text.
+
+| Token | Value | Use |
+|---|---|---|
+| `--gutter` | `clamp(1.25rem, 4vw, 4.5rem)` | Side padding of every shell |
+| `--shell-max` | `1680px` | Max content width |
+| `--section-y` | `clamp(3.5rem, 6vw, 6.5rem)` | Vertical rhythm between sections |
+| `--text-hero` | `clamp(3.25rem, 7.2vw, 7.25rem)` | Home and About hero headlines (`leading-[0.9]`) |
+| `--text-display` | `clamp(2.35rem, 4.8vw, 4.75rem)` | Page headers, section headings, footer headline |
+| `--text-subdisplay` | `clamp(1.75rem, 3vw, 2.75rem)` | Secondary headings |
+| `--text-body` | `clamp(1rem, 1.05vw, 1.125rem)` | Lead paragraphs |
+
+Utilities: `.shell` (`width: 100%; max-width: var(--shell-max); margin-inline: auto; padding-inline: var(--gutter)`) and `.shell-full` (full width, same gutters, navbar only). They are Tailwind `@utility` rules so breakpoint variants still apply. Full-bleed backdrops (hero photo, banners, ticker, footer surfaces) stay `w-full`; only their content sits in the shell. Body paragraphs keep a readable measure (`max-w-[65ch]` or tighter).
+
+**First screen on Home:** the hero height is `calc(100svh - var(--nav-h) - 116px)` (capped at 860px on lg+) because the highlight strip reserves 116px. Measured strip height is 103px at 1280/1440 and 85px at 1920+, so hero + strip fill exactly one screen at 1280x720, 1440x900 and 1920x1080. If strip copy gets longer, re-check that it stays under 116px.
+
+## Ticker band
+
+`components/home/ticker.tsx` sits between the floor band and the footer: a slim full-bleed gold band (`bg-gold text-gold-ink`, Bebas, `tracking-[0.12em]`) sliding six real facts (Gold's Gym Iloilo, Free Weights, Gym80 Strength, Cardio Bay, Functional Training, Iloilo Business Park) separated by CSS diamonds. Pure CSS `@keyframes` over two identical copies (the second is `aria-hidden`), 48s linear. It pauses on hover and with a visible pause button (WCAG 2.2.2). Under `prefers-reduced-motion` it does not move at all: one static, centred, wrapping copy and no button.
+
 ## Typography (`next/font/google`)
 
 | Role | Face | Use |
@@ -36,8 +58,8 @@ Brief-pinned fonts; Plus Jakarta Sans is on the skill's default list but the bri
 
 ## Layout and spacing
 
-- 8pt grid. Container `max-w-[1280px]`, gutters 24px (mobile) and 40px (md+).
-- Navbar 72px, sticky, solid canvas with a subtle bottom border (no blur).
+- 8pt grid. Fluid page shell (see "Fluid layout and type" below): content is capped at `--shell-max` (1680px) with a gutter that grows with the viewport, so 1280, 1440, 1920 and 2560 screens all read as full-width pages rather than a boxed 1280px column.
+- Navbar 72px, sticky, solid canvas with a subtle bottom border (no blur). It is edge to edge (`shell-full`): a 3-column grid on md+ puts the logo at the left gutter, the links exactly centred and the CTA at the right gutter.
 - Asymmetric 12-column compositions. No centred walls of text.
 - Home hero and the About banner are full-bleed: the photo is anchored right (62-64% wide) and blended into the canvas with `.scrim-x` (left-to-right) and `.scrim-y` (bottom), so all copy sits on near-solid dark. On mobile a flat `canvas/65` layer replaces the side blend.
 - Home below the hero: a 4-up highlight strip, then the floor band (`components/home/floor-band.tsx`): 3 columns at 1.25fr / 1.1fr / 0.95fr inside `max-w-[1600px]` (photo, pitch + trust row, hours + location card). See "Floor band" under Brief-pinned exceptions.

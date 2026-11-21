@@ -34,7 +34,7 @@ export function OpenBadge({ className }: { className?: string }) {
       {/* The slanted right edge overlaps the next segment, so there is never a gap in the pill. */}
       <span
         className={cn(
-          "relative z-10 flex items-center gap-2.5 py-2 pr-6 pl-4 font-label text-[1.125rem] leading-none tracking-[0.06em] uppercase [clip-path:polygon(0_0,100%_0,calc(100%-10px)_100%,0_100%)]",
+          "relative z-10 flex items-center gap-2.5 py-2 pr-5 pl-3.5 font-label text-[1.125rem] leading-none tracking-[0.06em] uppercase [clip-path:polygon(0_0,100%_0,calc(100%-10px)_100%,0_100%)]",
           isOpen ? "bg-gold text-gold-ink" : "bg-surface text-muted",
         )}
       >
@@ -44,7 +44,7 @@ export function OpenBadge({ className }: { className?: string }) {
         />
         {status ? status.label : "Checking"}
       </span>
-      <span className="-ml-2.5 flex items-center bg-canvas/80 py-2 pr-4 pl-6 font-mono text-[0.8125rem] text-fg">
+      <span className="-ml-2.5 flex items-center bg-canvas/80 py-2 pr-3.5 pl-5 font-mono text-[0.8125rem] leading-snug text-fg min-[1400px]:whitespace-nowrap">
         {status ? status.detail : "Manila time"}
       </span>
     </p>

@@ -5,6 +5,10 @@ import { WatchGymButton } from "@/components/gym-tour/watch-gym-dialog";
 
 const line = (i: number) => ({ "--i": i }) as CSSProperties;
 
+/**
+ * The hero is sized so that hero + highlight strip (116px) fill exactly one screen on common
+ * desktops (1280x720, 1440x900, 1920x1080). The athlete backdrop is full-bleed; the copy sits in the shell.
+ */
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
@@ -25,14 +29,14 @@ export function Hero() {
         <div className="scrim-y absolute inset-0" />
       </div>
 
-      <div className="mx-auto flex min-h-[600px] max-w-[1280px] items-center px-6 py-16 md:px-10 lg:min-h-[680px]">
-        <div className="max-w-[40rem]">
+      <div className="shell flex min-h-[calc(100svh-var(--nav-h)-116px)] items-center py-12 lg:min-h-[min(calc(100svh-var(--nav-h)-116px),860px)] lg:py-14">
+        <div>
           <h1
             id="hero-title"
-            className="font-display text-[clamp(3.5rem,10vw,6rem)] leading-[0.95] uppercase"
+            className="font-display text-[length:var(--text-hero)] leading-[0.9] uppercase lg:whitespace-nowrap"
           >
             <span className="reveal-line" style={line(0)}>
-              <span className="mb-4 block font-label text-[clamp(1.25rem,2.4vw,1.75rem)] leading-none tracking-[0.14em] text-fg/90">
+              <span className="mb-[0.3em] block font-label text-[clamp(1.25rem,1.9vw,2rem)] leading-none tracking-[0.14em] text-fg/90">
                 Gold&rsquo;s Gym Iloilo
               </span>
             </span>
@@ -44,7 +48,7 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-[34ch] text-[1.125rem] text-fg/85">
+          <p className="mt-6 max-w-[34ch] text-[length:var(--text-body)] text-fg/85">
             Train with purpose. Build strength. Keep progressing.
           </p>
 

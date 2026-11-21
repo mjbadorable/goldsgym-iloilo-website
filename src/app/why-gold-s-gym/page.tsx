@@ -31,15 +31,15 @@ export default function AboutPage() {
           <div className="scrim-x absolute inset-0" />
         </div>
 
-        <div className="mx-auto flex min-h-[420px] max-w-[1280px] items-center px-6 py-16 md:px-10 lg:min-h-[520px]">
-          <div className="max-w-[34rem]">
+        <div className="shell flex min-h-[420px] items-center py-12 lg:min-h-[clamp(520px,42svh,640px)]">
+          <div>
             <h1
               id="about-title"
-              className="font-display text-[clamp(3.5rem,11vw,6rem)] leading-[0.95] uppercase"
+              className="font-display text-[length:var(--text-hero)] leading-[0.9] uppercase lg:whitespace-nowrap"
             >
               Built to train.
             </h1>
-            <p className="mt-6 max-w-[38ch] text-[1.125rem] text-fg/85">
+            <p className="mt-6 max-w-[38ch] text-[length:var(--text-body)] text-fg/85">
               A complete training environment with the tools, space, and support you need to reach your goals.
             </p>
           </div>
