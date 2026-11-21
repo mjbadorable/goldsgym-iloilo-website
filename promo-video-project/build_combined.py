@@ -4,6 +4,7 @@ Order: clip3 (title/intro) -> clip2 -> clip1 (ends on logo card). Sources are ne
 Usage: build_combined.py <src_dir with c1.mp4 c2.mp4 c3.mp4> <out_dir> [landscape|portrait]"""
 import subprocess, sys, os, json
 SRC, OUT = sys.argv[1], sys.argv[2]; which = sys.argv[3] if len(sys.argv)>3 else "both"
+FPS = int(sys.argv[4]) if len(sys.argv)>4 else 30   # use 60 with 60fps-interpolated sources (src60/)
 os.makedirs(OUT, exist_ok=True)
 ORDER = ["c3","c2","c1"]; D = 0.6  # dissolve length between clips
 GRADE = {"c1":"eq=saturation=0.92:contrast=1.03",
@@ -14,7 +15,7 @@ def vdur(p):
         "-show_entries","stream=duration","-of","csv=p=0",p]).decode().strip())
 dur = {k: vdur(f"{SRC}/{k}.mp4") for k in ORDER}
 def vf(i, clip, fmt):
-    pre = f"[{i}:v]fps=30,setpts=PTS-STARTPTS,hqdn3d=1.5:1.2:4:3,{GRADE[clip]},"
+    pre = f"[{i}:v]fps={FPS},setpts=PTS-STARTPTS,hqdn3d=1.5:1.2:4:3,{GRADE[clip]},"
     if fmt=="p":
         return pre+"scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,unsharp=5:5:0.5:5:5:0,setsar=1,format=yuv420p[v%d]"%i
     return (pre+f"split[a{i}][b{i}];"
@@ -37,7 +38,7 @@ def build(fmt, outfile):
     parts.append(f"[{ca}]afade=t=in:d=0.4,afade=t=out:st={acc-1.2:.2f}:d=1.2[aout]")
     cmd += ["-filter_complex",";".join(parts),"-map","[vout]","-map","[aout]","-t",f"{acc:.3f}",
             "-c:v","libx264","-preset","medium","-crf","18","-maxrate","14M","-bufsize","28M","-pix_fmt","yuv420p",
-            "-profile:v","high","-r","30","-movflags","+faststart","-c:a","aac","-b:a","192k",outfile]
+            "-profile:v","high","-r",str(FPS),"-movflags","+faststart","-c:a","aac","-b:a","192k",outfile]
     subprocess.run(cmd,check=True)
-if which in ("both","landscape"): build("l",f"{OUT}/GoldsGym_Iloilo_Combined_Landscape_1920x1080.mp4")
-if which in ("both","portrait"):  build("p",f"{OUT}/GoldsGym_Iloilo_Combined_Portrait_1080x1920.mp4")
+if which in ("both","landscape"): build("l",f"{OUT}/GoldsGym_Iloilo_Combined_Landscape_1920x1080_{FPS}fps.mp4")
+if which in ("both","portrait"):  build("p",f"{OUT}/GoldsGym_Iloilo_Combined_Portrait_1080x1920_{FPS}fps.mp4")
