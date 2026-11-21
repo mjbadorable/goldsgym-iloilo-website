@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useRef, type PointerEvent, type ReactNode } from "react";
+import { useEffect, useRef, useSyncExternalStore, type PointerEvent, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+
+const subscribeNoop = () => () => {};
+const getClientMounted = () => true;
+const getServerMounted = () => false;
 
 export const STACK_PUSH_MS = 450;
 const EDGE_HIT_PX = 44;
@@ -23,6 +28,7 @@ type StackPushSheetProps = {
  * - Reduced motion: short cross-fade with zero translation (handled in globals.css).
  */
 export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackPushSheetProps) {
+  const mounted = useSyncExternalStore(subscribeNoop, getClientMounted, getServerMounted);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{
@@ -41,15 +47,21 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
     if (!dialog) return;
 
     if (isOpen) {
-      let frameId = 0;
+      let frame1 = 0;
+      let frame2 = 0;
       if (!dialog.open) {
-        dialog.showModal();
+        dialog.setAttribute("data-state", "closed");
         dialog.setAttribute("data-direction", "forward");
+        dialog.showModal();
         const heading = document.getElementById(labelledBy);
         heading?.focus({ preventScroll: true });
-        frameId = requestAnimationFrame(() => {
-          dialog.setAttribute("data-state", "open");
-          html.setAttribute("data-stack-push", "open");
+        // Double rAF guarantees the browser paints the initial off-screen (100%) frame
+        // after display:none -> block before flipping data-state="open", so the 450ms slide runs every time.
+        frame1 = requestAnimationFrame(() => {
+          frame2 = requestAnimationFrame(() => {
+            dialog.setAttribute("data-state", "open");
+            html.setAttribute("data-stack-push", "open");
+          });
         });
       } else {
         dialog.setAttribute("data-direction", "forward");
@@ -57,7 +69,8 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
         html.setAttribute("data-stack-push", "open");
       }
       return () => {
-        if (frameId) cancelAnimationFrame(frameId);
+        if (frame1) cancelAnimationFrame(frame1);
+        if (frame2) cancelAnimationFrame(frame2);
       };
     }
 
@@ -157,7 +170,9 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
     }
   }
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <dialog
       ref={dialogRef}
       className="stack-push"
@@ -183,6 +198,7 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
       >
         {children}
       </div>
-    </dialog>
+    </dialog>,
+    document.body,
   );
 }

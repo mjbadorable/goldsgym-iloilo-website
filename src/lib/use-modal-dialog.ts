@@ -20,19 +20,24 @@ export function useModalDialog(isOpen: boolean, onClose: () => void) {
     const dialog = ref.current;
     if (!dialog) return;
     if (isOpen) {
-      let frameId = 0;
+      let frame1 = 0;
+      let frame2 = 0;
       if (!dialog.open) {
+        dialog.setAttribute("data-state", "closed");
         dialog.showModal();
         dialog.querySelector<HTMLElement>("[data-sheet-close]")?.focus({ preventScroll: true });
-        // Let the browser commit the closed (off-screen) frame before starting the GPU slide-in.
-        frameId = requestAnimationFrame(() => {
-          dialog.setAttribute("data-state", "open");
+        // Double rAF guarantees the browser paints the initial closed frame before transitioning open.
+        frame1 = requestAnimationFrame(() => {
+          frame2 = requestAnimationFrame(() => {
+            dialog.setAttribute("data-state", "open");
+          });
         });
       } else {
         dialog.setAttribute("data-state", "open");
       }
       return () => {
-        if (frameId) cancelAnimationFrame(frameId);
+        if (frame1) cancelAnimationFrame(frame1);
+        if (frame2) cancelAnimationFrame(frame2);
       };
     }
     if (dialog.open) {
