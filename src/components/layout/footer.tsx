@@ -9,11 +9,10 @@ export function Footer() {
   return (
     <footer className="mt-auto bg-surface">
       <VDivider />
-      <div className="shell grid gap-16 pt-[var(--section-y)] pb-12 lg:grid-cols-12 lg:gap-8">
+      <div className="shell grid gap-14 pt-[var(--section-y)] pb-16 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-6">
-          <h2 className="font-display text-[length:var(--text-display)] leading-[0.92] uppercase">
+          <h2 className="flex flex-col gap-1.5 font-display text-[length:var(--text-display)] leading-[1.02] uppercase">
             <span className="text-gold">Your strongest</span>
-            <br />
             <span className="text-fg">starts here.</span>
           </h2>
           <p className="mt-6 max-w-[44ch] text-[length:var(--text-body)] text-muted">
@@ -22,7 +21,7 @@ export function Footer() {
           <DayPassButton className="mt-8" />
         </div>
 
-        <div className="grid gap-12 sm:grid-cols-[8rem_1fr] lg:col-span-6 lg:pl-8">
+        <div className="grid gap-12 sm:grid-cols-[10rem_1fr] lg:col-span-6 lg:pl-12">
           <nav aria-label="Quick links">
             <h3 className="font-label text-[1.25rem] leading-none tracking-[0.06em] uppercase">Quick links</h3>
             <ul className="mt-5 space-y-3">
