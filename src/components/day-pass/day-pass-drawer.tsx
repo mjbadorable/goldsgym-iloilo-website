@@ -7,17 +7,7 @@ import { Check, Close, Copy, Mail, MessageSquare, Phone } from "@/components/ui/
 import { Sheet } from "@/components/ui/sheet";
 import { CONTACT, SITE } from "@/lib/site";
 import { useDayPass } from "./day-pass-provider";
-
-const DAYS = [
-  "Not sure yet",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-] as const;
+import { VisitCalendar, formatCalendarDate, type CalendarDate } from "./visit-calendar";
 
 const field =
   "h-12 w-full border border-line-subtle bg-canvas px-4 text-fg transition-colors duration-[160ms] " +
@@ -31,14 +21,14 @@ const field =
 export function DayPassDrawer() {
   const { isOpen, close } = useDayPass();
   const [name, setName] = useState("");
-  const [day, setDay] = useState<string>(DAYS[0]);
+  const [visitDate, setVisitDate] = useState<CalendarDate | null>(null);
   const [copied, setCopied] = useState(false);
 
   const cleanName = name.trim().slice(0, 60);
   const lines = [
     `Hi ${SITE.name}, I'd like to claim a free day pass.`,
     cleanName ? `Name: ${cleanName}` : null,
-    day !== DAYS[0] ? `Preferred day: ${day}` : null,
+    visitDate ? `Preferred date: ${formatCalendarDate(visitDate)}` : null,
   ].filter(Boolean);
   const message = lines.join("\n");
 
@@ -98,16 +88,8 @@ export function DayPassDrawer() {
             />
           </div>
           <div>
-            <label htmlFor="dp-day" className="mb-2 block font-mono text-[0.8125rem] text-muted">
-              Preferred day
-            </label>
-            <select id="dp-day" value={day} onChange={(e) => setDay(e.target.value)} className={field}>
-              {DAYS.map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
+            <p className="mb-2 block font-mono text-[0.8125rem] text-muted">Preferred visit date</p>
+            <VisitCalendar value={visitDate} onChange={setVisitDate} />
           </div>
         </div>
 
