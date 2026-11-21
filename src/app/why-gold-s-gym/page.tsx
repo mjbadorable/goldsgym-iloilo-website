@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Experience } from "@/components/about/experience";
 import { Zones } from "@/components/about/zones";
 import { VDivider } from "@/components/ui/v-divider";
+import { ZONES } from "@/content/zones";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -36,13 +37,28 @@ export default function AboutPage() {
           <div>
             <h1
               id="about-title"
-              className="font-display text-[length:var(--text-hero)] leading-[0.9] uppercase lg:whitespace-nowrap"
+              className="font-display text-[length:var(--text-hero)] leading-[1.02] uppercase lg:whitespace-nowrap"
             >
-              Built to train.
+              <span className="text-fg">Built to</span> <span className="text-gold">train.</span>
             </h1>
             <p className="mt-6 max-w-[38ch] text-[length:var(--text-body)] text-fg/85">
               A complete training environment with the tools, space, and support you need to reach your goals.
             </p>
+            {/* Jump links to the four zone cards below. Smooth scrolling is global (and off under reduced motion). */}
+            <nav aria-label="Training zones" className="mt-8">
+              <ul className="flex flex-wrap gap-2">
+                {ZONES.map((zone) => (
+                  <li key={zone.id}>
+                    <a
+                      href={`#${zone.id}`}
+                      className="inline-flex min-h-11 items-center border border-line bg-canvas px-4 font-mono text-[0.8125rem] text-fg transition-colors duration-[var(--dur-fast)] hover:border-gold hover:text-gold"
+                    >
+                      {zone.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
       </section>
