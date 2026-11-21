@@ -86,3 +86,72 @@ export const Star = (p: IconProps) => (
     <path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" />
   </Icon>
 );
+
+export const Play = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M8 5.5v13l10.5-6.5L8 5.5Z" />
+  </Icon>
+);
+
+export const ArrowUpRight = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 17 17 7M8.5 7H17v8.5" />
+  </Icon>
+);
+
+export const Dumbbell = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M3.5 9v6M6.5 6.5v11M17.5 6.5v11M20.5 9v6M6.5 12h11" />
+  </Icon>
+);
+
+export const Plate = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <circle cx="12" cy="12" r="5.5" />
+    <circle cx="12" cy="12" r="1.5" />
+  </Icon>
+);
+
+export const Pulse = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M2.5 12h4.5l2.5-7 5 14 2.5-7h5" />
+  </Icon>
+);
+
+export const Kettlebell = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M8.8 9.8V7.5a3.2 3.2 0 0 1 6.4 0v2.3" />
+    <circle cx="12" cy="14.5" r="6" />
+  </Icon>
+);
+
+export const Users = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="9" cy="8" r="3.2" />
+    <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+    <circle cx="17" cy="9" r="2.5" />
+    <path d="M17 14c2.4 0 4.5 1.8 4.5 4.5" />
+  </Icon>
+);
+
+export const ShieldCheck = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 3 19.5 6v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6L12 3Z" />
+    <path d="m8.8 12 2.4 2.4 4-4.4" />
+  </Icon>
+);
+
+export const Sparkle = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m12 3 1.9 5.6 5.6 1.9-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9L12 3Z" />
+    <path d="M19 16.5v3.5M17.25 18.25h3.5" />
+  </Icon>
+);
+
+export const Car = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m3.5 14.5 1.8-5A2 2 0 0 1 7.2 8h9.6a2 2 0 0 1 1.9 1.5l1.8 5V18h-2.5v-1.5h-11V18H3.5v-3.5Z" />
+    <path d="M7.5 12.5h.01M16.5 12.5h.01" strokeWidth={2.5} />
+  </Icon>
+);

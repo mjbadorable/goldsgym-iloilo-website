@@ -28,7 +28,7 @@ export function Accordion({ items, defaultOpenId }: { items: Item[]; defaultOpen
         const buttonId = `${uid}-${item.id}-q`;
         const panelId = `${uid}-${item.id}-a`;
         return (
-          <li key={item.id} className="hairline bg-surface">
+          <li key={item.id} className="hairline bg-elevated">
             <h3>
               <button
                 type="button"

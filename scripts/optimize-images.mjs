@@ -1,16 +1,19 @@
-// Builds web-sized images in public/images from the untouched Framer originals
-// in assets/framer-originals. Re-run with: npm run images
+// Builds web-sized images in public/images from the Framer originals (assets/framer-originals)
+// and the owner-supplied photos (assets/supplied). Sources are never modified.
+// Re-run with: npm run images
 //
-// Provenance: every source file was downloaded from framerusercontent.com
-// (goldsgymiloilo.framer.website) on 2026-11-21 and keeps its original file name.
+// Provenance: framer-originals were downloaded from framerusercontent.com
+// (goldsgymiloilo.framer.website) on 2026-11-21 and keep their original file names.
+// assets/supplied holds photos the owner provided later.
 import sharp from "sharp";
 import { mkdir } from "node:fs/promises";
 import { statSync } from "node:fs";
 
 const SRC = "assets/framer-originals";
+const SUPPLIED = "assets/supplied";
 const OUT = "public/images";
 
-/** @type {Array<{src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},format:"jpeg"|"png",quality?:number}>} */
+/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},format:"jpeg"|"png",quality?:number}>} */
 const jobs = [
   // Brand mark: kept as PNG (has alpha). 4610px original is far larger than any use.
   { src: "hLsPsBg5BFF1IXD5xDZkqRWeg.png", out: "gold-logo.png", width: 640, format: "png" },
@@ -20,7 +23,6 @@ const jobs = [
   { src: "kWyzBUwWXuG4YyfPhft7HzgEc.png", out: "training-floor.jpg", format: "jpeg", quality: 88 },
 
   // About: training zones
-  { src: "p3WPM0Gj2k9eqBwW9KqP6rybgik.png", out: "zone-free-weights.jpg", format: "jpeg", quality: 88 },
   { src: "6B1Eoxk3Sp9qwh7xHHT2JwhT8.png", out: "zone-gym80.jpg", format: "jpeg", quality: 88 },
   { src: "WWsIHkQC3vDoqhhO4DRQbIeKEg.png", out: "zone-cardio.jpg", format: "jpeg", quality: 88 },
 
@@ -30,29 +32,16 @@ const jobs = [
   { src: "trb4D0cl6JeFE3axsGOYFo0Pg48.jpg", out: "coach-vincent-loui-dorde.jpg", width: 1400, format: "jpeg", quality: 82 },
   { src: "7j9EZ9hxHMPnmU2D7aPTHt5B2M.jpg", out: "coach-jerry-perje.jpg", width: 1400, format: "jpeg", quality: 82 },
 
-  // About > The Gym Experience: real crops (no new imagery) so each card gets its own picture.
-  // Coordinates are in the 1080x1350 source space.
-  {
-    src: "kWyzBUwWXuG4YyfPhft7HzgEc.png",
-    out: "experience-facilities.jpg",
-    extract: { left: 280, top: 90, width: 700, height: 560 },
-    format: "jpeg",
-    quality: 88,
-  },
-  {
-    src: "6B1Eoxk3Sp9qwh7xHHT2JwhT8.png",
-    out: "experience-access.jpg",
-    extract: { left: 380, top: 40, width: 700, height: 560 },
-    format: "jpeg",
-    quality: 88,
-  },
-  {
-    src: "kWyzBUwWXuG4YyfPhft7HzgEc.png",
-    out: "experience-equipment.jpg",
-    extract: { left: 0, top: 700, width: 700, height: 560 },
-    format: "jpeg",
-    quality: 88,
-  },
+  // Supplied by the owner (assets/supplied). Sources are 819px wide, so they are only
+  // re-encoded (mozjpeg), never upscaled.
+  ...[
+    "storefront-sign.jpg",
+    "free-weights-rack.jpg",
+    "heritage-lounge.jpg",
+    "incline-press-bw.jpg",
+    "yellow-plate-floor.jpg",
+    "dumbbell-rack-dark.jpg",
+  ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
 
   // Social share card: crop of the training floor photo.
   {
@@ -70,7 +59,7 @@ const jobs = [
 await mkdir(OUT, { recursive: true });
 
 for (const job of jobs) {
-  let img = sharp(`${SRC}/${job.src}`).rotate();
+  let img = sharp(`${job.dir ?? SRC}/${job.src}`).rotate();
   if (job.extract) img = img.extract(job.extract);
   if (job.width || job.height) {
     img = img.resize({

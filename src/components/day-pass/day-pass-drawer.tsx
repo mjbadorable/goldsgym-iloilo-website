@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { OpenBadge } from "@/components/hours/open-badge";
 import { buttonClasses } from "@/components/ui/button";
 import { Check, Close, Copy, Mail, MessageSquare, Phone } from "@/components/ui/icons";
+import { Sheet } from "@/components/ui/sheet";
 import { CONTACT, SITE } from "@/lib/site";
 import { useDayPass } from "./day-pass-provider";
 
@@ -18,46 +19,20 @@ const DAYS = [
   "Sunday",
 ] as const;
 
-const CLOSE_MS = 240;
-
 const field =
   "h-12 w-full border border-line-subtle bg-canvas px-4 text-fg transition-colors duration-[160ms] " +
   "placeholder:text-muted hover:border-line focus:border-gold focus:outline-none " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold";
 
 /**
- * Free Day Pass slide-over. Uses a native <dialog> opened with showModal(), which gives focus
- * trapping, Escape, an inert page behind it and focus restore for free. The site sends and
- * stores nothing: the buttons hand the visitor to SMS, email or a call with the message prefilled.
+ * Free Day Pass slide-over (see <Sheet>). The site sends and stores nothing: the buttons hand the
+ * visitor to SMS, email or a call with the message prefilled.
  */
 export function DayPassDrawer() {
   const { isOpen, close } = useDayPass();
-  const ref = useRef<HTMLDialogElement>(null);
   const [name, setName] = useState("");
   const [day, setDay] = useState<string>(DAYS[0]);
   const [copied, setCopied] = useState(false);
-
-  // Open/close with a slide. data-state drives the CSS transition; the dialog itself is only
-  // closed after the slide-out finishes. Reopening mid-close cancels the timer, so it is interruptible.
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (isOpen) {
-      if (!dialog.open) {
-        dialog.showModal();
-        // Transitions don't run out of display:none. Reading layout flushes styles so the
-        // closed (off-screen) state is committed before data-state flips to open.
-        dialog.getBoundingClientRect();
-      }
-      dialog.setAttribute("data-state", "open");
-      return;
-    }
-    if (dialog.open) {
-      dialog.setAttribute("data-state", "closed");
-      const timer = setTimeout(() => dialog.close(), CLOSE_MS);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
 
   const cleanName = name.trim().slice(0, 60);
   const lines = [
@@ -83,25 +58,8 @@ export function DayPassDrawer() {
   }
 
   return (
-    <dialog
-      ref={ref}
-      className="day-pass"
-      aria-labelledby="day-pass-title"
-      onCancel={(e) => {
-        // Escape: run our animated close instead of the instant native one.
-        e.preventDefault();
-        close();
-      }}
-      onClose={() => {
-        // Keeps state in sync if the dialog is ever closed natively.
-        if (isOpen) close();
-      }}
-      onClick={(e) => {
-        // The dialog fills the viewport; a click on it (not on the panel) is a click outside.
-        if (e.target === e.currentTarget) close();
-      }}
-    >
-      <div className="day-pass-panel">
+    <Sheet isOpen={isOpen} onClose={close} labelledBy="day-pass-title">
+      <div>
         <div className="flex items-start justify-between gap-6">
           <h2 id="day-pass-title" className="font-display text-[2.5rem] leading-[0.95] uppercase">
             Get your free day pass
@@ -109,6 +67,7 @@ export function DayPassDrawer() {
           <button
             type="button"
             onClick={close}
+            data-sheet-close
             aria-label="Close"
             className="inline-flex size-11 shrink-0 items-center justify-center border border-line-subtle text-fg transition-colors duration-[160ms] hover:border-gold hover:text-gold"
           >
@@ -186,6 +145,6 @@ export function DayPassDrawer() {
           <OpenBadge className="mt-6" />
         </div>
       </div>
-    </dialog>
+    </Sheet>
   );
 }

@@ -12,7 +12,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary: "bg-gold text-gold-ink hover:bg-gold-hover",
-  outline: "border border-line text-fg hover:border-gold hover:text-gold",
+  outline: "border border-gold/55 text-fg hover:border-gold hover:text-gold",
 };
 
 const sizes: Record<Size, string> = {

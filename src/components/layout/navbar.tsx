@@ -54,7 +54,7 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "link-underline font-label text-[1.25rem] leading-none tracking-[0.06em] uppercase",
+                    "nav-link font-label text-[1.25rem] leading-none tracking-[0.06em] uppercase",
                     "transition-colors duration-[160ms]",
                     isActive(item.href) ? "text-gold" : "text-fg hover:text-gold",
                   )}

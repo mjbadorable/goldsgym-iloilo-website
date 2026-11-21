@@ -38,7 +38,12 @@ Brief-pinned fonts; Plus Jakarta Sans is on the skill's default list but the bri
 
 - 8pt grid. Container `max-w-[1280px]`, gutters 24px (mobile) and 40px (md+).
 - Navbar 72px, sticky, solid canvas with a subtle bottom border (no blur).
-- Asymmetric 12-column compositions; the hero is 7/5 text/photo. No centred walls of text.
+- Asymmetric 12-column compositions. No centred walls of text.
+- Home hero and the About banner are full-bleed: the photo is anchored right (62-64% wide) and blended into the canvas with `.scrim-x` (left-to-right) and `.scrim-y` (bottom), so all copy sits on near-solid dark. On mobile a flat `canvas/65` layer replaces the side blend.
+- Home below the hero: a 4-up highlight strip, then one 3-column band (floor photo 4 / pitch 4 / hours + location 4).
+- About: 4-up zone cards (16:10 photo, gold icon badge, title, copy), then a heading plus 3-up facility strip.
+- Coaches and Reviews share `SplitHeader`: headline 7 columns, intro 4 columns marked by a 2px gold rule (a separate element, not a border).
+- Coach cards use `.hairline-gold` (60% gold at rest); reviews are three equal-height cards over a faded B/W photo; FAQ is 5 / 7 columns.
 - Cards: 0 radius, one elevation method (hairline border, no shadows).
 
 ## Signature device: the gold V-chevron
@@ -51,8 +56,13 @@ Brief-pinned fonts; Plus Jakarta Sans is on the skill's default list but the bri
 - One authored load moment: hero headline lines rise out of masks (640ms, 90ms stagger); hero image settles `1.03 to 1.00` (1100ms). CSS only, so content is never hidden if JS fails.
 - Cards: resting 25% gold hairline, hover/focus draws a full 1px gold border (clip-path, 240ms).
 - FAQ: real content height animates with `grid-template-rows 0fr to 1fr`.
-- Free Day Pass: slide-over drawer (native `<dialog>`), 240ms, interruptible.
+- Free Day Pass and Watch the Gym: slide-over sheets (`components/ui/sheet.tsx`, native `<dialog>`), 240ms, interruptible; initial focus goes to the Close button.
+- Primary nav: a 2px gold bar marks the current page and grows in from the left on hover (`.nav-link`).
 - `prefers-reduced-motion` collapses every animation and transition. No scroll-jacking, no looping or pulsing motion.
+
+## Brief-pinned exceptions
+
+The owner explicitly asked for two small label lines that the craft floor would normally refuse: the "Gold's Gym Iloilo" lead line above the hero headline, and "The training floor" above "Built for serious work." They are kept as asked and are the only eyebrow-style labels on the site. The Watch the gym play mark is an authored SVG, not a unicode glyph.
 
 ## Banned in this build (from the skills)
 
@@ -60,4 +70,4 @@ Eyebrow labels above headings, numbered section markers, gradient text, glass ca
 
 ## Imagery
 
-All photos are the gym's own, downloaded from the Framer site. Originals (untouched) live in `assets/framer-originals/`; web-sized files are generated into `public/images/` by `npm run images`. No Framer URL is referenced at runtime.
+All photos are the gym's own. Originals (untouched) live in `assets/framer-originals/` (downloaded from the Framer site) and `assets/supplied/` (provided by the owner); web-sized files are generated into `public/images/` by `npm run images`. No Framer URL is referenced at runtime.

@@ -1,54 +1,56 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { DayPassButton } from "@/components/day-pass/day-pass-button";
-import { OpenBadge } from "@/components/hours/open-badge";
-import { ButtonLink } from "@/components/ui/button";
+import { WatchGymButton } from "@/components/gym-tour/watch-gym-dialog";
 
 const line = (i: number) => ({ "--i": i }) as CSSProperties;
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title">
-      <div className="mx-auto grid max-w-[1280px] items-center gap-10 px-6 pt-10 pb-16 md:px-10 lg:min-h-[calc(100svh-var(--nav-h))] lg:grid-cols-12 lg:gap-8 lg:py-16">
-        <div className="lg:col-span-7">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
+      {/* Athlete anchored right and blended into the canvas: scrims keep all copy on near-solid dark. */}
+      <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 w-full lg:w-[62%]">
+        <Image
+          src="/images/hero-athlete.jpg"
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 62vw, 100vw"
+          quality={85}
+          loading="eager"
+          fetchPriority="high"
+          className="hero-settle object-cover object-[60%_30%] lg:object-[50%_38%]"
+        />
+        <div className="absolute inset-0 bg-canvas/65 lg:bg-transparent" />
+        <div className="scrim-x absolute inset-0" />
+        <div className="scrim-y absolute inset-0" />
+      </div>
+
+      <div className="mx-auto flex min-h-[600px] max-w-[1280px] items-center px-6 py-16 md:px-10 lg:min-h-[680px]">
+        <div className="max-w-[40rem]">
           <h1
             id="hero-title"
-            className="font-display text-[clamp(3.5rem,11vw,6rem)] leading-[0.95] uppercase"
+            className="font-display text-[clamp(3.5rem,10vw,6rem)] leading-[0.95] uppercase"
           >
             <span className="reveal-line" style={line(0)}>
+              <span className="mb-4 block font-label text-[clamp(1.25rem,2.4vw,1.75rem)] leading-none tracking-[0.14em] text-fg/90">
+                Gold&rsquo;s Gym Iloilo
+              </span>
+            </span>
+            <span className="reveal-line" style={line(1)}>
               <span>Your strongest</span>
             </span>{" "}
-            <span className="reveal-line text-gold" style={line(1)}>
+            <span className="reveal-line text-gold" style={line(2)}>
               <span>Starts here.</span>
             </span>
           </h1>
 
-          <p className="mt-6 max-w-[34ch] text-[1.125rem] text-muted">
+          <p className="mt-6 max-w-[34ch] text-[1.125rem] text-fg/85">
             Train with purpose. Build strength. Keep progressing.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <DayPassButton />
-            <ButtonLink href="/why-gold-s-gym" variant="outline">
-              Explore the gym
-            </ButtonLink>
-          </div>
-
-          <OpenBadge className="mt-8" />
-        </div>
-
-        <div className="lg:col-span-5">
-          <div className="relative aspect-[4/3] overflow-hidden border border-line sm:aspect-[4/5]">
-            <Image
-              src="/images/hero-athlete.jpg"
-              alt="A Gold's Gym member mid-set on a seated chest press machine, seen from behind"
-              fill
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              quality={85}
-              loading="eager"
-              fetchPriority="high"
-              className="hero-settle object-cover object-[50%_60%] sm:object-center"
-            />
+            <WatchGymButton />
           </div>
         </div>
       </div>

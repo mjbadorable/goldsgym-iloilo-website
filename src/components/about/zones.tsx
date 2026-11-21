@@ -1,75 +1,44 @@
 import Image from "next/image";
-import { cn } from "@/lib/cn";
-import { ZONES, type Zone } from "@/content/zones";
+import { NamedIcon } from "@/components/ui/zone-icons";
+import { ZONES } from "@/content/zones";
 
-function ZoneTags({ tags }: { tags: string[] }) {
-  return (
-    <ul className="mt-6 flex flex-wrap gap-2" aria-label="Includes">
-      {tags.map((tag) => (
-        <li key={tag} className="border border-line-subtle px-3 py-1.5 font-mono text-[0.8125rem] text-fg">
-          {tag}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function ZoneRow({ zone, flip }: { zone: Zone; flip: boolean }) {
-  const { image } = zone;
-  return (
-    <article
-      id={zone.id}
-      aria-labelledby={`${zone.id}-title`}
-      className="grid scroll-mt-24 gap-8 border-t border-line-subtle py-12 first:border-t-0 lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-20"
-    >
-      {image ? (
-        <div className={cn("lg:col-span-5 lg:row-start-1", flip ? "lg:col-start-8" : "lg:col-start-1")}>
-          <div className="hairline">
-            <div className="relative aspect-[4/5] overflow-hidden">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                quality={85}
-                className="object-cover"
-                style={image.position ? { objectPosition: image.position } : undefined}
-              />
-            </div>
-          </div>
-        </div>
-      ) : null}
-
-      <div
-        className={cn(
-          "lg:row-start-1",
-          image
-            ? cn("lg:col-span-6", flip ? "lg:col-start-1" : "lg:col-start-7")
-            : "lg:col-span-9 lg:col-start-1",
-        )}
-      >
-        <h3
-          id={`${zone.id}-title`}
-          className="font-display text-[clamp(2.25rem,5.5vw,4rem)] leading-[0.95] uppercase"
-        >
-          {zone.name}
-        </h3>
-        <p className="mt-5 max-w-[56ch] text-[1.125rem] text-muted">{zone.description}</p>
-        <ZoneTags tags={zone.tags} />
-      </div>
-    </article>
-  );
-}
-
+/** Four training zones side by side on wide screens; each has a real 16:10 photo. */
 export function Zones() {
-  // `flip` alternates only across rows that have a photo, so text and image sides keep alternating.
-  let photoIndex = 0;
   return (
-    <section aria-label="Training zones" className="mx-auto max-w-[1280px] px-6 md:px-10">
-      {ZONES.map((zone) => {
-        const flip = zone.image ? photoIndex++ % 2 === 1 : false;
-        return <ZoneRow key={zone.id} zone={zone} flip={flip} />;
-      })}
+    <section aria-labelledby="zones-title" className="mx-auto max-w-[1280px] px-6 py-16 md:px-10 lg:py-24">
+      <h2 id="zones-title" className="sr-only">
+        Training zones
+      </h2>
+      <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {ZONES.map((zone) => (
+          <li key={zone.id} id={zone.id} className="flex scroll-mt-24">
+            <article className="hairline flex w-full flex-col bg-surface">
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src={zone.image.src}
+                  alt={zone.image.alt}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  quality={85}
+                  className="object-cover"
+                  style={{ objectPosition: zone.image.position }}
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex size-10 shrink-0 items-center justify-center border border-line text-gold">
+                    <NamedIcon name={zone.icon} className="size-6" />
+                  </span>
+                  <h3 className="font-label text-[1.5rem] leading-none tracking-[0.04em] uppercase">
+                    {zone.name}
+                  </h3>
+                </div>
+                <p className="mt-4 text-[0.9375rem] text-muted">{zone.description}</p>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

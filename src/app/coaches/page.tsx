@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { cn } from "@/lib/cn";
+import { SplitHeader } from "@/components/ui/split-header";
 import { COACHES } from "@/content/coaches";
 
 export const metadata: Metadata = {
@@ -10,28 +10,20 @@ export const metadata: Metadata = {
   alternates: { canonical: "/coaches" },
 };
 
-// Middle card steps down on wide screens so the row has a rhythm instead of a flat line.
-const stagger = ["lg:mt-0", "lg:mt-12", "lg:mt-0"];
-
 export default function CoachesPage() {
   return (
     <>
-      <section aria-labelledby="coaches-title">
-        <div className="mx-auto max-w-[1280px] px-6 pt-12 pb-12 md:px-10 lg:pt-24 lg:pb-16">
-          <h1
-            id="coaches-title"
-            className="max-w-[16ch] font-display text-[clamp(3rem,8.5vw,6rem)] leading-[0.95] uppercase"
-          >
-            The right guidance can change how you train.
-          </h1>
-        </div>
-      </section>
+      <SplitHeader
+        id="coaches-title"
+        title="The right guidance can change how you train."
+        intro="Meet our certified fitness coaches. Whether you're building strength, improving performance, or starting your fitness journey, we're here to guide you."
+      />
 
       <section aria-label="Coaches" className="mx-auto max-w-[1280px] px-6 pb-16 md:px-10 lg:pb-24">
-        <ul className="grid gap-6 md:grid-cols-3">
-          {COACHES.map((coach, i) => (
-            <li key={coach.id} className={cn("flex", stagger[i])}>
-              <article className="hairline flex w-full flex-col bg-surface">
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {COACHES.map((coach) => (
+            <li key={coach.id} className="flex">
+              <article className="hairline hairline-gold flex w-full flex-col bg-surface">
                 {/* Portraits are 2:3. A 4:5 frame pinned to the top keeps every head and face in view. */}
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image
@@ -40,14 +32,16 @@ export default function CoachesPage() {
                     fill
                     sizes="(min-width: 768px) 33vw, 100vw"
                     quality={85}
-                    className="object-cover object-[50%_12%]"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-6 md:p-8">
                   <h2 className="font-display text-[clamp(1.75rem,3vw,2.25rem)] leading-[1] uppercase">
                     {coach.name}
                   </h2>
-                  <p className="mt-2 text-muted">{coach.role}</p>
+                  <p className="mt-3 font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase">
+                    {coach.role}
+                  </p>
                   <ul className="mt-6 flex flex-wrap gap-2" aria-label="Specialties">
                     {coach.specialties.map((s) => (
                       <li

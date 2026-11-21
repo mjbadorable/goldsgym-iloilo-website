@@ -183,6 +183,32 @@ p {
   background-size: 100% 2px;
 }
 
+/* Primary nav: a 2px gold bar marks the current page and grows in from the left on hover. */
+.nav-link {
+  position: relative;
+  padding-block: 12px;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav-link:hover::after,
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* Full gold hairline (coach cards); the hover draw still goes on top via ::after. */
+.hairline-gold {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
 /* FAQ accordion: animate real content height with grid rows (0fr to 1fr). */
 .accordion-panel {
   display: grid;
@@ -197,14 +223,14 @@ p {
   overflow: hidden;
 }
 
-/* Free Day Pass slide-over (native <dialog>). Slides in from the right; the backdrop fades. */
+/* Slide-over sheet (native <dialog>): Free Day Pass, Watch the Gym. Slides in from the right; the backdrop fades. */
 html {
   scrollbar-gutter: stable;
 }
-html:has(dialog.day-pass[open]) {
+html:has(dialog.sheet[open]) {
   overflow: hidden;
 }
-.day-pass {
+.sheet {
   position: fixed;
   inset: 0;
   width: 100%;
@@ -218,15 +244,15 @@ html:has(dialog.day-pass[open]) {
   color: var(--text-primary);
   overflow: hidden;
 }
-.day-pass::backdrop {
+.sheet::backdrop {
   background: color-mix(in srgb, var(--bg-canvas) 78%, transparent);
   opacity: 0;
   transition: opacity var(--dur-base) var(--ease-out);
 }
-.day-pass[data-state="open"]::backdrop {
+.sheet[data-state="open"]::backdrop {
   opacity: 1;
 }
-.day-pass-panel {
+.sheet-panel {
   margin-left: auto;
   height: 100%;
   width: min(100%, 30rem);
@@ -239,11 +265,14 @@ html:has(dialog.day-pass[open]) {
   transition: transform var(--dur-base) var(--ease-out);
 }
 @media (min-width: 768px) {
-  .day-pass-panel {
+  .sheet-panel {
     padding: 40px;
   }
 }
-.day-pass[data-state="open"] .day-pass-panel {
+.sheet--wide .sheet-panel {
+  width: min(100%, 46rem);
+}
+.sheet[data-state="open"] .sheet-panel {
   transform: none;
 }
 
@@ -260,4 +289,23 @@ html:has(dialog.day-pass[open]) {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Scrims: photo-to-canvas blends used by the hero and page banners. Colours come from tokens. */
+.scrim-x {
+  background: linear-gradient(
+    90deg,
+    var(--bg-canvas) 0%,
+    color-mix(in srgb, var(--bg-canvas) 92%, transparent) 28%,
+    color-mix(in srgb, var(--bg-canvas) 40%, transparent) 54%,
+    transparent 82%
+  );
+}
+.scrim-y {
+  background: linear-gradient(
+    0deg,
+    var(--bg-canvas) 0%,
+    color-mix(in srgb, var(--bg-canvas) 40%, transparent) 30%,
+    transparent 60%
+  );
 }
