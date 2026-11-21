@@ -44,7 +44,7 @@ export function WatchGymButton({ className }: { className?: string }) {
     <>
       <Button variant="outline" className={className} onClick={() => setIsOpen(true)} aria-haspopup="dialog">
         <Play className="size-[1.1em]" />
-        Watch the gym
+        Explore the gym
       </Button>
 
       <Sheet isOpen={isOpen} onClose={close} labelledBy="watch-gym-title" wide>
