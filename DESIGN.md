@@ -40,7 +40,7 @@ Brief-pinned fonts; Plus Jakarta Sans is on the skill's default list but the bri
 - Navbar 72px, sticky, solid canvas with a subtle bottom border (no blur).
 - Asymmetric 12-column compositions. No centred walls of text.
 - Home hero and the About banner are full-bleed: the photo is anchored right (62-64% wide) and blended into the canvas with `.scrim-x` (left-to-right) and `.scrim-y` (bottom), so all copy sits on near-solid dark. On mobile a flat `canvas/65` layer replaces the side blend.
-- Home below the hero: a 4-up highlight strip, then one 3-column band (floor photo 4 / pitch 4 / hours + location 4).
+- Home below the hero: a 4-up highlight strip, then the floor band (`components/home/floor-band.tsx`): 3 columns at 1.25fr / 1.1fr / 0.95fr inside `max-w-[1600px]` (photo, pitch + trust row, hours + location card). See "Floor band" under Brief-pinned exceptions.
 - About: 4-up zone cards (16:10 photo, gold icon badge, title, copy), then a heading plus 3-up facility strip.
 - Coaches and Reviews share `SplitHeader`: headline 7 columns, intro 4 columns marked by a 2px gold rule (a separate element, not a border).
 - Coach cards are buttons that open a centered profile modal (`components/coaches/coach-modal.tsx`, `.coach-modal`: portrait 45% / details 55%, max 960px, `--bg-elevated` panel, 1px gold hairline, Previous / Next with wrap-around, `Train with <first name>` hands off to the day-pass drawer). Cards use `.hairline-gold` (60% gold at rest); reviews are three equal-height cards over a faded B/W photo; FAQ is 5 / 7 columns.
@@ -68,6 +68,16 @@ Hero and footer share one lockup: "Your strongest" in gold (`text-gold`, `#F5C40
 ## Brief-pinned exceptions
 
 The owner explicitly asked for two small label lines that the craft floor would normally refuse: the "Gold's Gym Iloilo" lead line above the hero headline, and "The training floor" above "Built for serious work." They are kept as asked and are the only eyebrow-style labels on the site. The Watch the gym play mark is an authored SVG, not a unicode glyph.
+
+### Floor band (owner-directed athletic split)
+
+The Home floor band deliberately breaks the site's square-edged system, at the owner's direction:
+
+- **Diagonal slash:** on lg+ the floor photo's right edge is clipped to `polygon(0 0, 100% 0, 82% 100%, 0 100%)` (`.floor-photo`) and a solid gold stripe (`.floor-slash`, 12px horizontal width, about 11.8px perpendicular) is drawn on exactly the same slant, plus a short gold rule at the bottom-left. Both polygons share the 82% point; change them together. Below lg the photo is a plain `aspect-[4/3]` rectangle with a 3px gold bottom border (no clipping on small screens).
+- **Watermark:** `gold-logo.png` at `opacity-[0.06]`, decorative (`aria-hidden`), behind the right half. Worst-case text contrast over it is still 7.3:1 (muted) / 17.9:1 (white).
+- **Italic two-tone headline:** "The training floor" label and "Built for" (white) / "Serious work." (gold) in italic. Anton has no italic, so the browser slants it synthetically.
+- **Rounded controls (only here):** the Explore the gym CTA is a gold pill (`rounded-full`), Get directions is `rounded-lg` with a gold outline that fills on hover (`outline-fill` button variant), and the hours card is `rounded-xl` with a `border-gold/45` border and a 1px inset rim highlight from `--border-subtle`.
+- **OpenBadge split pill:** solid-gold "Open now" segment with an angled right edge (muted surface segment when closed) joined to a dark segment with the closing / opening time. All pairs are 6.9:1 or better. The wording wraps to two lines in narrow cards rather than overflowing.
 
 ## Banned in this build (from the skills)
 

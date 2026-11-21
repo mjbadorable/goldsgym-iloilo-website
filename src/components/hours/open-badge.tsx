@@ -14,40 +14,39 @@ function subscribe(onChange: () => void) {
 const getSnapshot = () => String(Math.floor(Date.now() / 60_000));
 const getServerSnapshot = () => "";
 
+/**
+ * Two-tone split pill. Left segment: status (solid gold when open, muted when closed) with an angled
+ * right edge. Right segment: when it closes or opens next. All contrast pairs are 7:1 or better.
+ */
 export function OpenBadge({ className }: { className?: string }) {
   const minute = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const status = minute ? getHoursStatus(new Date(Number(minute) * 60_000)) : null;
+  const isOpen = status?.isOpen ?? false;
 
   return (
     <p
       className={cn(
-        "inline-flex min-h-10 items-center gap-3 border px-4 py-2",
-        status?.isOpen ? "border-gold" : "border-line-subtle",
+        "inline-flex min-h-10 items-stretch overflow-hidden rounded-full border",
+        isOpen ? "border-gold/40" : "border-line-subtle",
         className,
       )}
     >
+      {/* The slanted right edge overlaps the next segment, so there is never a gap in the pill. */}
       <span
-        aria-hidden="true"
         className={cn(
-          "size-2.5 shrink-0 rounded-full",
-          status?.isOpen ? "bg-gold" : "border-2 border-muted",
+          "relative z-10 flex items-center gap-2.5 py-2 pr-6 pl-4 font-label text-[1.125rem] leading-none tracking-[0.06em] uppercase [clip-path:polygon(0_0,100%_0,calc(100%-10px)_100%,0_100%)]",
+          isOpen ? "bg-gold text-gold-ink" : "bg-surface text-muted",
         )}
-      />
-      {status ? (
-        <>
-          <span
-            className={cn(
-              "font-label text-[1.25rem] leading-none tracking-[0.06em] uppercase",
-              status.isOpen ? "text-gold" : "text-fg",
-            )}
-          >
-            {status.label}
-          </span>
-          <span className="font-mono text-[0.8125rem] text-muted">{status.detail}</span>
-        </>
-      ) : (
-        <span className="font-mono text-[0.8125rem] text-muted">Checking hours (Manila time)</span>
-      )}
+      >
+        <span
+          aria-hidden="true"
+          className={cn("size-2.5 shrink-0 rounded-full", isOpen ? "bg-gold-ink" : "border-2 border-muted")}
+        />
+        {status ? status.label : "Checking"}
+      </span>
+      <span className="-ml-2.5 flex items-center bg-canvas/80 py-2 pr-4 pl-6 font-mono text-[0.8125rem] text-fg">
+        {status ? status.detail : "Manila time"}
+      </span>
     </p>
   );
 }

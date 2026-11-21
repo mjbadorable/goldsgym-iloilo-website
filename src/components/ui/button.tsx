@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "outline";
+type Variant = "primary" | "outline" | "outline-fill";
 type Size = "md" | "sm";
 
 const base =
@@ -13,6 +13,8 @@ const base =
 const variants: Record<Variant, string> = {
   primary: "bg-gold text-gold-ink hover:bg-gold-hover",
   outline: "border border-gold/55 text-fg hover:border-gold hover:text-gold",
+  // Gold outline that fills solid gold on hover.
+  "outline-fill": "border border-gold/60 text-fg hover:border-gold hover:bg-gold hover:text-gold-ink",
 };
 
 const sizes: Record<Size, string> = {

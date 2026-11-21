@@ -399,3 +399,15 @@ html:has(dialog.coach-modal[open]) {
     transform: none;
   }
 }
+
+/* Home floor band (owner-directed): on desktop the photo's right edge slants forward and a solid
+   gold stripe traces that exact slant. Both polygons share the 82% bottom point so they line up. */
+@media (min-width: 1024px) {
+  .floor-photo {
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  }
+  .floor-slash {
+    background: var(--accent);
+    clip-path: polygon(calc(100% - 12px) 0, 100% 0, 82% 100%, calc(82% - 12px) 100%);
+  }
+}
