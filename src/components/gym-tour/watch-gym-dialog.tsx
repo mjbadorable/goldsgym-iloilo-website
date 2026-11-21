@@ -121,9 +121,11 @@ export function WatchGymButton({ className }: { className?: string }) {
             <StickyBar panel as="h3" id="tour-video-title" sectionId="tour-video">
               Promotional video
             </StickyBar>
-            <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-stretch lg:gap-8">
-              {/* Expanded vertical promo frame (~480px wide on desktop). Mounted only while open. */}
-              <div className="relative mx-auto aspect-[3/4] w-full max-w-[480px] overflow-hidden border border-line bg-canvas md:mx-0 md:max-w-none">
+            <div className="mt-6 grid gap-6 sm:grid-cols-[minmax(0,350px)_1fr] sm:items-stretch lg:gap-8">
+              {/* Portrait 9:16 frame, exactly the video's own shape so it fills edge to edge with no
+                  letterbox bars. Any other ratio shows black bars around the Drive player. The iframe
+                  only exists while the dialog is open. */}
+              <div className="relative mx-auto aspect-[9/16] w-full max-w-[350px] overflow-hidden border border-line bg-canvas sm:mx-0">
                 <p className="absolute inset-0 grid place-items-center font-mono text-[0.8125rem] text-muted">
                   Loading video&hellip;
                 </p>
