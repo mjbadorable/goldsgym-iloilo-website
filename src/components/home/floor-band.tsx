@@ -7,17 +7,17 @@ import { ADDRESS } from "@/lib/site";
 
 const panelTitle = "font-label text-[1.5rem] leading-none tracking-[0.06em] uppercase";
 
-/** One horizontal band: full-bleed left floor photo, the pitch, and practical details (hours + location). */
+/** One horizontal band: framed floor photo, the pitch, and full-width practical details (hours + location). */
 export function FloorBand() {
   return (
-    <section aria-labelledby="floor-title" className="w-full overflow-hidden py-16 lg:py-24">
-      <div className="grid gap-10 px-6 md:px-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-10 lg:pl-0 lg:pr-[max(2.5rem,calc((100vw-1440px)/2+2.5rem))]">
-        <div className="group relative aspect-[4/3] overflow-hidden border border-line sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[560px] lg:border-l-0">
+    <section aria-labelledby="floor-title" className="mx-auto w-full max-w-[1680px] px-6 py-16 md:px-10 lg:px-12 lg:py-24">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,1.15fr)] lg:items-stretch lg:gap-10">
+        <div className="group relative aspect-[4/3] overflow-hidden border border-line sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[560px]">
           <Image
             src="/images/training-floor.jpg"
             alt="The training floor at Gold's Gym Iloilo: hexagon ceiling lights over dumbbell racks, power racks and benches"
             fill
-            sizes="(min-width: 1024px) 44vw, 100vw"
+            sizes="(min-width: 1024px) 38vw, 100vw"
             quality={88}
             className="object-cover object-center transition-transform duration-500 ease-[var(--ease-out)] group-hover:scale-[1.04]"
           />
@@ -48,42 +48,46 @@ export function FloorBand() {
           </ButtonLink>
         </div>
 
-        <div className="border border-line bg-elevated p-8">
-          <h2 className={panelTitle}>Opening hours</h2>
-          <OpenBadge className="mt-5" />
-          <dl className="mt-6 divide-y divide-line-subtle border-y border-line-subtle">
-            {HOURS.map((range) => (
-              <div key={range.label} className="py-4">
-                <dt className="font-mono text-[0.8125rem] text-muted">{range.label}</dt>
-                <dd className="mt-1 font-mono text-[clamp(1.125rem,1.9vw,1.375rem)] leading-tight text-fg tabular-nums">
-                  {formatMinutes(range.open)} – {formatMinutes(range.close)}
-                </dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-3 font-mono text-[0.75rem] text-muted">Philippine time (Asia/Manila)</p>
-
-          <h2 className={`${panelTitle} mt-10`}>Location</h2>
-          <address className="mt-5 flex gap-3 not-italic">
-            <MapPin className="mt-0.5 size-6 shrink-0 text-gold" />
-            <p className="font-mono text-[1rem] leading-snug text-fg">
-              {ADDRESS.lines.map((l) => (
-                <span key={l} className="block">
-                  {l}
-                </span>
+        <div className="flex flex-col justify-between border border-line bg-elevated p-8 lg:p-10">
+          <div>
+            <h2 className={panelTitle}>Opening hours</h2>
+            <OpenBadge className="mt-5" />
+            <dl className="mt-6 divide-y divide-line-subtle border-y border-line-subtle">
+              {HOURS.map((range) => (
+                <div key={range.label} className="py-4">
+                  <dt className="font-mono text-[0.875rem] text-muted">{range.label}</dt>
+                  <dd className="mt-1 font-mono text-[clamp(1.25rem,1.9vw,1.5rem)] leading-tight text-fg tabular-nums">
+                    {formatMinutes(range.open)} – {formatMinutes(range.close)}
+                  </dd>
+                </div>
               ))}
-            </p>
-          </address>
-          <a
-            href={ADDRESS.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonClasses("outline", "md", "mt-6")}
-          >
-            Get directions
-            <ArrowRight className="size-[1.1em]" />
-            <span className="sr-only">(opens Google Maps in a new tab)</span>
-          </a>
+            </dl>
+            <p className="mt-3 font-mono text-[0.8125rem] text-muted">Philippine time (Asia/Manila)</p>
+          </div>
+
+          <div className="mt-10 border-t border-line-subtle pt-8">
+            <h2 className={panelTitle}>Location</h2>
+            <address className="mt-5 flex gap-3.5 not-italic">
+              <MapPin className="mt-1 size-6 shrink-0 text-gold" />
+              <p className="font-mono text-[1.0625rem] leading-relaxed text-fg">
+                {ADDRESS.lines.map((l) => (
+                  <span key={l} className="block">
+                    {l}
+                  </span>
+                ))}
+              </p>
+            </address>
+            <a
+              href={ADDRESS.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonClasses("outline", "md", "mt-6 w-full justify-center sm:w-auto")}
+            >
+              Get directions
+              <ArrowRight className="size-[1.1em]" />
+              <span className="sr-only">(opens Google Maps in a new tab)</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
