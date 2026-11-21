@@ -10,7 +10,7 @@ export function SplitHeader({ id, title, intro }: { id: string; title: ReactNode
       <div className="shell grid gap-8 pt-12 pb-12 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pt-[var(--section-y)] lg:pb-16">
         <h1
           id={id}
-          className="font-display text-[length:var(--text-display)] leading-[0.95] uppercase lg:col-span-7"
+          className="font-display text-[length:var(--text-display)] leading-[1.06] uppercase lg:col-span-7"
         >
           {title}
         </h1>

@@ -78,7 +78,7 @@ export default function ReviewsFaqPage() {
           <div className="lg:col-span-5">
             <h2
               id="faq-title"
-              className="font-display text-[length:var(--text-display)] leading-[0.95] uppercase"
+              className="font-display text-[length:var(--text-display)] leading-[1.06] uppercase"
             >
               Here&rsquo;s what a first visit looks like.
             </h2>

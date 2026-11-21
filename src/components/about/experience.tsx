@@ -8,7 +8,7 @@ export function Experience() {
     <section aria-label="The Gym Experience" className="border-t border-line-subtle bg-surface">
       <div className="shell py-[var(--section-y)]">
         <div className="max-w-[min(100%,52rem)]">
-          <h2 className="font-display text-[length:var(--text-display)] leading-[0.96] uppercase">
+          <h2 className="font-display text-[length:var(--text-display)] leading-[1.06] uppercase">
             Everything you need to train comfortably.
           </h2>
         </div>
