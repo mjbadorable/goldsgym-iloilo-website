@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Accordion } from "@/components/faq/accordion";
 import { Stars } from "@/components/reviews/stars";
 import { SplitHeader } from "@/components/ui/split-header";
+import { StickyBar, StickySections } from "@/components/ui/sticky-sections";
 import { FAQ } from "@/content/faq";
 import { REVIEWS } from "@/content/reviews";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -16,8 +17,8 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ReviewsFaqPage() {
   return (
-    <>
-      <div className="relative isolate overflow-hidden">
+    <StickySections ids={["member-reviews", "faq"]}>
+      <div className="relative isolate overflow-x-clip">
         {/* Ambient backdrop: a dark black-and-white lifting shot, faded into the canvas. */}
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <Image
@@ -39,11 +40,11 @@ export default function ReviewsFaqPage() {
           intro="Members say it better than we can. These are verified five-star reviews from Google."
         />
 
-        <section aria-labelledby="reviews-list-title" className="shell pb-[var(--section-y)]">
-          <h2 id="reviews-list-title" className="sr-only">
+        <section id="member-reviews" aria-labelledby="reviews-list-title" className="pb-[var(--section-y)]">
+          <StickyBar as="h2" id="reviews-list-title" sectionId="member-reviews">
             Member reviews
-          </h2>
-          <ul className="grid gap-6 lg:grid-cols-3">
+          </StickyBar>
+          <ul className="shell mt-8 grid gap-6 lg:grid-cols-3">
             {REVIEWS.map((review) => (
               <li key={review.id} className="flex">
                 <figure className="hairline flex w-full flex-col justify-between gap-10 border bg-surface p-8">
@@ -64,7 +65,9 @@ export default function ReviewsFaqPage() {
                       <span className="block font-label text-[1.375rem] leading-none tracking-[0.04em] uppercase">
                         {review.author}
                       </span>
-                      <span className="mt-1.5 block font-mono text-[0.8125rem] text-muted">{review.source}</span>
+                      <span className="mt-1.5 block font-mono text-[0.8125rem] text-muted">
+                        {review.source}
+                      </span>
                     </span>
                   </figcaption>
                 </figure>
@@ -77,9 +80,10 @@ export default function ReviewsFaqPage() {
       <section
         id="faq"
         aria-labelledby="faq-title"
-        className="relative isolate overflow-hidden border-t border-line-subtle bg-surface"
+        className="relative isolate overflow-x-clip border-t border-line-subtle bg-surface"
       >
-        <div className="shell grid gap-12 py-[var(--section-y)] lg:grid-cols-12 lg:gap-8">
+        <StickyBar sectionId="faq">First visit FAQ</StickyBar>
+        <div className="shell grid gap-12 pt-10 pb-[var(--section-y)] lg:grid-cols-12 lg:gap-8 lg:pt-14">
           <div className="lg:col-span-5">
             <h2
               id="faq-title"
@@ -111,6 +115,6 @@ export default function ReviewsFaqPage() {
           </div>
         </div>
       </section>
-    </>
+    </StickySections>
   );
 }

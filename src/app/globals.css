@@ -453,6 +453,55 @@ html[data-stack-dragging="true"] .stack-underlay::after {
   );
 }
 
+/* Sticky section bars: a slim label that pins under the navbar while its section is on screen, and
+   inside the Day Pass / Explore the gym panels (`--panel`, pinned at the panel's own top edge). The
+   `data-pinned` attribute is set by `useStickySections`. Ancestors of a bar must not use
+   `overflow: hidden` (use `overflow-x: clip`, which does not create a scroll container). */
+.sticky-section-bar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg-canvas) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+.sticky-section-bar--panel {
+  background: color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  /* The panel has 24px (40px from md) of padding, and a sticky `top` is measured from inside that
+     padding. A negative top cancels it so the bar pins flush with the panel's top edge, and the
+     matching negative inline margin bleeds the bar to the panel's side edges. */
+  top: -24px;
+  margin-inline: -24px;
+  padding-inline: 24px;
+}
+@media (min-width: 768px) {
+  .sticky-section-bar--panel {
+    top: -40px;
+    margin-inline: -40px;
+    padding-inline: 40px;
+  }
+}
+.sticky-section-bar[data-pinned="true"] {
+  color: var(--accent);
+  border-bottom-color: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticky-section-bar {
+    transition: none !important;
+  }
+}
+
 /* Coach profile modal: a centered native <dialog> that fades and scales in. */
 html:has(dialog.coach-modal[open]) {
   overflow: hidden;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Experience } from "@/components/about/experience";
 import { Zones } from "@/components/about/zones";
+import { StickySections } from "@/components/ui/sticky-sections";
 import { VDivider } from "@/components/ui/v-divider";
 import { ZONES } from "@/content/zones";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -18,7 +19,10 @@ export default function AboutPage() {
     <>
       <section aria-labelledby="about-title" className="relative isolate overflow-hidden">
         {/* Storefront photo sits behind the right side; overflow-hidden clips hero-settle cleanly. */}
-        <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 w-full overflow-hidden lg:w-[64%]">
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 right-0 -z-10 w-full overflow-hidden lg:w-[64%]"
+        >
           <Image
             src="/images/storefront-sign.jpg"
             alt=""
@@ -64,9 +68,11 @@ export default function AboutPage() {
       </section>
 
       <VDivider />
-      <Zones />
-      <VDivider />
-      <Experience />
+      <StickySections ids={["training-zones", "gym-experience"]}>
+        <Zones />
+        <VDivider />
+        <Experience />
+      </StickySections>
     </>
   );
 }
