@@ -5,18 +5,17 @@ import { useEffect, useState } from "react";
 import { useDayPass } from "@/components/day-pass/day-pass-provider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowUpRight, Clock, Close, MapPin, Play } from "@/components/ui/icons";
-import { Sheet } from "@/components/ui/sheet";
+import { STACK_PUSH_MS, StackPushSheet } from "@/components/ui/stack-push-sheet";
 import { NamedIcon } from "@/components/ui/zone-icons";
 import { PROMO_VIDEO, TOUR_PHOTOS } from "@/content/tour";
 import { cn } from "@/lib/cn";
 import { HOURS, formatMinutes } from "@/lib/hours";
 import { ADDRESS } from "@/lib/site";
-import { DIALOG_CLOSE_MS } from "@/lib/use-modal-dialog";
 
 /**
- * "Watch the gym": a button plus a slide-over with a photo switcher and the gym's portrait (9:16)
- * promotional video. The Google Drive iframe mounts only after the slide-in finishes (keeping the
- * drawer motion at 60fps) and unmounts immediately on close so playback and audio stop at once.
+ * "Explore the gym": a button plus a native stack-push view with a photo switcher and the gym's
+ * portrait (9:16) promotional video. The Google Drive iframe mounts only after the 450ms stack
+ * push finishes (keeping motion at 60fps) and unmounts immediately on close.
  */
 export function WatchGymButton({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,13 +30,13 @@ export function WatchGymButton({ className }: { className?: string }) {
 
   useEffect(() => {
     if (!isOpen) return;
-    const timer = setTimeout(() => setVideoReady(true), DIALOG_CLOSE_MS + 40);
+    const timer = setTimeout(() => setVideoReady(true), STACK_PUSH_MS + 30);
     return () => clearTimeout(timer);
   }, [isOpen]);
 
   function claimPass() {
     close();
-    setTimeout(openDayPass, DIALOG_CLOSE_MS + 30);
+    setTimeout(openDayPass, STACK_PUSH_MS + 30);
   }
 
   return (
@@ -47,9 +46,13 @@ export function WatchGymButton({ className }: { className?: string }) {
         Explore the gym
       </Button>
 
-      <Sheet isOpen={isOpen} onClose={close} labelledBy="watch-gym-title" wide>
+      <StackPushSheet isOpen={isOpen} onClose={close} labelledBy="watch-gym-title">
         <div className="flex items-start justify-between gap-6">
-          <h2 id="watch-gym-title" className="font-display text-[2.5rem] leading-[0.95] uppercase">
+          <h2
+            id="watch-gym-title"
+            tabIndex={-1}
+            className="font-display text-[2.5rem] leading-[0.95] uppercase focus:outline-none"
+          >
             Inside Gold&rsquo;s Gym Iloilo
           </h2>
           <button
@@ -187,7 +190,7 @@ export function WatchGymButton({ className }: { className?: string }) {
             </div>
           </div>
         </section>
-      </Sheet>
+      </StackPushSheet>
     </>
   );
 }

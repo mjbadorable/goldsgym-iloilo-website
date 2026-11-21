@@ -45,17 +45,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-svh flex-col">
         <DayPassProvider>
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-gold focus:px-4 focus:py-3 focus:font-label focus:text-[1.25rem] focus:text-gold-ink"
-          >
-            Skip to content
-          </a>
-          <Navbar />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <Footer />
+          <div className="stack-underlay flex min-h-svh flex-col">
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-gold focus:px-4 focus:py-3 focus:font-label focus:text-[1.25rem] focus:text-gold-ink"
+            >
+              Skip to content
+            </a>
+            <Navbar />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </DayPassProvider>
       </body>
     </html>

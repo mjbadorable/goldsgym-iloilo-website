@@ -318,6 +318,101 @@ html:has(dialog.sheet[open]) {
   transform: translate3d(0, 0, 0);
 }
 
+/* Native-style stack push ("Explore the gym"): new view slides in from the right over 450ms
+   cubic-bezier(0.32, 0.72, 0, 1) while the underlying page shifts left 28% and dims. */
+html:has(dialog.stack-push[open]) {
+  overflow: hidden;
+}
+.stack-underlay {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+.stack-underlay::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: var(--bg-canvas);
+  opacity: 0;
+  transition: opacity 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+html[data-stack-push="open"] .stack-underlay {
+  transform: translate3d(var(--stack-drag-x, -28%), 0, 0);
+}
+html[data-stack-push="open"] .stack-underlay::after {
+  opacity: var(--stack-drag-dim, 0.16);
+}
+html[data-stack-dragging="true"] .stack-underlay,
+html[data-stack-dragging="true"] .stack-underlay::after {
+  transition: none !important;
+}
+
+.stack-push {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+.stack-push::backdrop {
+  background: rgba(7, 7, 8, 0.16);
+  opacity: 0;
+  transition: opacity 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.stack-push[data-state="open"]::backdrop {
+  opacity: 1;
+}
+.stack-push-panel {
+  margin-left: auto;
+  height: 100%;
+  width: min(100%, 62rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 24px;
+  background: var(--bg-elevated);
+  border-left: 1px solid var(--border-hairline);
+  box-shadow: -12px 0 26px rgba(16, 24, 40, 0.14);
+  transform: translate3d(100%, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+@media (min-width: 768px) {
+  .stack-push-panel {
+    padding: 40px;
+  }
+}
+.stack-push[data-state="open"] .stack-push-panel {
+  transform: translate3d(0, 0, 0);
+}
+.stack-push[data-dragging="true"] .stack-push-panel {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-stack-push="open"] .stack-underlay {
+    transform: none;
+  }
+  .stack-push-panel {
+    transform: none;
+    opacity: 0;
+    transition: opacity 150ms linear !important;
+  }
+  .stack-push[data-state="open"] .stack-push-panel {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
