@@ -16,8 +16,8 @@ export default function AboutPage() {
   return (
     <>
       <section aria-labelledby="about-title" className="relative isolate overflow-hidden">
-        {/* Storefront photo sits behind the right side; scrims keep the headline on solid canvas. */}
-        <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 w-full lg:w-[64%]">
+        {/* Storefront photo sits behind the right side; overflow-hidden clips hero-settle cleanly. */}
+        <div aria-hidden="true" className="absolute inset-y-0 right-0 -z-10 w-full overflow-hidden lg:w-[64%]">
           <Image
             src="/images/storefront-sign.jpg"
             alt=""
@@ -29,7 +29,7 @@ export default function AboutPage() {
             className="hero-settle object-cover object-[50%_26%]"
           />
           <div className="absolute inset-0 bg-canvas/70 lg:bg-transparent" />
-          <div className="scrim-x absolute inset-0" />
+          <div className="scrim-x absolute -inset-px" />
         </div>
 
         <div className="shell flex min-h-[420px] items-center py-12 lg:min-h-[clamp(520px,42svh,640px)]">

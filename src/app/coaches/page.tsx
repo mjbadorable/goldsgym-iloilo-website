@@ -18,7 +18,7 @@ export default function CoachesPage() {
       {/* Upper-right atmospheric coaching photo blended cleanly into the obsidian canvas. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 -z-10 h-[420px] w-full lg:h-[520px] lg:w-[62%]"
+        className="pointer-events-none absolute top-0 right-0 -z-10 h-[420px] w-full overflow-hidden lg:h-[520px] lg:w-[62%]"
       >
         <Image
           src="/images/coaches-backdrop.jpg"
@@ -29,9 +29,9 @@ export default function CoachesPage() {
           loading="eager"
           className="object-cover object-[70%_25%] opacity-50"
         />
-        <div className="scrim-x absolute inset-0" />
-        <div className="scrim-y absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/35 to-canvas/20" />
+        <div className="scrim-x absolute -inset-px" />
+        <div className="scrim-y absolute -inset-px" />
+        <div className="absolute -inset-px bg-gradient-to-t from-canvas via-canvas/35 to-canvas/20" />
       </div>
 
       <SplitHeader
