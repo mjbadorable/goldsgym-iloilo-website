@@ -34,8 +34,10 @@ def seg_filter(i, clip, ss, dur, speed, d_out, fmt):
         return f"{pre}{body}[v{i}]"
     # landscape: sharp upscaled subject at full height over a soft blurred fill of the same shot
     return (f"{pre}split[a{i}][b{i}];"
-            f"[a{i}]scale=480:270:force_original_aspect_ratio=increase,crop=480:270,gblur=sigma=10,"
-            f"scale=1920:1080:flags=bicubic,eq=brightness={0.0 if (clip=='c1' and ss>36) else -0.10}:saturation=1.1[bg{i}];"
+            + (f"[a{i}]crop=8:ih:0:0,scale=1920:1080:flags=bilinear[bg{i}];" if (clip=='c1' and ss>36) else
+               f"[a{i}]scale=480:270:force_original_aspect_ratio=increase,crop=480:270,gblur=sigma=10,"
+               f"scale=1920:1080:flags=bicubic,eq=brightness=-0.10:saturation=1.1[bg{i}];") +
+            f"
             f"[b{i}]scale=-2:1080:flags=lanczos,unsharp=5:5:0.55:5:5:0[fg{i}];"
             f"[bg{i}][fg{i}]overlay=(W-w)/2:0,setsar=1,format=yuv420p[v{i}]")
 def build(fmt, outfile):
