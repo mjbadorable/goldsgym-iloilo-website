@@ -12,11 +12,11 @@ export type TourPhoto = {
 
 export const TOUR_PHOTOS: TourPhoto[] = [
   {
-    id: "training-floor",
-    src: "/images/training-floor.jpg",
-    label: "The training floor",
-    alt: "Hexagon ceiling lights over dumbbell racks, power racks and benches on the training floor",
-    position: "50% 32%",
+    id: "storefront",
+    src: "/images/storefront-sign.jpg",
+    label: "The entrance",
+    alt: "The glowing Gold's Gym sign above the glass entrance",
+    position: "45% 30%",
   },
   {
     id: "heritage-lounge",
@@ -24,6 +24,13 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "The heritage lounge",
     alt: "A leather sofa and chairs by a brick wall, beside a timeline wall of Gold's Gym history",
     position: "50% 50%",
+  },
+  {
+    id: "training-floor",
+    src: "/images/training-floor.jpg",
+    label: "The training floor",
+    alt: "Hexagon ceiling lights over dumbbell racks, power racks and benches on the training floor",
+    position: "50% 32%",
   },
   {
     id: "free-weights",
@@ -45,13 +52,6 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Cardio Bay",
     alt: "Two members running on treadmills in the Cardio Bay",
     position: "50% 55%",
-  },
-  {
-    id: "storefront",
-    src: "/images/storefront-sign.jpg",
-    label: "The storefront",
-    alt: "The glowing Gold's Gym sign above the glass entrance",
-    position: "45% 30%",
   },
 ];
 
