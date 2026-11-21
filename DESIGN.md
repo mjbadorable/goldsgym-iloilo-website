@@ -43,8 +43,12 @@ Brief-pinned fonts; Plus Jakarta Sans is on the skill's default list but the bri
 - Home below the hero: a 4-up highlight strip, then one 3-column band (floor photo 4 / pitch 4 / hours + location 4).
 - About: 4-up zone cards (16:10 photo, gold icon badge, title, copy), then a heading plus 3-up facility strip.
 - Coaches and Reviews share `SplitHeader`: headline 7 columns, intro 4 columns marked by a 2px gold rule (a separate element, not a border).
-- Coach cards use `.hairline-gold` (60% gold at rest); reviews are three equal-height cards over a faded B/W photo; FAQ is 5 / 7 columns.
+- Coach cards are buttons that open a centered profile modal (`components/coaches/coach-modal.tsx`, `.coach-modal`: portrait 45% / details 55%, max 960px, `--bg-elevated` panel, 1px gold hairline, Previous / Next with wrap-around, `Train with <first name>` hands off to the day-pass drawer). Cards use `.hairline-gold` (60% gold at rest); reviews are three equal-height cards over a faded B/W photo; FAQ is 5 / 7 columns.
 - Cards: 0 radius, one elevation method (hairline border, no shadows).
+
+## Headline lockup
+
+Hero and footer share one lockup: "Your strongest" in gold (`text-gold`, `#F5C400`) over "Starts here." in white (`text-fg`).
 
 ## Signature device: the gold V-chevron
 
@@ -56,6 +60,7 @@ Brief-pinned fonts; Plus Jakarta Sans is on the skill's default list but the bri
 - One authored load moment: hero headline lines rise out of masks (640ms, 90ms stagger); hero image settles `1.03 to 1.00` (1100ms). CSS only, so content is never hidden if JS fails.
 - Cards: resting 25% gold hairline, hover/focus draws a full 1px gold border (clip-path, 240ms).
 - FAQ: real content height animates with `grid-template-rows 0fr to 1fr`.
+- Coach profile modal: 240ms opacity + `scale(0.97 to 1)`; details cross-fade on Previous / Next. Dialog behaviour is shared via `lib/use-modal-dialog.ts`.
 - Free Day Pass and Watch the Gym: slide-over sheets (`components/ui/sheet.tsx`, native `<dialog>`), 240ms, interruptible; initial focus goes to the Close button.
 - Primary nav: a 2px gold bar marks the current page and grows in from the left on hover (`.nav-link`).
 - `prefers-reduced-motion` collapses every animation and transition. No scroll-jacking, no looping or pulsing motion.

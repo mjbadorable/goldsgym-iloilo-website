@@ -297,6 +297,11 @@ html:has(dialog.sheet[open]) {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  /* Dialog backdrops (slide-over sheets and the coach modal) fade too, so they are listed explicitly. */
+  ::backdrop {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Scrims: photo-to-canvas blends used by the hero and page banners. Colours come from tokens. */
@@ -316,4 +321,81 @@ html:has(dialog.sheet[open]) {
     color-mix(in srgb, var(--bg-canvas) 40%, transparent) 30%,
     transparent 60%
   );
+}
+
+/* Coach profile modal: a centered native <dialog> that fades and scales in. */
+html:has(dialog.coach-modal[open]) {
+  overflow: hidden;
+}
+.coach-modal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+.coach-modal[open] {
+  display: grid;
+  place-items: center;
+}
+@media (min-width: 768px) {
+  .coach-modal {
+    padding: 24px;
+  }
+}
+.coach-modal::backdrop {
+  background: color-mix(in srgb, var(--bg-canvas) 82%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.coach-modal[data-state="open"]::backdrop {
+  opacity: 1;
+}
+.coach-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg-elevated);
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+@media (min-width: 768px) {
+  .coach-modal-panel {
+    max-height: calc(100dvh - 48px);
+    /* On desktop the portrait stays put and only the details column scrolls. */
+    overflow: hidden;
+  }
+}
+.coach-modal[data-state="open"] .coach-modal-panel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Details fade in when Previous / Next swaps the coach (a response to the visitor's click). */
+.coach-swap {
+  animation: coach-swap-in var(--dur-base) var(--ease-out) both;
+}
+@keyframes coach-swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }

@@ -36,10 +36,10 @@ export function Hero() {
                 Gold&rsquo;s Gym Iloilo
               </span>
             </span>
-            <span className="reveal-line" style={line(1)}>
+            <span className="reveal-line text-gold" style={line(1)}>
               <span>Your strongest</span>
             </span>{" "}
-            <span className="reveal-line text-gold" style={line(2)}>
+            <span className="reveal-line text-fg" style={line(2)}>
               <span>Starts here.</span>
             </span>
           </h1>

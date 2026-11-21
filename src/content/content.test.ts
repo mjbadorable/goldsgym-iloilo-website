@@ -60,6 +60,38 @@ test("all four zones and three experiences have a photo, an icon and alt text", 
   }
 });
 
+test("coach names, roles and specialties are verbatim from the Framer site", () => {
+  assert.deepEqual(
+    COACHES.map((c) => [c.name, c.role, c.specialties.join(" / ")]),
+    [
+      ["Andrew Miano", "Fitness Coach", "Strength / Technique / Programming"],
+      ["Vincent Loui Dorde", "Fitness Coach", "Strength / Form / Progression"],
+      ["Jerry Perje", "Fitness Coach", "Conditioning / Movement / Accountability"],
+    ],
+  );
+});
+
+test("every coach has a profile (bio, experience, focus, achievements) and a real portrait", () => {
+  for (const coach of COACHES) {
+    assert.ok(coach.bio.trim().length > 40, `${coach.id}: bio missing or too short`);
+    assert.ok(coach.experience.trim().length > 20, `${coach.id}: experience missing`);
+    assert.ok(coach.coachingFocus.length >= 1 && coach.coachingFocus.every((f) => f.trim()), `${coach.id}: focus`);
+    assert.ok(coach.achievements.length >= 1 && coach.achievements.every((a) => a.trim()), `${coach.id}: achievements`);
+    assert.ok(existsSync(`public${coach.image.src}`), `${coach.id}: missing portrait public${coach.image.src}`);
+    assert.ok(coach.image.alt.length > 10, `${coach.id}: weak alt text`);
+  }
+});
+
+test("draft coach profiles do not invent years, certifications or competition results", () => {
+  // The gym has not supplied these facts. If a real one is added later, update this guard deliberately.
+  const forbidden =
+    /\b\d+\s*\+?\s*(years?|yrs?)\b|\bcertif|\bchampion|\bwon\b|\bwinner|\bmedal|\btrophy|\bIFBB\b|\bNASM\b|\bACE\b|\bISSA\b|\bCrossFit\b|\bformer\b|\bmaster'?s?\b|\bdegree\b/i;
+  for (const coach of COACHES) {
+    const text = [coach.bio, coach.experience, ...coach.coachingFocus, ...coach.achievements].join(" ");
+    assert.doesNotMatch(text, forbidden, `${coach.id}: profile text looks like an unverified credential`);
+  }
+});
+
 test("reviews are the three verified Google reviews", () => {
   assert.deepEqual(
     REVIEWS.map((r) => r.author),

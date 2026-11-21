@@ -12,9 +12,9 @@ export function Footer() {
       <div className="mx-auto grid max-w-[1280px] gap-16 px-6 pt-16 pb-12 md:px-10 lg:grid-cols-12 lg:gap-8 lg:pt-24">
         <div className="lg:col-span-6">
           <h2 className="font-display text-[clamp(3rem,6vw,4.5rem)] leading-[0.95] uppercase">
-            Your strongest
+            <span className="text-gold">Your strongest</span>
             <br />
-            starts here.
+            <span className="text-fg">starts here.</span>
           </h2>
           <p className="mt-6 max-w-[44ch] text-lg text-muted">
             Train with purpose. Build strength. Keep progressing.

@@ -155,3 +155,9 @@ export const Car = (p: IconProps) => (
     <path d="M7.5 12.5h.01M16.5 12.5h.01" strokeWidth={2.5} />
   </Icon>
 );
+
+export const ArrowLeft = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M20 12H5M11 6l-6 6 6 6" />
+  </Icon>
+);
