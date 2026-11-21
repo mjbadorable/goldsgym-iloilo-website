@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DayPassButton } from "@/components/day-pass/day-pass-button";
 import { Close, Menu } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
@@ -14,10 +14,16 @@ export function Navbar() {
   // The menu is "open for" a specific path, so navigating anywhere closes it with no effect needed.
   const [openFor, setOpenFor] = useState<string | null>(null);
   const menuOpen = openFor === pathname;
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenFor(null);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpenFor(null);
+      // The menu closes under the focused element, so put focus back on the button that opened it.
+      toggleRef.current?.focus();
+    };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [menuOpen]);
@@ -26,11 +32,11 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line-subtle bg-canvas">
-      {/* Edge to edge: logo anchors left, links sit centred, the CTA anchors right (3-column grid on md+). */}
-      <div className="shell-full flex h-[var(--nav-h)] items-center justify-between gap-6 md:grid md:grid-cols-[1fr_auto_1fr]">
+      {/* Edge to edge: logo anchors left, links sit centred, the CTA anchors right (3-column grid on lg+). */}
+      <div className="shell-full flex h-[var(--nav-h)] items-center justify-between gap-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
-          className="flex items-center gap-3 md:justify-self-start"
+          className="flex items-center gap-3 lg:justify-self-start"
           aria-label={`${SITE.name}, home`}
         >
           <Image
@@ -47,7 +53,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-8">
             {NAV.map((item) => (
               <li key={item.href}>
@@ -67,14 +73,15 @@ export function Navbar() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3 md:justify-self-end">
+        <div className="flex items-center gap-3 lg:justify-self-end">
           {/* Wrapper handles visibility: a `hidden` class on the button itself would fight its inline-flex. */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <DayPassButton size="sm">Free day pass</DayPassButton>
           </div>
           <button
+            ref={toggleRef}
             type="button"
-            className="inline-flex size-11 items-center justify-center border border-line-subtle text-fg transition-colors duration-[160ms] hover:border-gold hover:text-gold md:hidden"
+            className="inline-flex size-11 items-center justify-center border border-line-subtle text-fg transition-colors duration-[160ms] hover:border-gold hover:text-gold lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -88,7 +95,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         hidden={!menuOpen}
-        className="absolute inset-x-0 top-full border-b border-line-subtle bg-canvas md:hidden"
+        className="absolute inset-x-0 top-full border-b border-line-subtle bg-canvas lg:hidden"
       >
         <nav aria-label="Mobile" className="px-[var(--gutter)] pt-2 pb-8">
           <ul>
@@ -107,7 +114,17 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <DayPassButton className="mt-6 w-full">Get your free day pass</DayPassButton>
+          {/* Hand focus to the toggle first: the menu is hidden as the drawer opens, and the drawer
+              returns focus to whatever was focused when it opened. */}
+          <DayPassButton
+            className="mt-6 w-full"
+            onOpen={() => {
+              toggleRef.current?.focus();
+              setOpenFor(null);
+            }}
+          >
+            Get your free day pass
+          </DayPassButton>
         </nav>
       </div>
     </header>

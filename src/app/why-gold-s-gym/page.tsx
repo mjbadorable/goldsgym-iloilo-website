@@ -3,13 +3,14 @@ import Image from "next/image";
 import { Experience } from "@/components/about/experience";
 import { Zones } from "@/components/about/zones";
 import { VDivider } from "@/components/ui/v-divider";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Why Gold's Gym",
   description:
     "Four training zones under one roof: Free Weights, Gym80 Strength, Cardio Bay and Functional Training, plus clean facilities, easy parking and quality equipment.",
-  alternates: { canonical: "/why-gold-s-gym" },
-};
+  path: "/why-gold-s-gym",
+});
 
 export default function AboutPage() {
   return (

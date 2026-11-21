@@ -10,6 +10,8 @@ type Props = {
   variant?: "primary" | "outline";
   size?: "md" | "sm";
   className?: string;
+  /** Runs just before the drawer opens, e.g. to close a menu the button lives in. */
+  onOpen?: () => void;
 };
 
 /** Inline text link that opens the same drawer, for use inside paragraphs. */
@@ -23,10 +25,19 @@ export function DayPassTextButton({ children }: { children: ReactNode }) {
 }
 
 /** Every "Get your free day pass" button on the site is this component. It opens the drawer. */
-export function DayPassButton({ children = "Get your free day pass", variant, size, className }: Props) {
+export function DayPassButton({ children = "Get your free day pass", variant, size, className, onOpen }: Props) {
   const { open } = useDayPass();
   return (
-    <Button variant={variant} size={size} className={className} onClick={open} aria-haspopup="dialog">
+    <Button
+      variant={variant}
+      size={size}
+      className={className}
+      onClick={() => {
+        onOpen?.();
+        open();
+      }}
+      aria-haspopup="dialog"
+    >
       {children}
       <ArrowRight className="size-[1.1em]" />
     </Button>

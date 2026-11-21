@@ -3,6 +3,7 @@ import { Anton, Bebas_Neue, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/
 import { DayPassProvider } from "@/components/day-pass/day-pass-provider";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { OG_IMAGE } from "@/lib/page-metadata";
 import { SITE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -25,10 +26,10 @@ export const metadata: Metadata = {
     locale: "en_PH",
     title: `${SITE.name}: your strongest starts here`,
     description: SITE.description,
-    images: [{ url: "/images/og-share.jpg", width: 1080, height: 630, alt: "The training floor at Gold's Gym Iloilo" }],
+    images: [OG_IMAGE],
   },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/images/gold-logo.png", apple: "/images/gold-logo.png" },
+  // No `icons` here: src/app/icon.png (64px) and apple-icon.png (180px) are picked up by file convention.
 };
 
 export const viewport: Viewport = {

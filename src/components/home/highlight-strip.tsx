@@ -23,9 +23,9 @@ export function HighlightStrip() {
             >
               <NamedIcon name={item.icon} className="size-8 shrink-0 text-gold" />
               <div>
-                <h2 className="font-label text-[1.25rem] leading-[1.05] tracking-[0.04em] uppercase">
+                <p className="font-label text-[1.25rem] leading-[1.05] tracking-[0.04em] uppercase">
                   {item.title}
-                </h2>
+                </p>
                 <p className="mt-1 text-[0.8125rem] leading-snug text-muted">{item.text}</p>
               </div>
             </li>

@@ -15,6 +15,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const handoff = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cards = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(
     () => () => {
@@ -23,16 +24,30 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
     [],
   );
 
+  // The browser returns focus to the card that opened the modal, but the visitor may have browsed to a
+  // different coach since. Move focus to the card of the coach they were last looking at.
+  const focusCurrentCard = () => cards.current[index]?.focus();
+
   const openCoach = (i: number) => {
     setIndex(i);
     setIsOpen(true);
   };
 
-  // Close the profile first, then open the day-pass drawer once it has finished closing. That way
-  // focus returns to the card, and returns there again when the drawer is closed.
+  const closeCoach = () => {
+    setIsOpen(false);
+    if (handoff.current) clearTimeout(handoff.current);
+    handoff.current = setTimeout(focusCurrentCard, DIALOG_CLOSE_MS + 10);
+  };
+
+  // Close the profile first, then open the day-pass drawer once it has finished closing. Focus is put
+  // on the current coach's card just before, so closing the drawer lands there too.
   const train = () => {
     setIsOpen(false);
-    handoff.current = setTimeout(openDayPass, DIALOG_CLOSE_MS + 30);
+    if (handoff.current) clearTimeout(handoff.current);
+    handoff.current = setTimeout(() => {
+      focusCurrentCard();
+      openDayPass();
+    }, DIALOG_CLOSE_MS + 30);
   };
 
   return (
@@ -45,6 +60,9 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
           {coaches.map((coach, i) => (
             <li key={coach.id} className="flex">
               <button
+                ref={(el) => {
+                  cards.current[i] = el;
+                }}
                 type="button"
                 onClick={() => openCoach(i)}
                 aria-haspopup="dialog"
@@ -95,7 +113,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
         index={index}
         isOpen={isOpen}
         onIndexChange={setIndex}
-        onClose={() => setIsOpen(false)}
+        onClose={closeCoach}
         onTrain={train}
       />
     </>

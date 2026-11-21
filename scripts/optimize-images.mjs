@@ -44,6 +44,10 @@ const jobs = [
     "golds-mesh-emblem.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
 
+  // Owner-supplied 1376x768 atmospheric photo for the /coaches header. It sits behind a scrim at 50%
+  // opacity, so a lower JPEG quality is invisible; the original was 712 KB.
+  { dir: SUPPLIED, src: "coaches-backdrop.jpg", out: "coaches-backdrop.jpg", format: "jpeg", quality: 74 },
+
   // Social share card: crop of the training floor photo.
   {
     src: "kWyzBUwWXuG4YyfPhft7HzgEc.png",

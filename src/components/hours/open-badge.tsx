@@ -1,26 +1,18 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
 import { getHoursStatus } from "@/lib/hours";
-
-// The clock is an external store: a minute-granularity snapshot that re-renders every 30s.
-// The server snapshot is empty, so the prerendered HTML and hydration agree, and the real
-// status appears right after hydration. Status is always computed in Manila time.
-function subscribe(onChange: () => void) {
-  const id = setInterval(onChange, 30_000);
-  return () => clearInterval(id);
-}
-const getSnapshot = () => String(Math.floor(Date.now() / 60_000));
-const getServerSnapshot = () => "";
+import { useNow } from "@/lib/use-manila-now";
 
 /**
  * Two-tone split pill. Left segment: status (solid gold when open, muted when closed) with an angled
  * right edge. Right segment: when it closes or opens next. All contrast pairs are 7:1 or better.
  */
 export function OpenBadge({ className }: { className?: string }) {
-  const minute = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const status = minute ? getHoursStatus(new Date(Number(minute) * 60_000)) : null;
+  // `now` is null until hydration, so the prerendered HTML and the first client render agree.
+  // Status is always computed in Manila time.
+  const now = useNow();
+  const status = now ? getHoursStatus(now) : null;
   const isOpen = status?.isOpen ?? false;
 
   return (

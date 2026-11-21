@@ -24,10 +24,10 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-[10rem_1fr] lg:col-span-6 lg:pl-12">
           <nav aria-label="Quick links">
             <h3 className="font-label text-[1.25rem] leading-none tracking-[0.06em] uppercase">Quick links</h3>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-4 space-y-1">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="link-underline text-muted hover:text-fg">
+                  <Link href={link.href} className="link-underline inline-block py-1.5 text-muted hover:text-fg">
                     {link.label}
                   </Link>
                 </li>

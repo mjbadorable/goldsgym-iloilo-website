@@ -11,6 +11,7 @@ import { PROMO_VIDEO, TOUR_PHOTOS } from "@/content/tour";
 import { cn } from "@/lib/cn";
 import { HOURS, formatMinutes } from "@/lib/hours";
 import { ADDRESS } from "@/lib/site";
+import { DIALOG_CLOSE_MS } from "@/lib/use-modal-dialog";
 
 /**
  * "Watch the gym": a button plus a slide-over with a photo switcher and the gym's portrait (9:16)
@@ -27,7 +28,7 @@ export function WatchGymButton({ className }: { className?: string }) {
 
   function claimPass() {
     close();
-    setTimeout(() => openDayPass(), 250);
+    setTimeout(openDayPass, DIALOG_CLOSE_MS + 30);
   }
 
   return (
@@ -110,6 +111,7 @@ export function WatchGymButton({ className }: { className?: string }) {
                   title={PROMO_VIDEO.title}
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
                   loading="lazy"
                   className="absolute inset-0 h-full w-full border-0"
                 />
@@ -136,15 +138,14 @@ export function WatchGymButton({ className }: { className?: string }) {
                 <ul className="mt-6 divide-y divide-line-subtle border-y border-line-subtle font-mono text-[0.8125rem]">
                   <li className="flex items-start gap-3 py-3.5 text-fg">
                     <NamedIcon name="dumbbell" className="mt-0.5 size-4 shrink-0 text-gold" />
-                    <span>Free Weights · Gym80 Strength · Cardio Bay · Functional Training</span>
+                    <span>Free Weights, Gym80 Strength, Cardio Bay, Functional Training</span>
                   </li>
                   <li className="flex items-start gap-3 py-3.5 text-fg">
                     <Clock className="mt-0.5 size-4 shrink-0 text-gold" />
                     <span>
-                      {HOURS.map((r, i) => (
+                      {HOURS.map((r) => (
                         <span key={r.label} className="block">
                           {r.label}: {formatMinutes(r.open)} – {formatMinutes(r.close)}
-                          {i === 0 ? "" : ""}
                         </span>
                       ))}
                     </span>

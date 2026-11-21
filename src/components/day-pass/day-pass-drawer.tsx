@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { OpenBadge } from "@/components/hours/open-badge";
 import { buttonClasses } from "@/components/ui/button";
 import { Check, Close, Copy, Mail, MessageSquare, Phone } from "@/components/ui/icons";
 import { Sheet } from "@/components/ui/sheet";
 import { CONTACT, SITE } from "@/lib/site";
+import { useNow } from "@/lib/use-manila-now";
+import { compareDates, manilaToday, type CalendarDate } from "@/lib/visit-date";
+import { MAX_NAME_LENGTH, buildVisitMessage, mailtoHref, smsHref } from "@/lib/visit-message";
 import { useDayPass } from "./day-pass-provider";
-import { VisitCalendar, formatCalendarDate, type CalendarDate } from "./visit-calendar";
+import { VisitCalendar } from "./visit-calendar";
 
 const field =
   "h-12 w-full border border-line-subtle bg-canvas px-4 text-fg transition-colors duration-[160ms] " +
@@ -22,29 +25,36 @@ export function DayPassDrawer() {
   const { isOpen, close } = useDayPass();
   const [name, setName] = useState("");
   const [visitDate, setVisitDate] = useState<CalendarDate | null>(null);
-  const [copied, setCopied] = useState(false);
+  // "idle" shows the copy button, "copied" confirms, "failed" tells the visitor to copy by hand.
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const now = useNow();
 
-  const cleanName = name.trim().slice(0, 60);
-  const lines = [
-    `Hi ${SITE.name}, I'd like to claim a free day pass.`,
-    cleanName ? `Name: ${cleanName}` : null,
-    visitDate ? `Preferred date: ${formatCalendarDate(visitDate)}` : null,
-  ].filter(Boolean);
-  const message = lines.join("\n");
+  useEffect(
+    () => () => {
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+    },
+    [],
+  );
 
-  const smsHref = `sms:${CONTACT.phoneE164}?&body=${encodeURIComponent(message)}`;
-  const mailHref =
-    `mailto:${CONTACT.email}?subject=${encodeURIComponent("Free day pass request")}` +
-    `&body=${encodeURIComponent(message)}`;
+  // A date picked earlier can slip into the past if the tab stays open past Manila midnight.
+  const today = now ? manilaToday(now) : null;
+  const preferredDate = visitDate && today && compareDates(visitDate, today) >= 0 ? visitDate : null;
+
+  const message = buildVisitMessage({ siteName: SITE.name, name, date: preferredDate });
+  const smsLink = smsHref(CONTACT.phoneE164, message);
+  const mailLink = mailtoHref(CONTACT.email, "Free day pass request", message);
 
   async function copyNumber() {
+    if (copyTimer.current) clearTimeout(copyTimer.current);
     try {
       await navigator.clipboard.writeText(CONTACT.phoneDisplay);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopyState("copied");
     } catch {
-      // Clipboard can be blocked (insecure context, permissions). The number is on screen anyway.
+      // Clipboard can be blocked (insecure context, permissions). Say so rather than do nothing.
+      setCopyState("failed");
     }
+    copyTimer.current = setTimeout(() => setCopyState("idle"), 2400);
   }
 
   return (
@@ -80,7 +90,7 @@ export function DayPassDrawer() {
               type="text"
               name="name"
               autoComplete="name"
-              maxLength={60}
+              maxLength={MAX_NAME_LENGTH}
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Juan dela Cruz"
@@ -89,16 +99,16 @@ export function DayPassDrawer() {
           </div>
           <div>
             <p className="mb-2 block font-mono text-[0.8125rem] text-muted">Preferred visit date</p>
-            <VisitCalendar value={visitDate} onChange={setVisitDate} />
+            <VisitCalendar value={preferredDate} onChange={setVisitDate} />
           </div>
         </div>
 
         <div className="mt-8 grid gap-3">
-          <a href={smsHref} className={buttonClasses("primary", "md", "w-full")}>
+          <a href={smsLink} className={buttonClasses("primary", "md", "w-full")}>
             <MessageSquare className="size-[1.1em]" />
             Text us
           </a>
-          <a href={mailHref} className={buttonClasses("outline", "md", "w-full")}>
+          <a href={mailLink} className={buttonClasses("outline", "md", "w-full")}>
             <Mail className="size-[1.1em]" />
             Email us
           </a>
@@ -116,13 +126,15 @@ export function DayPassDrawer() {
               onClick={copyNumber}
               className="inline-flex h-10 items-center gap-2 border border-line-subtle px-4 font-mono text-[0.8125rem] text-fg transition-colors duration-[160ms] hover:border-gold hover:text-gold"
             >
-              {copied ? <Check className="size-4 text-gold" /> : <Copy className="size-4" />}
-              {copied ? "Copied" : "Copy number"}
+              {copyState === "copied" ? <Check className="size-4 text-gold" /> : <Copy className="size-4" />}
+              {copyState === "copied" ? "Copied" : "Copy number"}
             </button>
           </div>
-          <span role="status" className="sr-only">
-            {copied ? "Phone number copied" : ""}
-          </span>
+          {/* One live region for both outcomes: sighted visitors see the message, screen readers hear it. */}
+          <p role="status" className="mt-3 min-h-5 font-mono text-[0.8125rem] text-muted">
+            {copyState === "copied" ? "Phone number copied." : null}
+            {copyState === "failed" ? "Couldn't copy. Select the number above and copy it." : null}
+          </p>
           <p className="mt-4 font-mono text-[0.8125rem] break-all text-muted">{CONTACT.email}</p>
           <OpenBadge className="mt-6" />
         </div>

@@ -4,11 +4,10 @@ import { FloorBand } from "@/components/home/floor-band";
 import { HighlightStrip } from "@/components/home/highlight-strip";
 import { Ticker } from "@/components/home/ticker";
 import { HOURS } from "@/lib/hours";
+import { pageMetadata } from "@/lib/page-metadata";
 import { ADDRESS, CONTACT, SITE, SITE_URL } from "@/lib/site";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMetadata({ description: SITE.description, path: "/" });
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const toTime = (minutes: number) => `${pad(Math.floor(minutes / 60))}:${pad(minutes % 60)}`;

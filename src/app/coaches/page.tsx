@@ -3,13 +3,14 @@ import Image from "next/image";
 import { CoachesGrid } from "@/components/coaches/coaches-grid";
 import { SplitHeader } from "@/components/ui/split-header";
 import { COACHES } from "@/content/coaches";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Coaches",
   description:
     "Meet the coaches at Gold's Gym Iloilo: Andrew Miano, Vincent Loui Dorde and Jerry Perje. Strength, technique, conditioning and accountability.",
-  alternates: { canonical: "/coaches" },
-};
+  path: "/coaches",
+});
 
 export default function CoachesPage() {
   return (
@@ -24,7 +25,7 @@ export default function CoachesPage() {
           alt=""
           fill
           sizes="(min-width: 1024px) 62vw, 100vw"
-          quality={82}
+          quality={75}
           loading="eager"
           className="object-cover object-[70%_25%] opacity-50"
         />

@@ -5,13 +5,14 @@ import { Stars } from "@/components/reviews/stars";
 import { SplitHeader } from "@/components/ui/split-header";
 import { FAQ } from "@/content/faq";
 import { REVIEWS } from "@/content/reviews";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Reviews + FAQ",
   description:
     "What members say about Gold's Gym Iloilo on Google, and answers to the questions everyone asks before a first visit.",
-  alternates: { canonical: "/reviews-faq" },
-};
+  path: "/reviews-faq",
+});
 
 export default function ReviewsFaqPage() {
   return (
@@ -25,6 +26,7 @@ export default function ReviewsFaqPage() {
             fill
             sizes="100vw"
             quality={75}
+            loading="eager"
             className="object-cover object-[50%_35%] opacity-25"
           />
           <div className="scrim-y absolute inset-0" />
@@ -37,7 +39,10 @@ export default function ReviewsFaqPage() {
           intro="Members say it better than we can. These are verified five-star reviews from Google."
         />
 
-        <section aria-label="Member reviews" className="shell pb-[var(--section-y)]">
+        <section aria-labelledby="reviews-list-title" className="shell pb-[var(--section-y)]">
+          <h2 id="reviews-list-title" className="sr-only">
+            Member reviews
+          </h2>
           <ul className="grid gap-6 lg:grid-cols-3">
             {REVIEWS.map((review) => (
               <li key={review.id} className="flex">
@@ -95,7 +100,7 @@ export default function ReviewsFaqPage() {
                 alt=""
                 fill
                 sizes="420px"
-                quality={84}
+                quality={85}
                 className="object-cover object-center"
               />
             </div>

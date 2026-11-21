@@ -52,7 +52,8 @@ export function manilaClock(date: Date): { day: number; minutes: number } {
   return { day, minutes: Number(get("hour")) * 60 + Number(get("minute")) };
 }
 
-function rangeFor(day: number): DayRange {
+/** Opening range for a weekday (0 = Sunday). Every day of the week has hours. */
+export function rangeFor(day: number): DayRange {
   return HOURS.find((r) => r.days.includes(day)) ?? HOURS[0];
 }
 

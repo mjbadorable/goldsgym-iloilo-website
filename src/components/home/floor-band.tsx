@@ -45,7 +45,7 @@ export function FloorBand() {
               alt="The training floor at Gold's Gym Iloilo: hexagon ceiling lights over dumbbell racks, power racks and benches"
               fill
               sizes="(min-width: 1600px) 640px, (min-width: 1024px) 40vw, 100vw"
-              quality={88}
+              quality={85}
               className="object-cover object-center transition-transform duration-500 ease-[var(--ease-out)] group-hover:scale-[1.03]"
             />
             <div

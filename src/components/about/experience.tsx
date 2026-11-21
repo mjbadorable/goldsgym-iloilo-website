@@ -23,7 +23,7 @@ export function Experience() {
                     alt={item.image.alt}
                     fill
                     sizes="(min-width: 1024px) 32vw, (min-width: 768px) 33vw, 100vw"
-                    quality={88}
+                    quality={85}
                     className="object-cover transition-transform duration-500 ease-[var(--ease-out)] group-hover:scale-[1.05]"
                     style={{ objectPosition: item.image.position }}
                   />
