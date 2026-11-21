@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useDayPass } from "@/components/day-pass/day-pass-provider";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Close, Play } from "@/components/ui/icons";
+import { ArrowRight, ArrowUpRight, Clock, Close, MapPin, Play } from "@/components/ui/icons";
 import { Sheet } from "@/components/ui/sheet";
-import { cn } from "@/lib/cn";
+import { NamedIcon } from "@/components/ui/zone-icons";
 import { PROMO_VIDEO, TOUR_PHOTOS } from "@/content/tour";
+import { cn } from "@/lib/cn";
+import { HOURS, formatMinutes } from "@/lib/hours";
+import { ADDRESS } from "@/lib/site";
 
 /**
  * "Watch the gym": a button plus a slide-over with a photo switcher and the gym's portrait (9:16)
@@ -17,8 +21,14 @@ import { PROMO_VIDEO, TOUR_PHOTOS } from "@/content/tour";
 export function WatchGymButton({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const { open: openDayPass } = useDayPass();
   const photo = TOUR_PHOTOS[index];
   const close = () => setIsOpen(false);
+
+  function claimPass() {
+    close();
+    setTimeout(() => openDayPass(), 250);
+  }
 
   return (
     <>
@@ -88,42 +98,84 @@ export function WatchGymButton({ className }: { className?: string }) {
         </div>
 
         <section aria-labelledby="promo-video-title" className="mt-10 border-t border-line-subtle pt-8">
-          <h3
-            id="promo-video-title"
-            className="font-label text-[1.5rem] leading-none tracking-[0.06em] uppercase"
-          >
-            Promotional Video
-          </h3>
+          <div className="grid gap-6 sm:grid-cols-[minmax(0,300px)_1fr] sm:items-stretch">
+            {/* Portrait 9:16 frame. The iframe only exists while the dialog is open. */}
+            <div className="relative mx-auto aspect-[9/16] w-full max-w-[300px] overflow-hidden border border-line bg-canvas sm:mx-0">
+              <p className="absolute inset-0 grid place-items-center font-mono text-[0.8125rem] text-muted">
+                Loading video&hellip;
+              </p>
+              {isOpen ? (
+                <iframe
+                  src={PROMO_VIDEO.previewUrl}
+                  title={PROMO_VIDEO.title}
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full border-0"
+                />
+              ) : null}
+            </div>
 
-          {/* Portrait 9:16 frame. The iframe only exists while the dialog is open. */}
-          <div className="relative mx-auto mt-5 aspect-[9/16] w-full max-w-[340px] overflow-hidden border border-line bg-canvas">
-            <p className="absolute inset-0 grid place-items-center font-mono text-[0.8125rem] text-muted">
-              Loading video&hellip;
-            </p>
-            {isOpen ? (
-              <iframe
-                src={PROMO_VIDEO.previewUrl}
-                title={PROMO_VIDEO.title}
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-                className="absolute inset-0 h-full w-full border-0"
-              />
-            ) : null}
+            {/* Editorial companion panel filling the wide drawer beside the 9:16 video. */}
+            <div className="flex flex-col justify-between border border-line-subtle bg-surface p-6">
+              <div>
+                <p className="font-label text-[1.125rem] leading-none tracking-[0.12em] text-gold uppercase">
+                  Promotional Video
+                </p>
+                <h3
+                  id="promo-video-title"
+                  className="mt-3 font-display text-[2rem] leading-[0.95] text-fg uppercase"
+                >
+                  See the floor in motion.
+                </h3>
+                <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
+                  Step inside our Iloilo Business Park training floor—Gym80 strength machines, free weights,
+                  cardio bay, and open conditioning space built for serious work.
+                </p>
+
+                <ul className="mt-6 divide-y divide-line-subtle border-y border-line-subtle font-mono text-[0.8125rem]">
+                  <li className="flex items-start gap-3 py-3.5 text-fg">
+                    <NamedIcon name="dumbbell" className="mt-0.5 size-4 shrink-0 text-gold" />
+                    <span>Free Weights · Gym80 Strength · Cardio Bay · Functional Training</span>
+                  </li>
+                  <li className="flex items-start gap-3 py-3.5 text-fg">
+                    <Clock className="mt-0.5 size-4 shrink-0 text-gold" />
+                    <span>
+                      {HOURS.map((r, i) => (
+                        <span key={r.label} className="block">
+                          {r.label}: {formatMinutes(r.open)} – {formatMinutes(r.close)}
+                          {i === 0 ? "" : ""}
+                        </span>
+                      ))}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3 py-3.5 text-fg">
+                    <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
+                    <span>{ADDRESS.oneLine}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                <Button variant="primary" className="w-full" onClick={claimPass}>
+                  Get your free day pass
+                  <ArrowRight className="size-[1.1em]" />
+                </Button>
+                <p className="text-center">
+                  <a
+                    href={PROMO_VIDEO.shareUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline inline-flex items-center gap-1.5 font-mono text-[0.8125rem] text-muted hover:text-fg"
+                  >
+                    Open video in new tab
+                    <ArrowUpRight className="size-4 text-gold" />
+                    <span className="sr-only"> (opens Google Drive in a new tab)</span>
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
-
-          <p className="mt-4 text-center">
-            <a
-              href={PROMO_VIDEO.shareUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline inline-flex items-center gap-1.5 font-mono text-[0.8125rem] text-muted hover:text-fg"
-            >
-              Open video in new tab
-              <ArrowUpRight className="size-4 text-gold" />
-              <span className="sr-only"> (opens Google Drive in a new tab)</span>
-            </a>
-          </p>
         </section>
       </Sheet>
     </>
