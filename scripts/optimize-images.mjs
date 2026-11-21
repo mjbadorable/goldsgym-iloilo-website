@@ -41,6 +41,7 @@ const jobs = [
     "incline-press-bw.jpg",
     "yellow-plate-floor.jpg",
     "dumbbell-rack-dark.jpg",
+    "golds-mesh-emblem.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
 
   // Social share card: crop of the training floor photo.

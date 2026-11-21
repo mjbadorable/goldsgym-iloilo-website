@@ -74,21 +74,6 @@ export default function ReviewsFaqPage() {
         aria-labelledby="faq-title"
         className="relative isolate overflow-hidden border-t border-line-subtle bg-surface"
       >
-        {/* A Gym80 plate on the rubber floor, faded in from the lower-left corner. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-28 -left-28 -z-10 hidden size-[520px] opacity-30 [mask-image:radial-gradient(closest-side,black_35%,transparent)] lg:block"
-        >
-          <Image
-            src="/images/yellow-plate-floor.jpg"
-            alt=""
-            fill
-            sizes="520px"
-            quality={75}
-            className="object-cover object-[50%_55%]"
-          />
-        </div>
-
         <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-16 md:px-10 lg:grid-cols-12 lg:gap-8 lg:py-24">
           <div className="lg:col-span-5">
             <h2
@@ -101,6 +86,19 @@ export default function ReviewsFaqPage() {
               The questions everyone asks before walking in for the first time are answered, so there&rsquo;s
               nothing to figure out on the day.
             </p>
+            <div
+              aria-hidden="true"
+              className="relative mt-8 hidden aspect-square w-full max-w-[420px] overflow-hidden opacity-85 [mask-image:radial-gradient(closest-side,black_60%,transparent)] lg:block"
+            >
+              <Image
+                src="/images/golds-mesh-emblem.jpg"
+                alt=""
+                fill
+                sizes="420px"
+                quality={84}
+                className="object-cover object-center"
+              />
+            </div>
           </div>
 
           <div className="lg:col-span-7">
