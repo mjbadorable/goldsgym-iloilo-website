@@ -71,7 +71,7 @@ test("coach names, roles and specialties are verbatim from the Framer site", () 
   );
 });
 
-test("every coach has a profile (bio, experience, focus, achievements) and a real portrait", () => {
+test("every coach has a profile (bio, experience, focus, achievements) and real photos", () => {
   for (const coach of COACHES) {
     assert.ok(coach.bio.trim().length > 40, `${coach.id}: bio missing or too short`);
     assert.ok(coach.experience.trim().length > 20, `${coach.id}: experience missing`);
@@ -79,14 +79,20 @@ test("every coach has a profile (bio, experience, focus, achievements) and a rea
     assert.ok(coach.achievements.length >= 1 && coach.achievements.every((a) => a.trim()), `${coach.id}: achievements`);
     assert.ok(existsSync(`public${coach.image.src}`), `${coach.id}: missing portrait public${coach.image.src}`);
     assert.ok(coach.image.alt.length > 10, `${coach.id}: weak alt text`);
+    for (const photo of coach.gallery ?? []) {
+      assert.ok(existsSync(`public${photo.src}`), `${coach.id}: missing gallery photo public${photo.src}`);
+      assert.ok(photo.alt.length > 10, `${coach.id}: weak gallery alt text`);
+      assert.ok(photo.caption.trim().length > 3, `${coach.id}: missing gallery caption`);
+    }
   }
 });
 
 test("draft coach profiles do not invent years, certifications or competition results", () => {
-  // The gym has not supplied these facts. If a real one is added later, update this guard deliberately.
+  // Only unverified draft coaches are guarded here; verified coaches carry owner-supplied records.
   const forbidden =
     /\b\d+\s*\+?\s*(years?|yrs?)\b|\bcertif|\bchampion|\bwon\b|\bwinner|\bmedal|\btrophy|\bIFBB\b|\bNASM\b|\bACE\b|\bISSA\b|\bCrossFit\b|\bformer\b|\bmaster'?s?\b|\bdegree\b/i;
   for (const coach of COACHES) {
+    if (coach.verified) continue;
     const text = [coach.bio, coach.experience, ...coach.coachingFocus, ...coach.achievements].join(" ");
     assert.doesNotMatch(text, forbidden, `${coach.id}: profile text looks like an unverified credential`);
   }

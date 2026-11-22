@@ -9,19 +9,34 @@
 // title or a competition result. When real details arrive, replace the text; keep the same shape.
 // A test (content.test.ts) fails if a draft line starts to sound like an unverified credential.
 
+export type CoachGalleryPhoto = {
+  src: string;
+  alt: string;
+  caption: string;
+  position?: string;
+};
+
 export type Coach = {
   id: string;
   name: string;
   role: string;
   specialties: string[];
   image: { src: string; alt: string };
-  /** About & coaching approach. REVIEW WITH OWNER & COACHES BEFORE LAUNCH. */
+  /** True once the owner/coach has supplied real bio, awards and certifications. */
+  verified?: boolean;
+  /** About & coaching approach. */
   bio: string;
-  /** Experience summary, grounded in role only. REVIEW WITH OWNER & COACHES BEFORE LAUNCH. */
+  /** Experience summary. */
   experience: string;
-  /** What this coach works on with members. REVIEW WITH OWNER & COACHES BEFORE LAUNCH. */
+  /** Specializations & what this coach works on with members. */
   coachingFocus: string[];
-  /** Highlights. No awards or records are claimed until supplied. REVIEW WITH OWNER & COACHES BEFORE LAUNCH. */
+  /** Verified competition placements and appearances. */
+  competitions?: string[];
+  /** Verified certifications. */
+  certifications?: string[];
+  /** Competition or coaching photos shown in the modal photo switcher. */
+  gallery?: CoachGalleryPhoto[];
+  /** Fallback highlights for coaches whose full credentials are still pending. */
   achievements: string[];
 };
 
@@ -31,17 +46,64 @@ export const COACHES: Coach[] = [
     name: "Andrew Miano",
     role: "Fitness Coach",
     specialties: ["Strength", "Technique", "Programming"],
+    verified: true,
     image: {
       src: "/images/coach-andrew-miano.jpg",
       alt: "Coach Andrew Miano, wearing glasses and a Gold's Gym shirt, arms crossed on the training floor",
     },
-    // REVIEW WITH OWNER & COACHES BEFORE LAUNCH
-    bio: "Andrew is one of the fitness coaches at Gold’s Gym Iloilo. His areas are strength, technique and programming: learning the lifts properly first, then building a plan around what you want to achieve.",
-    experience: "Fitness Coach at Gold’s Gym Iloilo, coaching in strength, technique and programming.",
-    coachingFocus: ["Strength fundamentals", "Lifting technique", "Programming around your goals"],
+    bio: "Andrew is a competitive Men’s Physique athlete and certified fitness coach at Gold’s Gym Iloilo. He combines structured strength training, conditioning, and stage-tested discipline to build personalized programs—whether your goal is fat loss and toning, boxing and circuit conditioning, or stepping onto a competition stage.",
+    experience:
+      "Competitive Men’s Physique athlete and 1-on-1 Fitness Coach at Gold’s Gym Iloilo specializing in personalized workout programming, physique conditioning, and supplement guidance.",
+    coachingFocus: [
+      "Strength Training",
+      "Conditioning",
+      "Competition Prep",
+      "Weight Loss / Toning",
+      "Supplement Guide",
+      "1-on-1 Training",
+      "Boxing & Circuit",
+      "Personalized Workout Program",
+    ],
+    competitions: [
+      "1st — Novice Category, Mr. Iloilo Men’s Physique 2023",
+      "2nd — Open Category, Mr. Iloilo Men’s Physique 2023",
+      "IFBB Philippines Bodybuilding Open Category — Men’s Physique 2025",
+    ],
+    certifications: [
+      "Red Cross First Aider Certificate",
+      "Batang Hipe Certificate",
+      "IFA Academy Certificate",
+    ],
+    gallery: [
+      {
+        src: "/images/coach-andrew-ifbb-2025.jpg",
+        alt: "Coach Andrew Miano posing on stage at IFBB Philippines Boracay Men's Physique Open 2025",
+        caption: "IFBB Philippines 2025 · Men’s Physique Open",
+        position: "50% 25%",
+      },
+      {
+        src: "/images/coach-andrew-iloilo-stage.jpg",
+        alt: "Coach Andrew Miano posing on stage at Mr. Iloilo Men's Physique 2023",
+        caption: "Mr. Iloilo 2023 · Stage Presentation",
+        position: "48% 28%",
+      },
+      {
+        src: "/images/coach-andrew-iloilo-award-2.jpg",
+        alt: "Coach Andrew Miano receiving his certificate on stage at Mr. Iloilo 2023",
+        caption: "Mr. Iloilo 2023 · Men’s Physique Award",
+        position: "50% 22%",
+      },
+      {
+        src: "/images/coach-andrew-iloilo-award-1.jpg",
+        alt: "Coach Andrew Miano awarded medal and certificate at Mr. Iloilo 2023",
+        caption: "Mr. Iloilo 2023 · Podium Ceremony",
+        position: "50% 22%",
+      },
+    ],
     achievements: [
-      "Fitness Coach at Gold’s Gym Iloilo",
-      "Specialties: strength, technique and programming",
+      "1st — Novice Category, Mr. Iloilo Men’s Physique 2023",
+      "2nd — Open Category, Mr. Iloilo Men’s Physique 2023",
+      "IFBB Philippines Bodybuilding Open Category — Men’s Physique 2025",
     ],
   },
   {

@@ -42,6 +42,10 @@ const jobs = [
     "yellow-plate-floor.jpg",
     "dumbbell-rack-dark.jpg",
     "golds-mesh-emblem.jpg",
+    "coach-andrew-ifbb-2025.jpg",
+    "coach-andrew-iloilo-stage.jpg",
+    "coach-andrew-iloilo-award-1.jpg",
+    "coach-andrew-iloilo-award-2.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
 
   // Owner-supplied 1376x768 atmospheric photo for the /coaches header. It sits behind a scrim at 50%
