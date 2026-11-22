@@ -13,7 +13,7 @@ const SRC = "assets/framer-originals";
 const SUPPLIED = "assets/supplied";
 const OUT = "public/images";
 
-/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},format:"jpeg"|"png",quality?:number}>} */
+/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},enhance?:boolean,format:"jpeg"|"png",quality?:number}>} */
 const jobs = [
   // Brand mark: kept as PNG (has alpha). 4610px original is far larger than any use.
   { src: "hLsPsBg5BFF1IXD5xDZkqRWeg.png", out: "gold-logo.png", width: 640, format: "png" },
@@ -42,11 +42,16 @@ const jobs = [
     "yellow-plate-floor.jpg",
     "dumbbell-rack-dark.jpg",
     "golds-mesh-emblem.jpg",
+  ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
+
+  // Coach Andrew competition stage photos: subtle editorial clarity, deeper stage blacks,
+  // and balanced warm contrast (untouched originals remain in assets/supplied/).
+  ...[
     "coach-andrew-ifbb-2025.jpg",
     "coach-andrew-iloilo-stage.jpg",
     "coach-andrew-iloilo-award-1.jpg",
     "coach-andrew-iloilo-award-2.jpg",
-  ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
+  ].map((file) => ({ dir: SUPPLIED, src: file, out: file, enhance: true, format: "jpeg", quality: 86 })),
 
   // Owner-supplied 1376x768 atmospheric photo for the /coaches header. It sits behind a scrim at 50%
   // opacity, so a lower JPEG quality is invisible; the original was 712 KB.
@@ -78,6 +83,12 @@ for (const job of jobs) {
       position: job.position,
       withoutEnlargement: true,
     });
+  }
+  if (job.enhance) {
+    img = img
+      .linear(1.06, -8)
+      .modulate({ brightness: 1.0, saturation: 1.08 })
+      .sharpen({ sigma: 0.8, m1: 0.5, m2: 0.9 });
   }
   img =
     job.format === "png"
