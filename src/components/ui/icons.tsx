@@ -243,3 +243,31 @@ export const Utensils = (p: IconProps) => (
     <path d="M5 3v6a3 3 0 0 0 6 0V3M8 3v18M18 3v18M18 3c-2 2-2.5 5-2.5 8.5H18" />
   </Icon>
 );
+
+export const Home = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M3.5 10.5 12 3.5l8.5 7" />
+    <path d="M5.5 9.5V20h13V9.5" />
+    <path d="M9.5 20v-5.5h5V20" />
+  </Icon>
+);
+
+export const Info = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 16v-4.5M12 8.25h.01" />
+  </Icon>
+);
+
+export const HelpCircle = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M9.5 9.5a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.1-2.5 3.6M12 17h.01" />
+  </Icon>
+);
+
+export const ChevronRight = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m9 6 6 6-6 6" />
+  </Icon>
+);
