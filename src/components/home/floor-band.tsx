@@ -108,8 +108,8 @@ export function FloorBand() {
                   <div key={range.label} className="flex items-start gap-4 py-4">
                     <RangeIcon className="mt-0.5 size-6 shrink-0 text-gold" />
                     <div>
-                      <dt className="font-mono text-[0.875rem] text-muted">{range.label}</dt>
-                      <dd className="mt-1 font-mono text-[clamp(1.125rem,1.7vw,1.375rem)] leading-tight text-fg tabular-nums">
+                      <dt className="text-[0.875rem] font-medium text-muted">{range.label}</dt>
+                      <dd className="mt-1 text-[clamp(1.125rem,1.6vw,1.375rem)] font-semibold leading-tight text-fg tabular-nums">
                         {formatMinutes(range.open)} – {formatMinutes(range.close)}
                       </dd>
                     </div>
@@ -117,7 +117,7 @@ export function FloorBand() {
                 );
               })}
             </dl>
-            <p className="mt-3 flex items-center gap-2 font-mono text-[0.8125rem] text-muted">
+            <p className="mt-3 flex items-center gap-2 text-[0.8125rem] text-muted">
               <Globe className="size-4 shrink-0 text-gold" />
               Philippine time (Asia/Manila)
             </p>
@@ -128,15 +128,10 @@ export function FloorBand() {
               <MapPin className="size-6 shrink-0 text-gold" />
               Location
             </h2>
-            <address className="mt-5 flex gap-3 not-italic">
+            <address className="mt-4 flex items-start gap-3 not-italic">
               <MapPin className="mt-1 size-4 shrink-0 text-gold" />
-              <p className="font-mono text-[1rem] leading-relaxed text-fg">
-                <span className="block font-bold">{streetLine}</span>
-                {restLines.map((line) => (
-                  <span key={line} className="block text-fg/90">
-                    {line}
-                  </span>
-                ))}
+              <p className="text-[0.9375rem] leading-relaxed text-fg/90">
+                <span className="font-semibold text-fg">{streetLine}</span>, {restLines.join(", ")}
               </p>
             </address>
             <a
