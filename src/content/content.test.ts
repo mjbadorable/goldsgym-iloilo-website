@@ -64,9 +64,9 @@ test("coach names, roles and specialties match verified and Framer records", () 
   assert.deepEqual(
     COACHES.map((c) => [c.name, c.role, c.specialties.join(" / ")]),
     [
-      ["Andrew Miano", "Fitness Coach", "Strength & Conditioning / Competition Prep / Weight Loss / Toning / Boxing & Circuit"],
-      ["Vincent Loui Dorde", "Fitness Coach", "Strength & Conditioning / Weight Loss & Toning / Nutrition Planning / 1-on-1 HIIT Training"],
-      ["Jerry Perje", "Fitness Coach", "Strength & Flexibility / Sports Conditioning / Nutrition Planning / One-on-One Coaching"],
+      ["Andrew Miano", "Fitness Coach", "Strength & Conditioning / Competition Prep"],
+      ["Vincent Loui Dorde", "Fitness Coach", "Strength & Conditioning / Weight Loss & Toning"],
+      ["Jerry Perje", "Fitness Coach", "Strength & Flexibility / Sports Conditioning"],
     ],
   );
 });

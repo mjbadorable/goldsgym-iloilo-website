@@ -45,7 +45,7 @@ export const COACHES: Coach[] = [
     id: "andrew-miano",
     name: "Andrew Miano",
     role: "Fitness Coach",
-    specialties: ["Strength & Conditioning", "Competition Prep", "Weight Loss / Toning", "Boxing & Circuit"],
+    specialties: ["Strength & Conditioning", "Competition Prep"],
     verified: true,
     image: {
       src: "/images/coach-andrew-miano.jpg",
@@ -110,7 +110,7 @@ export const COACHES: Coach[] = [
     id: "vincent-loui-dorde",
     name: "Vincent Loui Dorde",
     role: "Fitness Coach",
-    specialties: ["Strength & Conditioning", "Weight Loss & Toning", "Nutrition Planning", "1-on-1 HIIT Training"],
+    specialties: ["Strength & Conditioning", "Weight Loss & Toning"],
     verified: true,
     image: {
       src: "/images/coach-vincent-loui-dorde.jpg",
@@ -157,7 +157,7 @@ export const COACHES: Coach[] = [
     id: "jerry-perje",
     name: "Jerry Perje",
     role: "Fitness Coach",
-    specialties: ["Strength & Flexibility", "Sports Conditioning", "Nutrition Planning", "One-on-One Coaching"],
+    specialties: ["Strength & Flexibility", "Sports Conditioning"],
     verified: true,
     image: {
       src: "/images/coach-jerry-perje.jpg",
