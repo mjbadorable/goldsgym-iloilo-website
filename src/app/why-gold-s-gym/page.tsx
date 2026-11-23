@@ -37,7 +37,7 @@ export default function AboutPage() {
           <div className="scrim-x absolute -inset-px" />
         </div>
 
-        <div className="shell flex min-h-[420px] items-center py-12 lg:min-h-[clamp(520px,42svh,640px)]">
+        <div className="shell flex min-h-[300px] items-center py-10 lg:min-h-[clamp(340px,34svh,420px)] lg:py-12">
           <div>
             <h1
               id="about-title"
@@ -45,11 +45,11 @@ export default function AboutPage() {
             >
               <span className="text-fg">Built to</span> <span className="text-gold">train.</span>
             </h1>
-            <p className="mt-6 max-w-[38ch] text-[length:var(--text-body)] text-fg/85">
+            <p className="mt-4 max-w-[38ch] text-[length:var(--text-body)] text-fg/85">
               A complete training environment with the tools, space, and support you need to reach your goals.
             </p>
             {/* Jump links to the four zone cards below. Smooth scrolling is global (and off under reduced motion). */}
-            <nav aria-label="Training zones" className="mt-8">
+            <nav aria-label="Training zones" className="mt-6">
               <ul className="flex flex-wrap gap-2">
                 {ZONES.map((zone) => (
                   <li key={zone.id}>
