@@ -128,7 +128,7 @@ export const COACHES: Coach[] = [
     ],
     competitions: [
       "Mr. Iloilo 2022 — Men’s Physique Tall",
-      "5th Place — Mr. Fit Man Code, Get Wheysted Bacolod 2024 (Men’s Physique Tall)",
+      "5th Place — Mr. Fit Man Code · Get Wheysted Bacolod 2024",
       "AGP Philippines 2026 — Men’s Physique Tall Novice",
       "AGP Philippines 2026 — Men’s Physique Tall True Novice",
     ],
@@ -148,7 +148,7 @@ export const COACHES: Coach[] = [
     ],
     achievements: [
       "Mr. Iloilo 2022 — Men’s Physique Tall",
-      "5th Place — Mr. Fit Man Code, Get Wheysted Bacolod 2024 (Men’s Physique Tall)",
+      "5th Place — Mr. Fit Man Code · Get Wheysted Bacolod 2024",
       "AGP Philippines 2026 — Men’s Physique Tall Novice",
       "AGP Philippines 2026 — Men’s Physique Tall True Novice",
     ],
@@ -179,6 +179,12 @@ export const COACHES: Coach[] = [
       "3rd Place — Asian Grand Prix Philippines 2026, Men’s Physique True Novice",
     ],
     gallery: [
+      {
+        src: "/images/coach-jerry-kg-classic-2023.jpg",
+        alt: "Coach Jerry Perje wearing his gold medal as KG Classic 2023 Men's Physique Novice Champion",
+        caption: "KG Classic 2023 · Men’s Physique Novice Champion",
+        position: "50% 18%",
+      },
       {
         src: "/images/coach-jerry-agp-2026-1.jpg",
         alt: "Coach Jerry Perje posing on stage at Asian Grand Prix Philippines 2026 Men's Physique",

@@ -53,10 +53,11 @@ const jobs = [
     "coach-andrew-iloilo-award-2.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, enhance: true, format: "jpeg", quality: 86 })),
 
-  // Coach Vincent competition stage photos (already crisp pro stage shots; mozjpeg optimize only).
+  // Coach Vincent & Coach Jerry pro stage photos (already crisp; mozjpeg optimize only).
   ...[
     "coach-vincent-agp-2026-1.jpg",
     "coach-vincent-agp-2026-2.jpg",
+    "coach-jerry-kg-classic-2023.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 86 })),
 
   // Coach Jerry competition stage photos: balanced contrast and subtle clarity for stage haze.
