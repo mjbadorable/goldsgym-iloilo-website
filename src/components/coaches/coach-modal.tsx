@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check, Close, Trophy } from "@/components/ui/icons";
 import type { Coach } from "@/content/coaches";
@@ -19,11 +19,14 @@ type Props = {
 };
 
 const sectionTitle = "font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase";
-const section = "mt-6 border-t border-line-subtle pt-6";
+const navLink =
+  "inline-flex min-h-11 items-center gap-2 font-label text-[1.125rem] leading-none tracking-[0.08em] text-muted uppercase transition-colors duration-[160ms] hover:text-gold";
 
 /**
- * Enlarged, centered coach profile: portrait + optional competition photo gallery on the left,
- * full credentials on the right, and Previous / Next so visitors can browse all coaches.
+ * Coach profile, laid out like a magazine spread: portrait (with the competition photo gallery laid
+ * over its foot) on the left; on the right a short intro with the primary action, then the dossier
+ * (about, specializations, competitions, certifications) and a slim Previous / Next row.
+ * The panel keeps one height for every coach, so switching coaches never makes it jump.
  */
 export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onTrain }: Props) {
   const { ref, dialogProps } = useModalDialog(isOpen, onClose);
@@ -34,10 +37,20 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
   const activePhotoIdx = photoState.coachId === coach.id ? photoState.idx : 0;
 
   const photos = [
-    { src: coach.image.src, alt: coach.image.alt, caption: `${coach.name} — Training Floor`, position: "50% 0%" },
+    {
+      src: coach.image.src,
+      alt: coach.image.alt,
+      caption: `${coach.name} — Training Floor`,
+      position: "50% 16%",
+    },
     ...(coach.gallery ?? []),
   ];
   const activePhoto = photos[activePhotoIdx] ?? photos[0];
+
+  // The dossier scrolls inside the panel and would otherwise reopen where it was left.
+  useEffect(() => {
+    if (isOpen) detailsRef.current?.scrollTo({ top: 0 });
+  }, [isOpen, index]);
 
   const go = (delta: number) => {
     onIndexChange((index + delta + coaches.length) % coaches.length);
@@ -55,7 +68,7 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
         if (e.key === "ArrowLeft") go(-1);
       }}
     >
-      <div className="coach-modal-panel md:grid md:grid-cols-[45fr_55fr]">
+      <div className="coach-modal-panel grid grid-rows-[auto_minmax(0,1fr)] md:grid-cols-[42fr_58fr] md:grid-rows-1">
         <button
           type="button"
           onClick={onClose}
@@ -66,40 +79,37 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
           <Close className="size-6" />
         </button>
 
-        {/* Left media stage: main portrait + optional competition stage photo switcher. */}
-        <div className="relative flex flex-col border-b border-line-subtle bg-canvas md:h-full md:min-h-[580px] md:border-r md:border-b-0">
-          <div className="relative aspect-[4/5] flex-1 overflow-hidden md:aspect-auto">
-            {photos.map((p, i) => (
-              <Image
-                key={p.src}
-                src={p.src}
-                alt={i === activePhotoIdx ? p.alt : ""}
-                aria-hidden={i === activePhotoIdx ? undefined : true}
-                fill
-                sizes="(min-width: 960px) 432px, (min-width: 768px) 45vw, 100vw"
-                quality={85}
-                className={cn(
-                  "object-cover transition-opacity duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-                  i === activePhotoIdx ? "opacity-100" : "opacity-0",
-                )}
-                style={{ objectPosition: p.position ?? "50% 15%" }}
-              />
-            ))}
-            {photos.length > 1 ? (
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-canvas via-canvas/70 to-transparent"
-              />
-            ) : null}
-          </div>
+        {/* Left stage: the portrait, with the photo switcher laid over its gradient foot. */}
+        <div className="relative aspect-[4/3] max-h-[42svh] overflow-hidden border-b border-line-subtle bg-canvas sm:aspect-square md:aspect-auto md:max-h-none md:border-r md:border-b-0">
+          {photos.map((p, i) => (
+            <Image
+              key={p.src}
+              src={p.src}
+              alt={i === activePhotoIdx ? p.alt : ""}
+              aria-hidden={i === activePhotoIdx ? undefined : true}
+              fill
+              sizes="(min-width: 1060px) 428px, (min-width: 768px) 42vw, 100vw"
+              quality={85}
+              className={cn(
+                "object-cover transition-opacity duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                i === activePhotoIdx ? "opacity-100" : "opacity-0",
+              )}
+              style={{ objectPosition: p.position ?? "50% 15%" }}
+            />
+          ))}
 
           {photos.length > 1 ? (
-            <div className="border-t border-line-subtle bg-canvas/95 p-3.5">
-              <p aria-live="polite" className="mb-2.5 truncate font-mono text-[0.75rem] text-muted">
-                <span className="text-gold">{activePhotoIdx + 1}/{photos.length}</span>{" "}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas via-canvas/75 to-transparent px-4 pt-14 pb-4 md:px-6 md:pt-20 md:pb-6">
+              <p aria-live="polite" className="mb-2.5 truncate font-mono text-[0.75rem] text-fg/85">
+                <span className="text-gold">
+                  {activePhotoIdx + 1}/{photos.length}
+                </span>
+                <span aria-hidden="true" className="text-muted">
+                  {" · "}
+                </span>
                 {activePhoto.caption}
               </p>
-              <div role="group" aria-label={`${coach.name} photos`} className="grid grid-cols-5 gap-2">
+              <div role="group" aria-label={`${coach.name} photos`} className="flex gap-1.5">
                 {photos.map((p, i) => (
                   <button
                     key={p.src}
@@ -108,15 +118,17 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
                     aria-pressed={i === activePhotoIdx}
                     onClick={() => setPhotoState({ coachId: coach.id, idx: i })}
                     className={cn(
-                      "relative aspect-square overflow-hidden border transition-[border-color,opacity] duration-[160ms]",
-                      i === activePhotoIdx ? "border-gold opacity-100" : "border-line-subtle opacity-65 hover:opacity-100",
+                      "relative size-11 shrink-0 overflow-hidden border transition-[border-color,opacity] duration-[160ms]",
+                      i === activePhotoIdx
+                        ? "border-gold opacity-100"
+                        : "border-line-subtle opacity-70 hover:opacity-100",
                     )}
                   >
                     <Image
                       src={p.src}
                       alt=""
                       fill
-                      sizes="80px"
+                      sizes="44px"
                       quality={75}
                       className="object-cover"
                       style={{ objectPosition: p.position ?? "50% 15%" }}
@@ -128,118 +140,116 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
           ) : null}
         </div>
 
-        <div className="flex min-h-0 flex-col md:max-h-[calc(100dvh-48px)]">
-          <div ref={detailsRef} className="flex-1 overflow-y-auto p-6 md:p-10 md:pb-6">
+        {/* Right column: scrolling dossier above a slim, always-reachable Previous / Next row. */}
+        <div className="flex min-h-0 flex-col">
+          <div ref={detailsRef} className="min-h-0 flex-1 overflow-y-auto px-6 pt-6 pb-8 md:px-10 md:pt-10">
             <div key={coach.id} className="coach-swap">
-              <h2
-                id="coach-modal-title"
-                className="pr-12 font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] uppercase"
-              >
-                {coach.name}
-              </h2>
-              <p className="mt-3 font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase">
-                {coach.role}
-              </p>
-              <ul className="mt-5 flex flex-wrap gap-2" aria-label="Specialties">
-                {coach.specialties.map((s) => (
-                  <li key={s} className="border border-line-subtle px-3 py-1.5 font-mono text-[0.8125rem] text-fg">
-                    {s}
-                  </li>
-                ))}
-              </ul>
+              <div className="border-b border-line-subtle pb-6">
+                <h2
+                  id="coach-modal-title"
+                  className="font-display text-[clamp(2rem,3.6vw,2.75rem)] leading-[1] uppercase md:pr-12"
+                >
+                  {coach.name}
+                </h2>
+                <p className="mt-3 font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase">
+                  {coach.role}
+                </p>
+                <Button className="mt-5 w-full sm:w-auto" onClick={onTrain}>
+                  Train with {firstName}
+                  <ArrowRight className="size-[1.1em]" />
+                </Button>
+              </div>
 
-              {/* Primary action sits above the fold of the scrolling column, before the long-form sections. */}
-              <Button className="mt-6 w-full sm:w-auto" onClick={onTrain}>
-                Train with {firstName}
-                <ArrowRight className="size-[1.1em]" />
-              </Button>
-
-              <section className={section} aria-labelledby="coach-about">
-                <h3 id="coach-about" className={sectionTitle}>
-                  About &amp; coaching approach
-                </h3>
-                <p className="mt-3 max-w-[56ch] text-[1rem] text-muted">{coach.bio}</p>
-              </section>
-
-              <section className={section} aria-labelledby="coach-experience">
-                <h3 id="coach-experience" className={sectionTitle}>
-                  {coach.verified ? "Specializations" : "Experience & focus"}
-                </h3>
-                <p className="mt-3 max-w-[56ch] text-[1rem] text-muted">{coach.experience}</p>
-                <ul className="mt-4 flex flex-wrap gap-2" aria-label="Coaching specializations">
-                  {coach.coachingFocus.map((f) => (
-                    <li key={f} className="border border-line px-3 py-1.5 font-mono text-[0.8125rem] text-fg">
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              {coach.competitions && coach.competitions.length > 0 ? (
-                <section className={section} aria-labelledby="coach-competitions">
-                  <h3 id="coach-competitions" className={sectionTitle}>
-                    Competitions &amp; awards
+              <div className="space-y-7 pt-7">
+                <section aria-labelledby="coach-about">
+                  <h3 id="coach-about" className={sectionTitle}>
+                    About &amp; coaching approach
                   </h3>
-                  <ul className="mt-3 space-y-2.5">
-                    {coach.competitions.map((comp) => (
-                      <li key={comp} className="flex items-start gap-3 text-[1rem] text-fg">
-                        <Trophy className="mt-1 size-4 shrink-0 text-gold" />
-                        <span>{comp}</span>
+                  <p className="mt-3 max-w-[54ch] text-[1rem] leading-[1.7] text-fg/85">{coach.bio}</p>
+                </section>
+
+                <section aria-labelledby="coach-experience">
+                  <h3 id="coach-experience" className={sectionTitle}>
+                    {coach.verified ? "Specializations" : "Experience & focus"}
+                  </h3>
+                  <p className="mt-3 max-w-[54ch] text-[1rem] leading-[1.7] text-fg/85">{coach.experience}</p>
+                  <ul
+                    className="mt-4 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2"
+                    aria-label="Coaching specializations"
+                  >
+                    {coach.coachingFocus.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-[0.9375rem] leading-snug text-fg">
+                        <span aria-hidden="true" className="mt-[0.6em] h-0.5 w-3 shrink-0 bg-gold" />
+                        {f}
                       </li>
                     ))}
                   </ul>
                 </section>
-              ) : null}
 
-              {coach.certifications && coach.certifications.length > 0 ? (
-                <section className={section} aria-labelledby="coach-certifications">
-                  <h3 id="coach-certifications" className={sectionTitle}>
-                    Certifications
-                  </h3>
-                  <ul className="mt-3 space-y-2">
-                    {coach.certifications.map((cert) => (
-                      <li key={cert} className="flex items-start gap-3 text-[1rem] text-muted">
-                        <Check className="mt-1 size-4 shrink-0 text-gold" />
-                        <span>{cert}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ) : (
-                <section className={section} aria-labelledby="coach-highlights">
-                  <h3 id="coach-highlights" className={sectionTitle}>
-                    Highlights
-                  </h3>
-                  <ul className="mt-3 space-y-2">
-                    {coach.achievements.map((a) => (
-                      <li key={a} className="flex items-start gap-3 text-[1rem] text-muted">
-                        <Check className="mt-1 size-4 shrink-0 text-gold" />
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
+                {coach.competitions && coach.competitions.length > 0 ? (
+                  <section aria-labelledby="coach-competitions">
+                    <h3 id="coach-competitions" className={sectionTitle}>
+                      Competitions &amp; awards
+                    </h3>
+                    <ul className="mt-3 space-y-3">
+                      {coach.competitions.map((comp) => (
+                        <li key={comp} className="flex items-start gap-3 text-[1rem] leading-snug text-fg">
+                          <Trophy className="mt-0.5 size-5 shrink-0 text-gold" />
+                          <span>{comp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+
+                {coach.certifications && coach.certifications.length > 0 ? (
+                  <section aria-labelledby="coach-certifications">
+                    <h3 id="coach-certifications" className={sectionTitle}>
+                      Certifications
+                    </h3>
+                    <ul className="mt-3 space-y-2.5">
+                      {coach.certifications.map((cert) => (
+                        <li key={cert} className="flex items-start gap-3 text-[1rem] leading-snug text-fg">
+                          <Check className="mt-0.5 size-5 shrink-0 text-gold" />
+                          <span>{cert}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : (
+                  <section aria-labelledby="coach-highlights">
+                    <h3 id="coach-highlights" className={sectionTitle}>
+                      Highlights
+                    </h3>
+                    <ul className="mt-3 space-y-2.5">
+                      {coach.achievements.map((a) => (
+                        <li key={a} className="flex items-start gap-3 text-[1rem] leading-snug text-fg">
+                          <Check className="mt-0.5 size-5 shrink-0 text-gold" />
+                          <span>{a}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+              </div>
             </div>
           </div>
 
           <nav
             aria-label="Browse coaches"
-            className="sticky bottom-0 z-[1] flex items-center justify-between gap-3 border-t border-line-subtle bg-elevated p-4 md:px-10"
+            className="flex shrink-0 items-center justify-between gap-3 border-t border-line-subtle px-6 py-2 md:px-10"
           >
-            <Button variant="outline" size="sm" onClick={() => go(-1)}>
+            <button type="button" onClick={() => go(-1)} className={navLink}>
               <ArrowLeft className="size-[1.1em]" />
-              <span className="hidden sm:inline">Previous coach</span>
-              <span className="sm:hidden">Previous</span>
-            </Button>
+              Previous
+            </button>
             <p className="font-mono text-[0.8125rem] text-muted" aria-live="polite">
-              {index + 1} of {coaches.length}
+              {index + 1} / {coaches.length}
             </p>
-            <Button variant="outline" size="sm" onClick={() => go(1)}>
-              <span className="hidden sm:inline">Next coach</span>
-              <span className="sm:hidden">Next</span>
+            <button type="button" onClick={() => go(1)} className={navLink}>
+              Next
               <ArrowRight className="size-[1.1em]" />
-            </Button>
+            </button>
           </nav>
         </div>
       </div>
