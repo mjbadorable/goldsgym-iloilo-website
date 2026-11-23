@@ -66,7 +66,7 @@ test("coach names, roles and specialties match verified and Framer records", () 
     [
       ["Andrew Miano", "Fitness Coach", "Strength & Conditioning / Competition Prep / Weight Loss / Toning / Boxing & Circuit"],
       ["Vincent Loui Dorde", "Fitness Coach", "Strength & Conditioning / Weight Loss & Toning / Nutrition Planning / 1-on-1 HIIT Training"],
-      ["Jerry Perje", "Fitness Coach", "Conditioning / Movement / Accountability"],
+      ["Jerry Perje", "Fitness Coach", "Strength & Flexibility / Sports Conditioning / Nutrition Planning / One-on-One Coaching"],
     ],
   );
 });

@@ -50,12 +50,12 @@ function SpecializationIcon({ label }: { label: string }) {
   if (key.includes("weight") || key.includes("toning") || key.includes("fat")) return <Flame className={cls} />;
   if (key.includes("nutrition")) return <Utensils className={cls} />;
   if (key.includes("supplement")) return <Pill className={cls} />;
-  if (key.includes("1-on-1") || key.includes("personal training")) return <User className={cls} />;
+  if (key.includes("1-on-1") || key.includes("one-on-one") || key.includes("personal training")) return <User className={cls} />;
   if (key.includes("boxing") || key.includes("circuit")) return <BoxingGlove className={cls} />;
   if (key.includes("program") || key.includes("personalized")) return <Star className={cls} />;
   if (key.includes("movement") || key.includes("form")) return <Pulse className={cls} />;
   if (key.includes("progression")) return <ArrowUpRight className={cls} />;
-  if (key.includes("accountab")) return <ShieldCheck className={cls} />;
+  if (key.includes("accountab") || key.includes("safe") || key.includes("effective")) return <ShieldCheck className={cls} />;
   return <Sparkle className={cls} />;
 }
 

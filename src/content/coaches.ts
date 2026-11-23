@@ -157,18 +157,45 @@ export const COACHES: Coach[] = [
     id: "jerry-perje",
     name: "Jerry Perje",
     role: "Fitness Coach",
-    specialties: ["Conditioning", "Movement", "Accountability"],
+    specialties: ["Strength & Flexibility", "Sports Conditioning", "Nutrition Planning", "One-on-One Coaching"],
+    verified: true,
     image: {
       src: "/images/coach-jerry-perje.jpg",
       alt: "Coach Jerry Perje smiling, wearing glasses and a Gold's Gym coach shirt",
     },
-    // REVIEW WITH OWNER & COACHES BEFORE LAUNCH
-    bio: "Jerry is one of the fitness coaches at Gold’s Gym Iloilo. He works on conditioning, movement and accountability: building fitness that carries over, moving well, and having someone to keep you on track.",
-    experience: "Fitness Coach at Gold’s Gym Iloilo, coaching in conditioning, movement and accountability.",
-    coachingFocus: ["Conditioning", "Quality of movement", "Staying accountable"],
+    bio: "Jerry is a champion Men’s Physique athlete and fitness coach at Gold’s Gym Iloilo. He focuses on safe, effective exercise mechanics, strength and flexibility training, sports conditioning, and structured nutrition assessment—guiding members one-on-one to move better, perform stronger, and sustain real results.",
+    experience:
+      "Competitive Men’s Physique champion and One-on-One Fitness Coach at Gold’s Gym Iloilo specializing in strength and flexibility, safe movement mechanics, sports conditioning, and nutrition planning.",
+    coachingFocus: [
+      "Nutrition Assessment & Planning",
+      "Strength & Flexibility Training",
+      "Safe & Effective Exercise",
+      "One-on-One Coaching",
+      "Sports Conditioning",
+    ],
+    competitions: [
+      "Champion — KG Classic 2023, Men’s Physique Novice",
+      "2nd Place — Asian Grand Prix Philippines 2026, Men’s Physique Novice A",
+      "3rd Place — Asian Grand Prix Philippines 2026, Men’s Physique True Novice",
+    ],
+    gallery: [
+      {
+        src: "/images/coach-jerry-agp-2026-1.jpg",
+        alt: "Coach Jerry Perje posing on stage at Asian Grand Prix Philippines 2026 Men's Physique",
+        caption: "AGP Philippines 2026 · Men’s Physique",
+        position: "50% 34%",
+      },
+      {
+        src: "/images/coach-jerry-agp-2026-2.jpg",
+        alt: "Coach Jerry Perje presenting on stage at Asian Grand Prix Philippines 2026",
+        caption: "AGP Philippines 2026 · Stage Presentation",
+        position: "50% 44%",
+      },
+    ],
     achievements: [
-      "Fitness Coach at Gold’s Gym Iloilo",
-      "Specialties: conditioning, movement and accountability",
+      "Champion — KG Classic 2023, Men’s Physique Novice",
+      "2nd Place — Asian Grand Prix Philippines 2026, Men’s Physique Novice A",
+      "3rd Place — Asian Grand Prix Philippines 2026, Men’s Physique True Novice",
     ],
   },
 ];
