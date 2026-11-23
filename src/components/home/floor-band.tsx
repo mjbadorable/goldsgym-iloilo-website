@@ -128,8 +128,7 @@ export function FloorBand() {
               <MapPin className="size-6 shrink-0 text-gold" />
               Location
             </h2>
-            <address className="mt-4 flex items-start gap-3 not-italic">
-              <MapPin className="mt-1 size-4 shrink-0 text-gold" />
+            <address className="mt-4 not-italic">
               <p className="text-[0.9375rem] leading-relaxed text-fg/90">
                 <span className="font-semibold text-fg">{streetLine}</span>, {restLines.join(", ")}
               </p>
