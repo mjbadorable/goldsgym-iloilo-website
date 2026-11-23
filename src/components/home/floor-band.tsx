@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { ComponentType, SVGProps } from "react";
 import { OpenBadge } from "@/components/hours/open-badge";
 import { ButtonLink, buttonClasses } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock, Dumbbell, Globe, MapPin, Sun, Trophy, Users } from "@/components/ui/icons";
+import { ArrowRight, Calendar, Clock, Dumbbell, MapPin, Sun, Trophy, Users } from "@/components/ui/icons";
 import { HOURS, formatMinutes } from "@/lib/hours";
 import { ADDRESS } from "@/lib/site";
 
@@ -109,26 +109,23 @@ export function FloorBand() {
                     <RangeIcon className="mt-0.5 size-6 shrink-0 text-gold" />
                     <div>
                       <dt className="text-[0.875rem] font-medium text-muted">{range.label}</dt>
-                      <dd className="mt-1 text-[clamp(1.125rem,1.6vw,1.375rem)] font-semibold leading-tight text-fg tabular-nums">
+                      <dd className="mt-1 text-[clamp(1.0625rem,1.5vw,1.3125rem)] font-semibold leading-tight text-fg tabular-nums">
                         {formatMinutes(range.open)} – {formatMinutes(range.close)}
+                        <span className="ml-1.5 text-[0.75em] font-medium text-muted">(PHT)</span>
                       </dd>
                     </div>
                   </div>
                 );
               })}
             </dl>
-            <p className="mt-3 flex items-center gap-2 text-[0.8125rem] text-muted">
-              <Globe className="size-4 shrink-0 text-gold" />
-              Philippine time (Asia/Manila)
-            </p>
           </div>
 
-          <div className="mt-8 border-t border-line-subtle pt-7">
-            <h2 className={`${panelTitle} flex items-center gap-3`}>
+          <div className="mt-6">
+            <h2 className={`${panelTitle} flex items-center gap-4`}>
               <MapPin className="size-6 shrink-0 text-gold" />
               Location
             </h2>
-            <address className="mt-4 not-italic">
+            <address className="mt-3 pl-10 not-italic">
               <p className="text-[0.9375rem] leading-relaxed text-fg/90">
                 <span className="font-semibold text-fg">{streetLine}</span>, {restLines.join(", ")}
               </p>
