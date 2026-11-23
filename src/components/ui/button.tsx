@@ -7,8 +7,8 @@ type Size = "md" | "sm";
 
 const base =
   "inline-flex shrink-0 items-center justify-center gap-2 font-label uppercase leading-none tracking-[0.06em] " +
-  "select-none whitespace-nowrap transition-[background-color,color,border-color,transform] duration-[160ms] " +
-  "ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50";
+  "select-none whitespace-nowrap transition-[background-color,color,border-color,opacity] duration-[160ms] " +
+  "ease-[cubic-bezier(0.22,1,0.36,1)] active:opacity-90 disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
   primary: "bg-gold text-gold-ink hover:bg-gold-hover",

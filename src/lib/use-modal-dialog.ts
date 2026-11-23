@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type MouseEvent, type ReactEventHandler } from "react";
 
-export const DIALOG_CLOSE_MS = 240;
+export const DIALOG_CLOSE_MS = 360;
 
 /**
  * Shared behaviour for native <dialog> modals (slide-over sheets and the coach modal).

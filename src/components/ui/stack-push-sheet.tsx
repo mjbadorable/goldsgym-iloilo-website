@@ -7,7 +7,7 @@ const subscribeNoop = () => () => {};
 const getClientMounted = () => true;
 const getServerMounted = () => false;
 
-export const STACK_PUSH_MS = 450;
+export const STACK_PUSH_MS = 380;
 const EDGE_HIT_PX = 44;
 const POP_DISTANCE_RATIO = 0.3;
 const POP_VELOCITY_PX_PER_MS = 0.45;
@@ -140,8 +140,8 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
     panel.style.transform = `translate3d(${dx}px, 0, 0)`;
 
     const html = document.documentElement;
-    html.style.setProperty("--stack-drag-x", `${(-28 * (1 - progress)).toFixed(3)}%`);
-    html.style.setProperty("--stack-drag-dim", `${(0.16 * (1 - progress)).toFixed(3)}`);
+    html.style.setProperty("--stack-drag-x", `${(-6 * (1 - progress)).toFixed(3)}%`);
+    html.style.setProperty("--stack-drag-dim", `${(0.2 * (1 - progress)).toFixed(3)}`);
   }
 
   function finishDrag(e: PointerEvent<HTMLDivElement>) {
