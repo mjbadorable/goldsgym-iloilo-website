@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import { SITE } from "./site.ts";
 
-/** Share card for links to the site. The file is 1080x630. */
+/** Share card for links to the site. The file is 1200x630. */
 export const OG_IMAGE = {
   url: "/images/og-share.jpg",
-  width: 1080,
+  width: 1200,
   height: 630,
-  alt: "The training floor at Gold's Gym Iloilo",
+  alt: "Gold's Gym Iloilo — Your strongest Starts here.",
 } as const;
 
+export const SHARE_TITLE = "Gold’s Gym Iloilo | Your strongest Starts here.";
+export const SHARE_DESCRIPTION = "Train with purpose. Build strength. Keep progressing.";
+
 /**
- * Metadata for one page: title, description, canonical URL and a matching Open Graph / Twitter card.
- * A page's `openGraph` replaces the layout's wholesale rather than merging with it, so each page
- * states the whole card here, with the page's own title, description and URL.
+ * Metadata for one page: per-page SEO title, description and canonical URL for search engines,
+ * paired with the unified brand Open Graph / Twitter share card across every route.
  * Omit `title` for the home page, which uses the layout's default title.
  */
 export function pageMetadata({
@@ -24,7 +26,6 @@ export function pageMetadata({
   description: string;
   path: string;
 }): Metadata {
-  const cardTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: your strongest starts here`;
   return {
     ...(title ? { title } : {}),
     description,
@@ -33,11 +34,16 @@ export function pageMetadata({
       type: "website",
       siteName: SITE.name,
       locale: "en_PH",
-      title: cardTitle,
-      description,
+      title: SHARE_TITLE,
+      description: SHARE_DESCRIPTION,
       url: path,
       images: [OG_IMAGE],
     },
-    twitter: { card: "summary_large_image", title: cardTitle, description },
+    twitter: {
+      card: "summary_large_image",
+      title: SHARE_TITLE,
+      description: SHARE_DESCRIPTION,
+      images: [OG_IMAGE.url],
+    },
   };
 }

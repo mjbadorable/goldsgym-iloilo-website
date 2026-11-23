@@ -13,7 +13,7 @@ const SRC = "assets/framer-originals";
 const SUPPLIED = "assets/supplied";
 const OUT = "public/images";
 
-/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},enhance?:boolean,hd?:boolean,allowUpscale?:boolean,format:"jpeg"|"png",quality?:number}>} */
+/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside"|"contain",position?:string,background?:string,extract?:{left:number,top:number,width:number,height:number},enhance?:boolean,hd?:boolean,allowUpscale?:boolean,format:"jpeg"|"png",quality?:number}>} */
 const jobs = [
   // Brand mark: kept as PNG (has alpha). 4610px original is far larger than any use.
   { src: "hLsPsBg5BFF1IXD5xDZkqRWeg.png", out: "gold-logo.png", width: 640, format: "png" },
@@ -81,16 +81,18 @@ const jobs = [
   // opacity, so a lower JPEG quality is invisible; the original was 712 KB.
   { dir: SUPPLIED, src: "coaches-backdrop.jpg", out: "coaches-backdrop.jpg", format: "jpeg", quality: 74 },
 
-  // Social share card: crop of the training floor photo.
+  // Social share card: owner-supplied hero banner fitted cleanly into 1200x630 with zero text crop.
   {
-    src: "kWyzBUwWXuG4YyfPhft7HzgEc.png",
+    dir: SUPPLIED,
+    src: "og-share-hero.jpg",
     out: "og-share.jpg",
     width: 1200,
     height: 630,
-    fit: "cover",
-    position: "attention",
+    fit: "contain",
+    background: "#070708",
+    allowUpscale: true,
     format: "jpeg",
-    quality: 84,
+    quality: 90,
   },
 ];
 
@@ -105,6 +107,7 @@ for (const job of jobs) {
       height: job.height,
       fit: job.fit ?? "inside",
       position: job.position,
+      background: job.background,
       kernel: "lanczos3",
       withoutEnlargement: !job.allowUpscale,
     });

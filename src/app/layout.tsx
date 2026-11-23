@@ -3,7 +3,7 @@ import { Anton, Bebas_Neue, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/
 import { DayPassProvider } from "@/components/day-pass/day-pass-provider";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
-import { OG_IMAGE } from "@/lib/page-metadata";
+import { OG_IMAGE, SHARE_DESCRIPTION, SHARE_TITLE } from "@/lib/page-metadata";
 import { SITE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -33,11 +33,16 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE.name,
     locale: "en_PH",
-    title: `${SITE.name}: your strongest starts here`,
-    description: SITE.description,
+    title: SHARE_TITLE,
+    description: SHARE_DESCRIPTION,
     images: [OG_IMAGE],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: SHARE_TITLE,
+    description: SHARE_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
   // No `icons` here: src/app/icon.png (64px) and apple-icon.png (180px) are picked up by file convention.
 };
 
