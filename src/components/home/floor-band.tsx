@@ -3,6 +3,7 @@ import type { ComponentType, SVGProps } from "react";
 import { OpenBadge } from "@/components/hours/open-badge";
 import { ButtonLink, buttonClasses } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, Dumbbell, MapPin, Sun, Trophy, Users } from "@/components/ui/icons";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { HOURS, formatMinutes } from "@/lib/hours";
 import { ADDRESS } from "@/lib/site";
 
@@ -38,7 +39,10 @@ export function FloorBand() {
 
       <div className="shell grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1.1fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-10">
         {/* Left: floor photo. Rectangular with a gold bottom rule below lg; slanted with a gold slash on lg+. */}
-        <div className="group relative aspect-[4/3] border-b-[3px] border-gold sm:aspect-[16/10] lg:aspect-auto lg:min-h-[600px] lg:border-b-0">
+        <ScrollReveal
+          delayMs={0}
+          className="group relative aspect-[4/3] border-b-[3px] border-gold sm:aspect-[16/10] lg:aspect-auto lg:min-h-[600px] lg:border-b-0"
+        >
           <div className="floor-photo absolute inset-0 overflow-hidden">
             <Image
               src="/images/training-floor.jpg"
@@ -55,10 +59,10 @@ export function FloorBand() {
           </div>
           <div aria-hidden="true" className="floor-slash absolute inset-0 hidden lg:block" />
           <div aria-hidden="true" className="absolute bottom-0 left-0 hidden h-1 w-28 bg-gold lg:block" />
-        </div>
+        </ScrollReveal>
 
         {/* Center: pitch */}
-        <div className="flex flex-col justify-center">
+        <ScrollReveal delayMs={160} className="flex flex-col justify-center">
           <p className="font-label text-[1.25rem] leading-none tracking-[0.14em] text-gold uppercase italic">
             The training floor
           </p>
@@ -90,10 +94,13 @@ export function FloorBand() {
               </li>
             ))}
           </ul>
-        </div>
+        </ScrollReveal>
 
         {/* Right: hours + location card */}
-        <div className="flex flex-col justify-center rounded-xl border border-gold/45 bg-elevated/95 p-7 shadow-[inset_0_1px_0_0_var(--border-subtle)]">
+        <ScrollReveal
+          delayMs={320}
+          className="flex flex-col justify-center rounded-xl border border-gold/45 bg-elevated/95 p-7 shadow-[inset_0_1px_0_0_var(--border-subtle)]"
+        >
           <div>
             <h2 className={`${panelTitle} flex items-center gap-4`}>
               <Clock className="size-6 shrink-0 text-gold" />
@@ -141,7 +148,7 @@ export function FloorBand() {
               <span className="sr-only">(opens Google Maps in a new tab)</span>
             </a>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
