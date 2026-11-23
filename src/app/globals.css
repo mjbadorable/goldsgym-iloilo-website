@@ -287,7 +287,7 @@ html:has(dialog.sheet[open]) {
 .sheet::backdrop {
   background: color-mix(in srgb, var(--bg-canvas) 78%, transparent);
   opacity: 0;
-  transition: opacity 360ms var(--ease-out);
+  transition: opacity 480ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .sheet[data-state="open"]::backdrop {
   opacity: 1;
@@ -302,10 +302,13 @@ html:has(dialog.sheet[open]) {
   padding: 24px;
   background: var(--bg-elevated);
   border-left: 1px solid var(--border-hairline);
+  opacity: 0;
   transform: translate3d(100%, 0, 0);
-  will-change: transform;
+  will-change: transform, opacity;
   backface-visibility: hidden;
-  transition: transform 360ms var(--ease-out);
+  transition:
+    transform 480ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 360ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 @media (min-width: 768px) {
   .sheet-panel {
@@ -316,6 +319,7 @@ html:has(dialog.sheet[open]) {
   width: min(100%, 62rem);
 }
 .sheet[data-state="open"] .sheet-panel {
+  opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 
@@ -343,7 +347,7 @@ html:has(dialog.stack-push[open]) {
 .stack-push::backdrop {
   background: color-mix(in srgb, var(--bg-canvas) 78%, transparent);
   opacity: 0;
-  transition: opacity 320ms var(--ease-out);
+  transition: opacity 520ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .stack-push[data-state="open"]::backdrop {
   opacity: 1;
@@ -360,10 +364,13 @@ html:has(dialog.stack-push[open]) {
   background: var(--bg-elevated);
   border-left: 1px solid var(--border-hairline);
   box-shadow: -12px 0 26px rgba(16, 24, 40, 0.18);
+  opacity: 0;
   transform: translate3d(100%, 0, 0);
-  will-change: transform;
+  will-change: transform, opacity;
   backface-visibility: hidden;
-  transition: transform 320ms var(--ease-out);
+  transition:
+    transform 520ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 @media (min-width: 768px) {
   .stack-push-panel {
@@ -371,6 +378,7 @@ html:has(dialog.stack-push[open]) {
   }
 }
 .stack-push[data-state="open"] .stack-push-panel {
+  opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 .stack-push[data-dragging="true"] .stack-push-panel {
@@ -508,7 +516,7 @@ html:has(dialog.coach-modal[open]) {
 .coach-modal::backdrop {
   background: color-mix(in srgb, var(--bg-canvas) 82%, transparent);
   opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out);
+  transition: opacity 420ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .coach-modal[data-state="open"]::backdrop {
   opacity: 1;
@@ -525,10 +533,10 @@ html:has(dialog.coach-modal[open]) {
   background: var(--bg-elevated);
   border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
   opacity: 0;
-  transform: scale(0.97);
+  transform: translate3d(0, 14px, 0) scale(0.98);
   transition:
-    opacity var(--dur-base) var(--ease-out),
-    transform var(--dur-base) var(--ease-out);
+    opacity 420ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 420ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 @media (min-width: 768px) {
   .coach-modal-panel {

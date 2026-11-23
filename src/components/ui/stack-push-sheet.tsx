@@ -7,7 +7,7 @@ const subscribeNoop = () => () => {};
 const getClientMounted = () => true;
 const getServerMounted = () => false;
 
-export const STACK_PUSH_MS = 320;
+export const STACK_PUSH_MS = 520;
 const EDGE_HIT_PX = 44;
 const POP_DISTANCE_RATIO = 0.3;
 const POP_VELOCITY_PX_PER_MS = 0.45;
@@ -52,6 +52,8 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
         dialog.setAttribute("data-state", "closed");
         dialog.setAttribute("data-direction", "forward");
         dialog.showModal();
+        // Force a style commit on the initial off-screen closed frame so the browser never skips the slide.
+        void panelRef.current?.offsetWidth;
         const heading = document.getElementById(labelledBy);
         heading?.focus({ preventScroll: true });
         // Double rAF guarantees the browser paints the initial off-screen (100%) frame

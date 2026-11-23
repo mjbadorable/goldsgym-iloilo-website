@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type MouseEvent, type ReactEventHandler } from "react";
 
-export const DIALOG_CLOSE_MS = 360;
+export const DIALOG_CLOSE_MS = 480;
 
 /**
  * Shared behaviour for native <dialog> modals (slide-over sheets and the coach modal).
@@ -25,6 +25,7 @@ export function useModalDialog(isOpen: boolean, onClose: () => void) {
       if (!dialog.open) {
         dialog.setAttribute("data-state", "closed");
         dialog.showModal();
+        void dialog.offsetWidth;
         dialog.querySelector<HTMLElement>("[data-sheet-close]")?.focus({ preventScroll: true });
         // Double rAF guarantees the browser paints the initial closed frame before transitioning open.
         frame1 = requestAnimationFrame(() => {
