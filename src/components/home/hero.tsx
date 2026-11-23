@@ -4,6 +4,7 @@ import { DayPassButton } from "@/components/day-pass/day-pass-button";
 import { WatchGymButton } from "@/components/gym-tour/watch-gym-dialog";
 
 const line = (i: number) => ({ "--i": i }) as CSSProperties;
+const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
 /**
  * The hero is sized so that hero + highlight strip (116px) fill exactly one screen on common
@@ -48,11 +49,14 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-[34ch] text-[length:var(--text-body)] text-fg/85">
+          <p
+            className="hero-fade mt-6 max-w-[34ch] text-[length:var(--text-body)] text-fg/85"
+            style={delay(620)}
+          >
             Train with purpose. Build strength. Keep progressing.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="hero-fade mt-8 flex flex-wrap items-center gap-4" style={delay(800)}>
             <DayPassButton />
             <WatchGymButton />
           </div>

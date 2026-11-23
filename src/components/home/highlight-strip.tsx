@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { NamedIcon } from "@/components/ui/zone-icons";
 import type { IconName } from "@/content/zones";
 
@@ -16,10 +17,11 @@ export function HighlightStrip() {
     <section aria-label="Highlights" className="border-y border-line-subtle bg-surface">
       <div className="shell">
         <ul className="grid grid-cols-2 gap-px bg-line-subtle lg:grid-cols-4">
-          {ITEMS.map((item) => (
+          {ITEMS.map((item, i) => (
             <li
               key={item.title}
-              className="flex flex-col gap-3 bg-surface p-5 lg:flex-row lg:items-center lg:gap-4 lg:px-6 lg:py-5"
+              className="strip-reveal flex flex-col gap-3 bg-surface p-5 lg:flex-row lg:items-center lg:gap-4 lg:px-6 lg:py-5"
+              style={{ "--i": i } as CSSProperties}
             >
               <NamedIcon name={item.icon} className="size-8 shrink-0 text-gold" />
               <div>

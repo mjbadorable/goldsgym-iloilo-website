@@ -189,8 +189,9 @@ p {
 }
 .reveal-line > span {
   display: block;
-  animation: line-up 640ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 90ms + 60ms);
+  animation: line-up 1050ms cubic-bezier(0.19, 1, 0.22, 1) both;
+  /* A deliberate beat between lines: 140ms, 320ms, 500ms. */
+  animation-delay: calc(var(--i, 0) * 180ms + 140ms);
 }
 @keyframes line-up {
   from {
@@ -201,17 +202,54 @@ p {
   }
 }
 
-/* Hero image settles from 1.03 to 1.00. */
+/* Hero image eases in from a slightly closer, dimmer frame (1.06 / 0.72) to rest over 2.2s.
+   Shared by the Home and About heroes; the wrapper's overflow-hidden clips the scale. */
 .hero-settle {
-  animation: hero-settle 1100ms var(--ease-out) both;
+  animation: hero-settle 2200ms cubic-bezier(0.16, 1, 0.3, 1) both;
   transform-origin: 50% 40%;
 }
 @keyframes hero-settle {
   from {
-    transform: scale(1.03);
+    transform: scale(1.06);
+    opacity: 0.72;
   }
   to {
     transform: none;
+    opacity: 1;
+  }
+}
+
+/* Hero tagline and call-to-action row: an unhurried rise + fade after the headline lines.
+   `backwards` only holds the first frame during the delay; nothing stays hidden afterwards, and
+   the buttons are clickable the whole time. */
+.hero-fade {
+  animation: hero-fade-up 950ms cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms) backwards;
+}
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Highlight strip: the cell contents (not the cell, whose opaque fill hides the 1px dividers)
+   fade in and rise 12px, one cell after the next. Delay: 920ms + 110ms per cell. */
+.strip-reveal > * {
+  animation: strip-reveal-up 900ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 110ms + 920ms);
+}
+@keyframes strip-reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
