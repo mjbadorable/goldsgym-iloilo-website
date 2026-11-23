@@ -45,7 +45,7 @@ export const COACHES: Coach[] = [
     id: "andrew-miano",
     name: "Andrew Miano",
     role: "Fitness Coach",
-    specialties: ["Strength", "Technique", "Programming"],
+    specialties: ["Strength & Conditioning", "Competition Prep", "Weight Loss / Toning", "Boxing & Circuit"],
     verified: true,
     image: {
       src: "/images/coach-andrew-miano.jpg",

@@ -60,11 +60,11 @@ test("all four zones and three experiences have a photo, an icon and alt text", 
   }
 });
 
-test("coach names, roles and specialties are verbatim from the Framer site", () => {
+test("coach names, roles and specialties match verified and Framer records", () => {
   assert.deepEqual(
     COACHES.map((c) => [c.name, c.role, c.specialties.join(" / ")]),
     [
-      ["Andrew Miano", "Fitness Coach", "Strength / Technique / Programming"],
+      ["Andrew Miano", "Fitness Coach", "Strength & Conditioning / Competition Prep / Weight Loss / Toning / Boxing & Circuit"],
       ["Vincent Loui Dorde", "Fitness Coach", "Strength / Form / Progression"],
       ["Jerry Perje", "Fitness Coach", "Conditioning / Movement / Accountability"],
     ],
