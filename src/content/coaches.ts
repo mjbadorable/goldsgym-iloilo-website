@@ -71,6 +71,12 @@ export const COACHES: Coach[] = [
     ],
     gallery: [
       {
+        src: "/images/coach-andrew-stage-featured.jpg",
+        alt: "Coach Andrew Miano posing on stage in Men's Physique competition",
+        caption: "Men’s Physique · Stage Presentation",
+        position: "54% 18%",
+      },
+      {
         src: "/images/coach-andrew-ifbb-2025.jpg",
         alt: "Coach Andrew Miano posing on stage at IFBB Philippines Boracay Men's Physique Open 2025",
         caption: "IFBB Philippines 2025 · Men’s Physique Open",

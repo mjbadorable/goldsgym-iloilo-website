@@ -44,6 +44,18 @@ const jobs = [
     "golds-mesh-emblem.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
 
+  // Coach Andrew featured stage photo: crisp HD upscale + balanced clarity.
+  {
+    dir: SUPPLIED,
+    src: "coach-andrew-stage-featured.jpg",
+    out: "coach-andrew-stage-featured.jpg",
+    width: 1000,
+    allowUpscale: true,
+    hd: true,
+    format: "jpeg",
+    quality: 88,
+  },
+
   // Coach Andrew competition stage photos: subtle editorial clarity, deeper stage blacks,
   // and balanced warm contrast (untouched originals remain in assets/supplied/).
   ...[
