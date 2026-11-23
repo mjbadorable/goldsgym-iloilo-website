@@ -14,6 +14,8 @@ export type CoachGalleryPhoto = {
   alt: string;
   caption: string;
   position?: string;
+  /** Use "contain" for landscape stage shots so the athlete stays centered without auto-zooming. */
+  fit?: "cover" | "contain";
 };
 
 export type Coach = {
@@ -183,7 +185,8 @@ export const COACHES: Coach[] = [
         src: "/images/coach-jerry-kg-classic-2023.jpg",
         alt: "Coach Jerry Perje wearing his gold medal as KG Classic 2023 Men's Physique Novice Champion",
         caption: "KG Classic 2023 · Men’s Physique Novice Champion",
-        position: "50% 18%",
+        position: "50% 50%",
+        fit: "contain",
       },
       {
         src: "/images/coach-jerry-agp-2026-1.jpg",

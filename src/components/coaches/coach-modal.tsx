@@ -79,6 +79,7 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
       alt: coach.image.alt,
       caption: `${coach.name} — Training Floor`,
       position: "50% 16%",
+      fit: "cover" as const,
     },
     ...(coach.gallery ?? []),
   ];
@@ -118,22 +119,41 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
 
         {/* Left stage: the portrait, with the photo switcher laid over its gradient foot. */}
         <div className="relative aspect-[4/3] max-h-[42svh] overflow-hidden border-b border-line-subtle bg-canvas sm:aspect-square md:aspect-auto md:max-h-none md:border-r md:border-b-0">
-          {photos.map((p, i) => (
-            <Image
-              key={p.src}
-              src={p.src}
-              alt={i === activePhotoIdx ? p.alt : ""}
-              aria-hidden={i === activePhotoIdx ? undefined : true}
-              fill
-              sizes="(min-width: 1280px) 520px, (min-width: 768px) 42vw, 100vw"
-              quality={85}
-              className={cn(
-                "object-cover transition-opacity duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-                i === activePhotoIdx ? "opacity-100" : "opacity-0",
-              )}
-              style={{ objectPosition: p.position ?? "50% 15%" }}
-            />
-          ))}
+          {photos.map((p, i) => {
+            const isContain = p.fit === "contain";
+            const isActive = i === activePhotoIdx;
+            return (
+              <div
+                key={p.src}
+                aria-hidden={isActive ? undefined : true}
+                className={cn(
+                  "absolute inset-0 transition-opacity duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                  isActive ? "opacity-100" : "pointer-events-none opacity-0",
+                )}
+              >
+                {isContain ? (
+                  <Image
+                    src={p.src}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(min-width: 1280px) 520px, (min-width: 768px) 42vw, 100vw"
+                    quality={75}
+                    className="scale-110 object-cover object-center opacity-25 blur-2xl"
+                  />
+                ) : null}
+                <Image
+                  src={p.src}
+                  alt={isActive ? p.alt : ""}
+                  fill
+                  sizes="(min-width: 1280px) 520px, (min-width: 768px) 42vw, 100vw"
+                  quality={85}
+                  className={cn(isContain ? "object-contain object-center pb-20 md:pb-24" : "object-cover")}
+                  style={isContain ? undefined : { objectPosition: p.position ?? "50% 15%" }}
+                />
+              </div>
+            );
+          })}
 
           {photos.length > 1 ? (
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas via-canvas/75 to-transparent px-4 pt-14 pb-4 md:px-6 md:pt-20 md:pb-6">

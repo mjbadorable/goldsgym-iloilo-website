@@ -13,7 +13,7 @@ const SRC = "assets/framer-originals";
 const SUPPLIED = "assets/supplied";
 const OUT = "public/images";
 
-/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},enhance?:boolean,format:"jpeg"|"png",quality?:number}>} */
+/** @type {Array<{dir?:string,src:string,out:string,width?:number,height?:number,fit?:"cover"|"inside",position?:string,extract?:{left:number,top:number,width:number,height:number},enhance?:boolean,hd?:boolean,allowUpscale?:boolean,format:"jpeg"|"png",quality?:number}>} */
 const jobs = [
   // Brand mark: kept as PNG (has alpha). 4610px original is far larger than any use.
   { src: "hLsPsBg5BFF1IXD5xDZkqRWeg.png", out: "gold-logo.png", width: 640, format: "png" },
@@ -53,12 +53,23 @@ const jobs = [
     "coach-andrew-iloilo-award-2.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, enhance: true, format: "jpeg", quality: 86 })),
 
-  // Coach Vincent & Coach Jerry pro stage photos (already crisp; mozjpeg optimize only).
+  // Coach Vincent pro stage photos (already crisp; mozjpeg optimize only).
   ...[
     "coach-vincent-agp-2026-1.jpg",
     "coach-vincent-agp-2026-2.jpg",
-    "coach-jerry-kg-classic-2023.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 86 })),
+
+  // Coach Jerry KG Classic champion photo: HD upscale + crisp detail sharpening (never cropped).
+  {
+    dir: SUPPLIED,
+    src: "coach-jerry-kg-classic-2023.jpg",
+    out: "coach-jerry-kg-classic-2023.jpg",
+    width: 1600,
+    allowUpscale: true,
+    hd: true,
+    format: "jpeg",
+    quality: 90,
+  },
 
   // Coach Jerry competition stage photos: balanced contrast and subtle clarity for stage haze.
   ...[
@@ -94,7 +105,8 @@ for (const job of jobs) {
       height: job.height,
       fit: job.fit ?? "inside",
       position: job.position,
-      withoutEnlargement: true,
+      kernel: "lanczos3",
+      withoutEnlargement: !job.allowUpscale,
     });
   }
   if (job.enhance) {
@@ -102,6 +114,12 @@ for (const job of jobs) {
       .linear(1.06, -8)
       .modulate({ brightness: 1.0, saturation: 1.08 })
       .sharpen({ sigma: 0.8, m1: 0.5, m2: 0.9 });
+  }
+  if (job.hd) {
+    img = img
+      .linear(1.04, -4)
+      .modulate({ brightness: 1.01, saturation: 1.04 })
+      .sharpen({ sigma: 1.0, m1: 0.6, m2: 1.35 });
   }
   img =
     job.format === "png"
