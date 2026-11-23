@@ -53,6 +53,12 @@ const jobs = [
     "coach-andrew-iloilo-award-2.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, enhance: true, format: "jpeg", quality: 86 })),
 
+  // Coach Vincent competition stage photos (already crisp pro stage shots; mozjpeg optimize only).
+  ...[
+    "coach-vincent-agp-2026-1.jpg",
+    "coach-vincent-agp-2026-2.jpg",
+  ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 86 })),
+
   // Owner-supplied 1376x768 atmospheric photo for the /coaches header. It sits behind a scrim at 50%
   // opacity, so a lower JPEG quality is invisible; the original was 712 KB.
   { dir: SUPPLIED, src: "coaches-backdrop.jpg", out: "coaches-backdrop.jpg", format: "jpeg", quality: 74 },

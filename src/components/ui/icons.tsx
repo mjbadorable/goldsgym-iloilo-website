@@ -237,3 +237,9 @@ export const BoxingGlove = (p: IconProps) => (
     <path d="M7 10.5h3.5" />
   </Icon>
 );
+
+export const Utensils = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 3v6a3 3 0 0 0 6 0V3M8 3v18M18 3v18M18 3c-2 2-2.5 5-2.5 8.5H18" />
+  </Icon>
+);

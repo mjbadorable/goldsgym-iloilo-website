@@ -110,18 +110,47 @@ export const COACHES: Coach[] = [
     id: "vincent-loui-dorde",
     name: "Vincent Loui Dorde",
     role: "Fitness Coach",
-    specialties: ["Strength", "Form", "Progression"],
+    specialties: ["Strength & Conditioning", "Weight Loss & Toning", "Nutrition Planning", "1-on-1 HIIT Training"],
+    verified: true,
     image: {
       src: "/images/coach-vincent-loui-dorde.jpg",
       alt: "Coach Vincent Loui Dorde in a Gold's Gym shirt, arms crossed, with the gym's hexagon lights overhead",
     },
-    // REVIEW WITH OWNER & COACHES BEFORE LAUNCH
-    bio: "Vincent is one of the fitness coaches at Gold’s Gym Iloilo. He works on strength, form and progression: getting each movement right, then adding load and difficulty at a pace that keeps you improving.",
-    experience: "Fitness Coach at Gold’s Gym Iloilo, coaching in strength, form and progression.",
-    coachingFocus: ["Strength building", "Movement form", "Steady progression"],
+    bio: "Vincent is a competitive Men’s Physique athlete and fitness coach at Gold’s Gym Iloilo. He combines structured strength and conditioning, 1-on-1 HIIT training, and practical nutrition and supplement guidance to help members lose fat, tone up, and build lasting discipline on the floor.",
+    experience:
+      "Competitive Men’s Physique athlete and 1-on-1 Fitness Coach at Gold’s Gym Iloilo specializing in strength and conditioning, fat loss and toning, and structured nutrition planning.",
+    coachingFocus: [
+      "Strength & Conditioning",
+      "Weight Loss & Toning",
+      "Nutrition Planning",
+      "Supplement Guide",
+      "1-on-1 HIIT Training",
+    ],
+    competitions: [
+      "Mr. Iloilo 2022 — Men’s Physique Tall",
+      "5th Place — Mr. Fit Man Code, Get Wheysted Bacolod 2024 (Men’s Physique Tall)",
+      "AGP Philippines 2026 — Men’s Physique Tall Novice",
+      "AGP Philippines 2026 — Men’s Physique Tall True Novice",
+    ],
+    gallery: [
+      {
+        src: "/images/coach-vincent-agp-2026-1.jpg",
+        alt: "Coach Vincent Loui Dorde posing on stage at AGP Philippines 2026 Men's Physique Tall",
+        caption: "AGP Philippines 2026 · Men’s Physique Tall",
+        position: "50% 18%",
+      },
+      {
+        src: "/images/coach-vincent-agp-2026-2.jpg",
+        alt: "Coach Vincent Loui Dorde smiling on stage at AGP Philippines 2026 Men's Physique Tall",
+        caption: "AGP Philippines 2026 · Stage Presentation",
+        position: "50% 18%",
+      },
+    ],
     achievements: [
-      "Fitness Coach at Gold’s Gym Iloilo",
-      "Specialties: strength, form and progression",
+      "Mr. Iloilo 2022 — Men’s Physique Tall",
+      "5th Place — Mr. Fit Man Code, Get Wheysted Bacolod 2024 (Men’s Physique Tall)",
+      "AGP Philippines 2026 — Men’s Physique Tall Novice",
+      "AGP Philippines 2026 — Men’s Physique Tall True Novice",
     ],
   },
   {

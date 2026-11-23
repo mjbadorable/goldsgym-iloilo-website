@@ -20,6 +20,7 @@ import {
   Star,
   Trophy,
   User,
+  Utensils,
 } from "@/components/ui/icons";
 import type { Coach } from "@/content/coaches";
 import { cn } from "@/lib/cn";
@@ -47,7 +48,8 @@ function SpecializationIcon({ label }: { label: string }) {
   if (key.includes("conditioning")) return <HeartPulse className={cls} />;
   if (key.includes("competition") || key.includes("prep")) return <Trophy className={cls} />;
   if (key.includes("weight") || key.includes("toning") || key.includes("fat")) return <Flame className={cls} />;
-  if (key.includes("supplement") || key.includes("nutrition")) return <Pill className={cls} />;
+  if (key.includes("nutrition")) return <Utensils className={cls} />;
+  if (key.includes("supplement")) return <Pill className={cls} />;
   if (key.includes("1-on-1") || key.includes("personal training")) return <User className={cls} />;
   if (key.includes("boxing") || key.includes("circuit")) return <BoxingGlove className={cls} />;
   if (key.includes("program") || key.includes("personalized")) return <Star className={cls} />;
@@ -254,7 +256,7 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
                       ))}
                     </ul>
                   </section>
-                ) : (
+                ) : !coach.verified ? (
                   <section aria-labelledby="coach-highlights">
                     <h3 id="coach-highlights" className={sectionTitle}>
                       Highlights
@@ -268,7 +270,7 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
                       ))}
                     </ul>
                   </section>
-                )}
+                ) : null}
               </div>
             </div>
           </div>
