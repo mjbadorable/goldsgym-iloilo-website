@@ -143,23 +143,23 @@ export function WatchGymButton({ className }: { className?: string }) {
               </div>
 
               {/* Editorial companion panel filling the wide drawer beside the 9:16 video. */}
-              <div className="flex flex-col justify-between border border-line-subtle bg-surface p-6">
+              <div className="flex flex-col justify-center border border-line-subtle bg-surface p-6 lg:p-8">
                 <div>
                   <h4 className="font-display text-[2rem] leading-[0.95] text-fg uppercase">
                     See the floor in motion.
                   </h4>
                   <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
-                    Step inside our Iloilo Business Park training floor—Gym80 strength machines, free weights,
-                    cardio bay, and open conditioning space built for serious work.
+                    Step inside our training floor—Gym80 strength machines, free weights, cardio bay, and open
+                    conditioning space built for serious work.
                   </p>
 
-                  <ul className="mt-6 divide-y divide-line-subtle border-y border-line-subtle font-mono text-[0.8125rem]">
+                  <ul className="mt-6 divide-y divide-line-subtle border-y border-line-subtle text-[0.9375rem] leading-relaxed">
                     <li className="flex items-start gap-3 py-3.5 text-fg">
-                      <NamedIcon name="dumbbell" className="mt-0.5 size-4 shrink-0 text-gold" />
+                      <NamedIcon name="dumbbell" className="mt-1 size-4 shrink-0 text-gold" />
                       <span>Free Weights, Gym80 Strength, Cardio Bay, Functional Training</span>
                     </li>
-                    <li className="flex items-start gap-3 py-3.5 text-fg">
-                      <Clock className="mt-0.5 size-4 shrink-0 text-gold" />
+                    <li className="flex items-start gap-3 py-3.5 text-fg tabular-nums">
+                      <Clock className="mt-1 size-4 shrink-0 text-gold" />
                       <span>
                         {HOURS.map((r) => (
                           <span key={r.label} className="block">
@@ -169,7 +169,7 @@ export function WatchGymButton({ className }: { className?: string }) {
                       </span>
                     </li>
                     <li className="flex items-start gap-3 py-3.5 text-fg">
-                      <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
+                      <MapPin className="mt-1 size-4 shrink-0 text-gold" />
                       <span>{ADDRESS.oneLine}</span>
                     </li>
                   </ul>
@@ -185,7 +185,7 @@ export function WatchGymButton({ className }: { className?: string }) {
                       href={PROMO_VIDEO.shareUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link-underline inline-flex items-center gap-1.5 font-mono text-[0.8125rem] text-muted hover:text-fg"
+                      className="link-underline inline-flex items-center gap-1.5 text-[0.875rem] text-muted hover:text-fg"
                     >
                       Open video in new tab
                       <ArrowUpRight className="size-4 text-gold" />
