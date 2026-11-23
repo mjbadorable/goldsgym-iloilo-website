@@ -19,7 +19,7 @@ export function Zones() {
             id="zones-title"
             className="font-display text-[length:var(--text-subdisplay)] leading-[1.06] uppercase"
           >
-            Four dedicated spaces.
+            Four <span className="text-gold">dedicated spaces.</span>
           </h2>
         </div>
 

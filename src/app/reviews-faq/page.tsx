@@ -5,6 +5,7 @@ import { DayPassButton } from "@/components/day-pass/day-pass-button";
 import { Accordion } from "@/components/faq/accordion";
 import { Stars } from "@/components/reviews/stars";
 import { Phone } from "@/components/ui/icons";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SplitHeader } from "@/components/ui/split-header";
 import { StickyBar, StickySections } from "@/components/ui/sticky-sections";
 import { FAQ } from "@/content/faq";
@@ -96,12 +97,12 @@ export default function ReviewsFaqPage() {
       >
         <StickyBar sectionId="faq">First visit FAQ</StickyBar>
         <div className="shell grid gap-10 pt-10 pb-14 lg:grid-cols-12 lg:items-start lg:gap-8 lg:pt-14 lg:pb-16">
-          <div className="lg:col-span-5">
+          <ScrollReveal delayMs={0} className="lg:col-span-5">
             <h2
               id="faq-title"
               className="font-display text-[length:var(--text-display)] leading-[1.06] uppercase"
             >
-              Here&rsquo;s what a first visit looks like.
+              Here&rsquo;s what a <span className="text-gold">first visit looks like.</span>
             </h2>
             <p className="mt-5 max-w-[38ch] text-muted">
               The questions everyone asks before walking in for the first time are answered, so there&rsquo;s
@@ -125,11 +126,11 @@ export default function ReviewsFaqPage() {
                 Get your free day pass
               </DayPassButton>
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="lg:col-span-7">
+          <ScrollReveal delayMs={180} className="lg:col-span-7">
             <Accordion items={FAQ} defaultOpenId={FAQ[0].id} />
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </StickySections>
