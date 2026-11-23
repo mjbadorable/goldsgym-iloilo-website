@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { StickyBar } from "@/components/ui/sticky-sections";
 import { NamedIcon } from "@/components/ui/zone-icons";
 import { ZONE_TAGS } from "@/content/zone-tags";
@@ -23,8 +24,13 @@ export function Zones() {
         </div>
 
         <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:mt-10 xl:grid-cols-4 xl:gap-7">
-          {ZONES.map((zone) => (
-            <li key={zone.id} id={zone.id} className="flex scroll-mt-24">
+          {ZONES.map((zone, i) => (
+            <li
+              key={zone.id}
+              id={zone.id}
+              className="page-reveal flex scroll-mt-24"
+              style={{ "--delay": `${180 + i * 75}ms` } as CSSProperties}
+            >
               <article className="hairline group flex w-full flex-col bg-surface">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image

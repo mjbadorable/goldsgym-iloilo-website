@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { DayPassButton } from "@/components/day-pass/day-pass-button";
 import { Accordion } from "@/components/faq/accordion";
 import { Stars } from "@/components/reviews/stars";
@@ -48,8 +49,12 @@ export default function ReviewsFaqPage() {
             Member reviews
           </StickyBar>
           <ul className="shell mt-8 grid gap-6 lg:grid-cols-3">
-            {REVIEWS.map((review) => (
-              <li key={review.id} className="flex">
+            {REVIEWS.map((review, i) => (
+              <li
+                key={review.id}
+                className="page-reveal flex"
+                style={{ "--delay": `${160 + i * 85}ms` } as CSSProperties}
+              >
                 <figure className="hairline flex w-full flex-col justify-between gap-10 border bg-surface p-8">
                   <div>
                     <Stars />

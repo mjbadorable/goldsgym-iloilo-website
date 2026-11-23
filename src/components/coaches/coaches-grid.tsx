@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useDayPass } from "@/components/day-pass/day-pass-provider";
 import { ArrowRight } from "@/components/ui/icons";
 import type { Coach } from "@/content/coaches";
@@ -58,7 +58,11 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
         </h2>
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {coaches.map((coach, i) => (
-            <li key={coach.id} className="flex">
+            <li
+              key={coach.id}
+              className="page-reveal flex"
+              style={{ "--delay": `${160 + i * 85}ms` } as CSSProperties}
+            >
               <button
                 ref={(el) => {
                   cards.current[i] = el;
