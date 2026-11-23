@@ -91,7 +91,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
                   <span className="mt-3 block font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase">
                     {coach.role}
                   </span>
-                  <span className="mt-6 grid grid-cols-1 gap-2 xl:grid-cols-2">
+                  <span className="mt-6 grid grid-cols-1 gap-2 min-[1360px]:grid-cols-2">
                     {coach.specialties.map((s) => (
                       <span
                         key={s}

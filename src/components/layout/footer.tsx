@@ -70,11 +70,11 @@ export function Footer() {
         {/* Contact us with solid gold circle icon badges */}
         <div className="lg:border-l lg:border-line-subtle lg:pl-10">
           <h3 className={headingClass}>Contact us</h3>
-          <ul className="mt-4 space-y-3.5">
+          <ul className="mt-4 space-y-2">
             <li>
               <a
                 href={`tel:${CONTACT.phoneE164}`}
-                className="group flex items-center gap-3.5 text-[0.9375rem] font-medium text-fg tabular-nums transition-colors duration-[160ms] hover:text-gold"
+                className="group flex min-h-11 items-center gap-3.5 text-[0.9375rem] font-medium text-fg tabular-nums transition-colors duration-[160ms] hover:text-gold"
               >
                 <span className={contactBadgeClass}>
                   <Phone className="size-[18px]" strokeWidth={2} />
@@ -85,7 +85,7 @@ export function Footer() {
             <li>
               <a
                 href={`mailto:${CONTACT.email}`}
-                className="group flex items-center gap-3.5 text-[0.9375rem] text-fg transition-colors duration-[160ms] hover:text-gold"
+                className="group flex min-h-11 items-center gap-3.5 text-[0.9375rem] text-fg transition-colors duration-[160ms] hover:text-gold"
               >
                 <span className={contactBadgeClass}>
                   <Mail className="size-[18px]" strokeWidth={2} />

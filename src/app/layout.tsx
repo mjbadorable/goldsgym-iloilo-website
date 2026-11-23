@@ -44,6 +44,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${anton.variable} ${bebas.variable} ${jakarta.variable} ${jetbrains.variable}`}
     >
       <body className="flex min-h-svh flex-col">
+        <noscript>
+          <style>{".scroll-reveal{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <DayPassProvider>
           <div className="stack-underlay flex min-h-svh flex-col">
             <a

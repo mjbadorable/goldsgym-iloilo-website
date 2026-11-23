@@ -68,6 +68,9 @@ export function SpecializationIcon({ label, className }: { label: string; classN
 export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onTrain }: Props) {
   const { ref, dialogProps } = useModalDialog(isOpen, onClose);
   const detailsRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const prevBtnRef = useRef<HTMLButtonElement>(null);
+  const nextBtnRef = useRef<HTMLButtonElement>(null);
   const [photoState, setPhotoState] = useState<{ coachId: string; idx: number }>({ coachId: "", idx: 0 });
   const coach = coaches[index];
   const firstName = coach.name.split(" ")[0];
@@ -91,6 +94,10 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
   }, [isOpen, index]);
 
   const go = (delta: number) => {
+    // Thumbnail buttons unmount when the coach changes; keep focus inside the dialog so Arrow keys keep working.
+    if (galleryRef.current?.contains(document.activeElement)) {
+      (delta > 0 ? nextBtnRef : prevBtnRef).current?.focus({ preventScroll: true });
+    }
     onIndexChange((index + delta + coaches.length) % coaches.length);
     detailsRef.current?.scrollTo({ top: 0 });
   };
@@ -157,7 +164,7 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
 
           {photos.length > 1 ? (
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas via-canvas/75 to-transparent px-4 pt-14 pb-4 md:px-6 md:pt-20 md:pb-6">
-              <p aria-live="polite" className="mb-2.5 truncate font-mono text-[0.75rem] text-fg/85">
+              <div aria-live="polite" className="mb-2.5 truncate font-mono text-[0.75rem] whitespace-nowrap text-fg/85">
                 <span className="text-gold">
                   {activePhotoIdx + 1}/{photos.length}
                 </span>
@@ -165,8 +172,8 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
                   {" · "}
                 </span>
                 {activePhoto.caption}
-              </p>
-              <div role="group" aria-label={`${coach.name} photos`} className="flex gap-1.5">
+              </div>
+              <div ref={galleryRef} role="group" aria-label={`${coach.name} photos`} className="flex gap-1.5">
                 {photos.map((p, i) => (
                   <button
                     key={p.src}
@@ -299,14 +306,14 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
             aria-label="Browse coaches"
             className="flex shrink-0 items-center justify-between gap-3 border-t border-line-subtle px-6 py-2 md:px-10"
           >
-            <button type="button" onClick={() => go(-1)} className={navLink}>
+            <button ref={prevBtnRef} type="button" onClick={() => go(-1)} className={navLink}>
               <ArrowLeft className="size-[1.1em]" />
               Previous
             </button>
             <p className="font-mono text-[0.8125rem] text-muted" aria-live="polite">
               {index + 1} / {coaches.length}
             </p>
-            <button type="button" onClick={() => go(1)} className={navLink}>
+            <button ref={nextBtnRef} type="button" onClick={() => go(1)} className={navLink}>
               Next
               <ArrowRight className="size-[1.1em]" />
             </button>

@@ -21,9 +21,8 @@ type StackPushSheetProps = {
 };
 
 /**
- * Native mobile-style stack push built on <dialog> (top layer, inert background, focus trap).
- * - Forward push: new view slides 100% -> 0 while the underlying page shifts -28% and dims.
- * - Pop back: exact reverse over 450ms cubic-bezier(0.32, 0.72, 0, 1).
+ * Wide slide-over built on <dialog> (top layer, inert background, focus trap).
+ * - Opens and closes smoothly over 520ms cubic-bezier(0.25, 0.8, 0.25, 1) with an opacity fade.
  * - Left-edge swipe: pointer events drag the panel live and release-snap based on velocity or distance.
  * - Reduced motion: short cross-fade with zero translation (handled in globals.css).
  */

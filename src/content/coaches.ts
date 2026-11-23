@@ -1,13 +1,6 @@
-// Names, role, specialties and photos are verbatim from the Framer site.
-// Photo-to-name pairing follows the order on the Framer page. (unconfirmed by face: owner to verify.)
-//
-// REVIEW WITH OWNER & COACHES BEFORE LAUNCH
-// `bio`, `experience`, `coachingFocus` and `achievements` are DRAFTS. The gym has not supplied
-// personal bios, years of experience, certifications or competition records, so every line below is
-// written only from what is already public: each coach's role (Fitness Coach at Gold's Gym Iloilo)
-// and their three listed specialties. Nothing here claims a number of years, a certification, a
-// title or a competition result. When real details arrive, replace the text; keep the same shape.
-// A test (content.test.ts) fails if a draft line starts to sound like an unverified credential.
+// Coach names, roles, verified specializations, competition records, certifications, and stage
+// galleries supplied by the owner. Any future unverified coach (verified !== true) is guarded by
+// content.test.ts so no credentials or results are ever invented.
 
 export type CoachGalleryPhoto = {
   src: string;
