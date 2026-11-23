@@ -83,7 +83,7 @@ export default function ReviewsFaqPage() {
         className="relative isolate overflow-x-clip border-t border-line-subtle bg-surface"
       >
         <StickyBar sectionId="faq">First visit FAQ</StickyBar>
-        <div className="shell grid gap-12 pt-10 pb-[var(--section-y)] lg:grid-cols-12 lg:gap-8 lg:pt-14">
+        <div className="shell grid gap-10 pt-10 pb-14 lg:grid-cols-12 lg:items-start lg:gap-8 lg:pt-14 lg:pb-16">
           <div className="lg:col-span-5">
             <h2
               id="faq-title"
@@ -91,19 +91,19 @@ export default function ReviewsFaqPage() {
             >
               Here&rsquo;s what a first visit looks like.
             </h2>
-            <p className="mt-6 max-w-[38ch] text-muted">
+            <p className="mt-5 max-w-[38ch] text-muted">
               The questions everyone asks before walking in for the first time are answered, so there&rsquo;s
               nothing to figure out on the day.
             </p>
             <div
               aria-hidden="true"
-              className="relative mt-8 hidden aspect-square w-full max-w-[420px] overflow-hidden opacity-85 [mask-image:radial-gradient(closest-side,black_60%,transparent)] lg:block"
+              className="relative mt-6 hidden aspect-square w-full max-w-[240px] overflow-hidden opacity-85 [mask-image:radial-gradient(closest-side,black_60%,transparent)] lg:block"
             >
               <Image
                 src="/images/golds-mesh-emblem.jpg"
                 alt=""
                 fill
-                sizes="420px"
+                sizes="240px"
                 quality={85}
                 className="object-cover object-center"
               />
