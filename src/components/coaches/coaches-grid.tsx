@@ -80,7 +80,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
                     className="object-cover object-top transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                   />
                 </span>
-                <span className="flex flex-1 flex-col p-6 md:p-8">
+                <span className="flex flex-1 flex-col p-6 xl:p-7">
                   <span className="block font-display text-[clamp(1.75rem,3vw,2.25rem)] leading-[1] uppercase">
                     {coach.name}
                   </span>
@@ -91,7 +91,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
                     {coach.specialties.map((s) => (
                       <span
                         key={s}
-                        className="inline-flex items-center gap-1.5 border border-line-subtle bg-canvas/55 px-2.5 py-1.5 font-mono text-[0.75rem] whitespace-nowrap text-fg"
+                        className="inline-flex items-center gap-1.5 border border-line-subtle bg-canvas/55 px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap text-fg"
                       >
                         <SpecializationIcon label={s} className="size-3.5 shrink-0 text-gold" />
                         <span>{s}</span>
