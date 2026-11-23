@@ -93,9 +93,9 @@ export function FloorBand() {
         </div>
 
         {/* Right: hours + location card */}
-        <div className="flex flex-col justify-between rounded-xl border border-gold/45 bg-elevated/95 p-7 shadow-[inset_0_1px_0_0_var(--border-subtle)]">
+        <div className="flex flex-col justify-center rounded-xl border border-gold/45 bg-elevated/95 p-7 shadow-[inset_0_1px_0_0_var(--border-subtle)]">
           <div>
-            <h2 className={`${panelTitle} flex items-center gap-3`}>
+            <h2 className={`${panelTitle} flex items-center gap-4`}>
               <Clock className="size-6 shrink-0 text-gold" />
               Opening hours
             </h2>
@@ -120,7 +120,7 @@ export function FloorBand() {
             </dl>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-7">
             <h2 className={`${panelTitle} flex items-center gap-4`}>
               <MapPin className="size-6 shrink-0 text-gold" />
               Location
