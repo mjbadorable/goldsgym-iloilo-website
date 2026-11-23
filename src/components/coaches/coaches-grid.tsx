@@ -60,8 +60,8 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
           {coaches.map((coach, i) => (
             <li
               key={coach.id}
-              className="page-reveal flex"
-              style={{ "--delay": `${160 + i * 85}ms` } as CSSProperties}
+              className="deck-reveal flex"
+              style={{ "--delay": `${180 + i * 120}ms` } as CSSProperties}
             >
               <button
                 ref={(el) => {

@@ -52,8 +52,8 @@ export default function ReviewsFaqPage() {
             {REVIEWS.map((review, i) => (
               <li
                 key={review.id}
-                className="page-reveal flex"
-                style={{ "--delay": `${160 + i * 85}ms` } as CSSProperties}
+                className="deck-reveal flex"
+                style={{ "--delay": `${180 + i * 120}ms` } as CSSProperties}
               >
                 <figure className="hairline flex w-full flex-col justify-between gap-10 border bg-surface p-8">
                   <div>
