@@ -3,7 +3,24 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Check, Close, Trophy } from "@/components/ui/icons";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  BoxingGlove,
+  Check,
+  Close,
+  Dumbbell,
+  Flame,
+  HeartPulse,
+  Pill,
+  Pulse,
+  ShieldCheck,
+  Sparkle,
+  Star,
+  Trophy,
+  User,
+} from "@/components/ui/icons";
 import type { Coach } from "@/content/coaches";
 import { cn } from "@/lib/cn";
 import { useModalDialog } from "@/lib/use-modal-dialog";
@@ -18,9 +35,27 @@ type Props = {
   onTrain: () => void;
 };
 
-const sectionTitle = "font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase";
+const sectionTitle =
+  "flex items-center gap-2.5 font-label text-[1.25rem] leading-none tracking-[0.1em] text-gold uppercase before:h-4 before:w-[3px] before:shrink-0 before:bg-gold";
 const navLink =
   "inline-flex min-h-11 items-center gap-2 font-label text-[1.125rem] leading-none tracking-[0.08em] text-muted uppercase transition-colors duration-[160ms] hover:text-gold";
+
+function SpecializationIcon({ label }: { label: string }) {
+  const key = label.toLowerCase();
+  const cls = "size-[18px] shrink-0 text-gold";
+  if (key.includes("strength")) return <Dumbbell className={cls} />;
+  if (key.includes("conditioning")) return <HeartPulse className={cls} />;
+  if (key.includes("competition") || key.includes("prep")) return <Trophy className={cls} />;
+  if (key.includes("weight") || key.includes("toning") || key.includes("fat")) return <Flame className={cls} />;
+  if (key.includes("supplement") || key.includes("nutrition")) return <Pill className={cls} />;
+  if (key.includes("1-on-1") || key.includes("personal training")) return <User className={cls} />;
+  if (key.includes("boxing") || key.includes("circuit")) return <BoxingGlove className={cls} />;
+  if (key.includes("program") || key.includes("personalized")) return <Star className={cls} />;
+  if (key.includes("movement") || key.includes("form")) return <Pulse className={cls} />;
+  if (key.includes("progression")) return <ArrowUpRight className={cls} />;
+  if (key.includes("accountab")) return <ShieldCheck className={cls} />;
+  return <Sparkle className={cls} />;
+}
 
 /**
  * Coach profile, laid out like a magazine spread: portrait (with the competition photo gallery laid
@@ -174,13 +209,16 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
                   </h3>
                   <p className="mt-3 max-w-[54ch] text-[1rem] leading-[1.7] text-fg/85">{coach.experience}</p>
                   <ul
-                    className="mt-4 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2"
+                    className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2"
                     aria-label="Coaching specializations"
                   >
                     {coach.coachingFocus.map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-[0.9375rem] leading-snug text-fg">
-                        <span aria-hidden="true" className="mt-[0.6em] h-0.5 w-3 shrink-0 bg-gold" />
-                        {f}
+                      <li
+                        key={f}
+                        className="flex items-center gap-3 border border-line-subtle bg-canvas/55 px-3.5 py-2.5 text-[0.9375rem] leading-snug text-fg"
+                      >
+                        <SpecializationIcon label={f} />
+                        <span>{f}</span>
                       </li>
                     ))}
                   </ul>

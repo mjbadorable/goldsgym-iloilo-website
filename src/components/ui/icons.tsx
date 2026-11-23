@@ -202,3 +202,38 @@ export const Pause = (p: IconProps) => (
     <path d="M8.5 5.5v13M15.5 5.5v13" />
   </Icon>
 );
+
+export const HeartPulse = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 0 1 12 5.9a5 5 0 0 1 7.5 6.7Z" />
+    <path d="M6.5 12h2.7l1.3-2.6 2.5 5 1.3-2.4h3.2" />
+  </Icon>
+);
+
+export const Flame = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 3c2.4 2.8 5.5 5.6 5.5 10a5.5 5.5 0 1 1-11 0c0-2.1.8-4 2-5.5.2 1.6 1.2 2.5 2.1 2.7-.4-2.4.3-5.2 1.4-7.2Z" />
+  </Icon>
+);
+
+export const Pill = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" />
+    <path d="m8.5 8.5 7 7" />
+  </Icon>
+);
+
+export const User = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="8" r="3.5" />
+    <path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5" />
+  </Icon>
+);
+
+export const BoxingGlove = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7.5 16.5V19a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 0 1.5-1.5v-2.5" />
+    <path d="M7 16.5h10a2.5 2.5 0 0 0 2.5-2.5V9.5A5.5 5.5 0 0 0 14 4h-2a5 5 0 0 0-5 5v1.5H6a2 2 0 0 0-2 2v1a3 3 0 0 0 3 3Z" />
+    <path d="M7 10.5h3.5" />
+  </Icon>
+);
