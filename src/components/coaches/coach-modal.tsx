@@ -125,7 +125,7 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
               alt={i === activePhotoIdx ? p.alt : ""}
               aria-hidden={i === activePhotoIdx ? undefined : true}
               fill
-              sizes="(min-width: 1060px) 428px, (min-width: 768px) 42vw, 100vw"
+              sizes="(min-width: 1280px) 520px, (min-width: 768px) 42vw, 100vw"
               quality={85}
               className={cn(
                 "object-cover transition-opacity duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
@@ -202,14 +202,14 @@ export function CoachModal({ coaches, index, isOpen, onIndexChange, onClose, onT
                   <h3 id="coach-about" className={sectionTitle}>
                     About &amp; coaching approach
                   </h3>
-                  <p className="mt-3 max-w-[54ch] text-[1rem] leading-[1.7] text-fg/85">{coach.bio}</p>
+                  <p className="mt-3 max-w-[64ch] text-[1rem] leading-[1.7] text-fg/85">{coach.bio}</p>
                 </section>
 
                 <section aria-labelledby="coach-experience">
                   <h3 id="coach-experience" className={sectionTitle}>
                     {coach.verified ? "Specializations" : "Experience & focus"}
                   </h3>
-                  <p className="mt-3 max-w-[54ch] text-[1rem] leading-[1.7] text-fg/85">{coach.experience}</p>
+                  <p className="mt-3 max-w-[64ch] text-[1rem] leading-[1.7] text-fg/85">{coach.experience}</p>
                   <ul
                     className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2"
                     aria-label="Coaching specializations"
