@@ -32,7 +32,10 @@ export function OpenBadge({ className }: { className?: string }) {
       >
         <span
           aria-hidden="true"
-          className={cn("size-2.5 shrink-0 rounded-full", isOpen ? "bg-gold-ink" : "border-2 border-muted")}
+          className={cn(
+            "size-2.5 shrink-0 rounded-full",
+            isOpen ? "bg-green-600 ring-2 ring-gold-ink/20" : "border-2 border-muted",
+          )}
         />
         {status ? status.label : "Checking"}
       </span>
