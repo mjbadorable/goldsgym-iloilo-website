@@ -32,29 +32,29 @@ export function Footer() {
   return (
     <footer className="mt-auto bg-surface">
       <VDivider />
-      <div className="shell grid gap-12 pt-[var(--section-y)] pb-14 lg:grid-cols-[1.25fr_0.85fr_1.15fr] lg:items-start lg:gap-0">
+      <div className="shell grid gap-10 pt-6 pb-10 lg:grid-cols-[1.25fr_0.85fr_1.15fr] lg:items-start lg:gap-0 lg:pt-8 lg:pb-11">
         {/* Brand CTA column */}
         <div className="lg:pr-10">
-          <h2 className="flex flex-col gap-1.5 font-display text-[length:var(--text-display)] leading-[1.02] uppercase">
+          <h2 className="flex flex-col gap-1 font-display text-[length:var(--text-display)] leading-[1.02] uppercase">
             <span className="text-gold">Your strongest</span>
             <span className="text-fg">starts here.</span>
           </h2>
-          <p className="mt-5 max-w-[40ch] text-[length:var(--text-body)] text-muted">
+          <p className="mt-4 max-w-[40ch] text-[length:var(--text-body)] text-muted">
             Train with purpose. Build strength. Keep progressing.
           </p>
-          <span aria-hidden="true" className="mt-4 block h-0.5 w-16 bg-gold" />
-          <DayPassButton className="mt-7" />
+          <span aria-hidden="true" className="mt-3 block h-0.5 w-16 bg-gold" />
+          <DayPassButton className="mt-5" />
         </div>
 
         {/* Quick links with gold icons */}
         <nav aria-label="Quick links" className="lg:border-l lg:border-line-subtle lg:px-10">
           <h3 className={headingClass}>Quick links</h3>
-          <ul className="mt-5 space-y-1.5">
+          <ul className="mt-4 space-y-1">
             {FOOTER_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="group flex min-h-10 items-center justify-between gap-3 py-1.5 text-[0.9375rem] text-muted transition-colors duration-[160ms] hover:text-fg"
+                  className="group flex min-h-9 items-center justify-between gap-3 py-1 text-[0.9375rem] text-muted transition-colors duration-[160ms] hover:text-fg"
                 >
                   <span className="flex items-center gap-3.5">
                     <QuickLinkIcon href={link.href} />
@@ -70,7 +70,7 @@ export function Footer() {
         {/* Contact us with solid gold circle icon badges */}
         <div className="lg:border-l lg:border-line-subtle lg:pl-10">
           <h3 className={headingClass}>Contact us</h3>
-          <ul className="mt-5 space-y-4">
+          <ul className="mt-4 space-y-3.5">
             <li>
               <a
                 href={`tel:${CONTACT.phoneE164}`}
@@ -112,7 +112,7 @@ export function Footer() {
 
       {/* Bottom legal & brand pillars bar */}
       <div className="border-t border-gold/30">
-        <div className="shell flex flex-col items-start justify-between gap-4 py-5 sm:flex-row sm:items-center">
+        <div className="shell flex flex-col items-start justify-between gap-4 py-4 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
             <Image src="/images/gold-logo.png" alt="" width={28} height={28} className="size-7" />
             <p className="text-sm text-muted">&copy; {SITE.name}. All rights reserved.</p>
