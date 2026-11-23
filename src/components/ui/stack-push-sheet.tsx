@@ -7,7 +7,7 @@ const subscribeNoop = () => () => {};
 const getClientMounted = () => true;
 const getServerMounted = () => false;
 
-export const STACK_PUSH_MS = 380;
+export const STACK_PUSH_MS = 320;
 const EDGE_HIT_PX = 44;
 const POP_DISTANCE_RATIO = 0.3;
 const POP_VELOCITY_PX_PER_MS = 0.45;
@@ -43,7 +43,6 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
 
   useEffect(() => {
     const dialog = dialogRef.current;
-    const html = document.documentElement;
     if (!dialog) return;
 
     if (isOpen) {
@@ -56,17 +55,15 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
         const heading = document.getElementById(labelledBy);
         heading?.focus({ preventScroll: true });
         // Double rAF guarantees the browser paints the initial off-screen (100%) frame
-        // after display:none -> block before flipping data-state="open", so the 450ms slide runs every time.
+        // after display:none -> block before flipping data-state="open", so the slide runs every time.
         frame1 = requestAnimationFrame(() => {
           frame2 = requestAnimationFrame(() => {
             dialog.setAttribute("data-state", "open");
-            html.setAttribute("data-stack-push", "open");
           });
         });
       } else {
         dialog.setAttribute("data-direction", "forward");
         dialog.setAttribute("data-state", "open");
-        html.setAttribute("data-stack-push", "open");
       }
       return () => {
         if (frame1) cancelAnimationFrame(frame1);
@@ -77,12 +74,8 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
     if (dialog.open) {
       dialog.setAttribute("data-direction", "back");
       dialog.setAttribute("data-state", "closed");
-      html.setAttribute("data-stack-push", "closed");
       const timer = setTimeout(() => {
         dialog.close();
-        html.removeAttribute("data-stack-push");
-        html.style.removeProperty("--stack-drag-x");
-        html.style.removeProperty("--stack-drag-dim");
         if (panelRef.current) {
           panelRef.current.style.removeProperty("transform");
         }
@@ -90,16 +83,6 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
       return () => clearTimeout(timer);
     }
   }, [isOpen, labelledBy]);
-
-  useEffect(() => {
-    return () => {
-      const html = document.documentElement;
-      html.removeAttribute("data-stack-push");
-      html.removeAttribute("data-stack-dragging");
-      html.style.removeProperty("--stack-drag-x");
-      html.style.removeProperty("--stack-drag-dim");
-    };
-  }, []);
 
   function onPointerDown(e: PointerEvent<HTMLDivElement>) {
     const panel = panelRef.current;
@@ -120,7 +103,6 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
       width: rect.width || window.innerWidth,
       active: true,
     };
-    document.documentElement.setAttribute("data-stack-dragging", "true");
     dialogRef.current?.setAttribute("data-dragging", "true");
   }
 
@@ -136,12 +118,7 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
     drag.lastX = e.clientX;
     drag.lastTime = now;
 
-    const progress = Math.min(1, dx / drag.width); // 0 = open, 1 = popped
     panel.style.transform = `translate3d(${dx}px, 0, 0)`;
-
-    const html = document.documentElement;
-    html.style.setProperty("--stack-drag-x", `${(-6 * (1 - progress)).toFixed(3)}%`);
-    html.style.setProperty("--stack-drag-dim", `${(0.2 * (1 - progress)).toFixed(3)}`);
   }
 
   function finishDrag(e: PointerEvent<HTMLDivElement>) {
@@ -157,11 +134,7 @@ export function StackPushSheet({ isOpen, onClose, labelledBy, children }: StackP
     const dx = Math.max(0, e.clientX - drag.startX);
     const shouldPop = dx / drag.width > POP_DISTANCE_RATIO || drag.velocity > POP_VELOCITY_PX_PER_MS;
 
-    const html = document.documentElement;
-    html.removeAttribute("data-stack-dragging");
     dialogRef.current?.removeAttribute("data-dragging");
-    html.style.removeProperty("--stack-drag-x");
-    html.style.removeProperty("--stack-drag-dim");
     panel.style.removeProperty("transform");
     dragRef.current = null;
 

@@ -319,38 +319,11 @@ html:has(dialog.sheet[open]) {
   transform: translate3d(0, 0, 0);
 }
 
-/* Native-style stack push ("Explore the gym"): new view slides in from the right over 380ms
-   while the underlying page shifts subtly (-6%) and dims. will-change is scoped to active
-   transitions so the idle page never holds a giant root compositor layer. */
+/* "Explore the gym" wide slide-over with left-edge swipe-to-close. Only the drawer panel and
+   native ::backdrop animate on the GPU—never transforming the full document root avoids giant
+   compositor layer uploads and keeps opening locked at 60fps. */
 html:has(dialog.stack-push[open]) {
   overflow: hidden;
-}
-.stack-underlay {
-  position: relative;
-  transition: transform 380ms var(--ease-out);
-}
-html[data-stack-push] .stack-underlay {
-  will-change: transform;
-}
-.stack-underlay::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  background: var(--bg-canvas);
-  opacity: 0;
-  transition: opacity 380ms var(--ease-out);
-}
-html[data-stack-push="open"] .stack-underlay {
-  transform: translate3d(var(--stack-drag-x, -6%), 0, 0);
-}
-html[data-stack-push="open"] .stack-underlay::after {
-  opacity: var(--stack-drag-dim, 0.2);
-}
-html[data-stack-dragging="true"] .stack-underlay,
-html[data-stack-dragging="true"] .stack-underlay::after {
-  transition: none !important;
 }
 
 .stack-push {
@@ -368,9 +341,9 @@ html[data-stack-dragging="true"] .stack-underlay::after {
   overflow: hidden;
 }
 .stack-push::backdrop {
-  background: rgba(7, 7, 8, 0.24);
+  background: color-mix(in srgb, var(--bg-canvas) 78%, transparent);
   opacity: 0;
-  transition: opacity 380ms var(--ease-out);
+  transition: opacity 320ms var(--ease-out);
 }
 .stack-push[data-state="open"]::backdrop {
   opacity: 1;
@@ -390,7 +363,7 @@ html[data-stack-dragging="true"] .stack-underlay::after {
   transform: translate3d(100%, 0, 0);
   will-change: transform;
   backface-visibility: hidden;
-  transition: transform 380ms var(--ease-out);
+  transition: transform 320ms var(--ease-out);
 }
 @media (min-width: 768px) {
   .stack-push-panel {
@@ -404,9 +377,6 @@ html[data-stack-dragging="true"] .stack-underlay::after {
   transition: none !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  html[data-stack-push="open"] .stack-underlay {
-    transform: none;
-  }
   .stack-push-panel {
     transform: none;
     opacity: 0;
