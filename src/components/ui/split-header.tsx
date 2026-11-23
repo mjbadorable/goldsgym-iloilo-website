@@ -11,13 +11,13 @@ export function SplitHeader({ id, title, intro }: { id: string; title: ReactNode
         <h1
           id={id}
           className="page-reveal font-display text-[length:var(--text-display)] leading-[1.06] uppercase lg:col-span-7"
-          style={{ "--delay": "40ms" } as CSSProperties}
+          style={{ "--delay": "140ms" } as CSSProperties}
         >
           {title}
         </h1>
         <div
           className="page-reveal relative pl-6 lg:col-span-4 lg:col-start-9"
-          style={{ "--delay": "140ms" } as CSSProperties}
+          style={{ "--delay": "380ms" } as CSSProperties}
         >
           <span aria-hidden="true" className="absolute inset-y-0 left-0 w-0.5 bg-gold" />
           <p className="max-w-[44ch] text-[length:var(--text-body)] text-fg/85">{intro}</p>

@@ -27,7 +27,7 @@ export default function CoachesPage() {
           sizes="(min-width: 1024px) 62vw, 100vw"
           quality={75}
           loading="eager"
-          className="object-cover object-[70%_25%] opacity-50"
+          className="backdrop-settle object-cover object-[70%_25%] opacity-50"
         />
         <div className="scrim-x absolute -inset-px" />
         <div className="scrim-y absolute -inset-px" />

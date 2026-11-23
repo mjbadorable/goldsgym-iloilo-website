@@ -53,7 +53,7 @@ export default function ReviewsFaqPage() {
               <li
                 key={review.id}
                 className="deck-reveal flex"
-                style={{ "--delay": `${180 + i * 120}ms` } as CSSProperties}
+                style={{ "--delay": `${480 + i * 160}ms` } as CSSProperties}
               >
                 <figure className="hairline flex w-full flex-col justify-between gap-10 border bg-surface p-8">
                   <div>

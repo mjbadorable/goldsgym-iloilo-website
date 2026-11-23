@@ -29,7 +29,7 @@ export function Zones() {
               key={zone.id}
               id={zone.id}
               className="deck-reveal flex scroll-mt-24"
-              style={{ "--delay": `${200 + i * 105}ms` } as CSSProperties}
+              style={{ "--delay": `${520 + i * 140}ms` } as CSSProperties}
             >
               <article className="hairline group flex w-full flex-col bg-surface">
                 <div className="relative aspect-[4/3] overflow-hidden">

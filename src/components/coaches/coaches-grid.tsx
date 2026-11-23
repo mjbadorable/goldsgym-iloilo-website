@@ -61,7 +61,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
             <li
               key={coach.id}
               className="deck-reveal flex"
-              style={{ "--delay": `${180 + i * 120}ms` } as CSSProperties}
+              style={{ "--delay": `${480 + i * 160}ms` } as CSSProperties}
             >
               <button
                 ref={(el) => {

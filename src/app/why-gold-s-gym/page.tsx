@@ -42,22 +42,25 @@ export default function AboutPage() {
           <div>
             <h1
               id="about-title"
-              className="page-reveal font-display text-[length:var(--text-hero)] leading-[1.02] uppercase lg:whitespace-nowrap"
-              style={{ "--delay": "40ms" } as CSSProperties}
+              className="font-display text-[length:var(--text-hero)] leading-[1.02] uppercase lg:whitespace-nowrap"
             >
-              <span className="text-fg">Built to</span> <span className="text-gold">train.</span>
+              <span className="reveal-line" style={{ "--i": 0 } as CSSProperties}>
+                <span>
+                  <span className="text-fg">Built to</span> <span className="text-gold">train.</span>
+                </span>
+              </span>
             </h1>
             <p
-              className="page-reveal mt-4 max-w-[38ch] text-[length:var(--text-body)] text-fg/85"
-              style={{ "--delay": "130ms" } as CSSProperties}
+              className="hero-fade mt-4 max-w-[38ch] text-[length:var(--text-body)] text-fg/85"
+              style={{ "--delay": "420ms" } as CSSProperties}
             >
               A complete training environment with the tools, space, and support you need to reach your goals.
             </p>
             {/* Jump links to the four zone cards below. Smooth scrolling is global (and off under reduced motion). */}
             <nav
               aria-label="Training zones"
-              className="page-reveal mt-6"
-              style={{ "--delay": "210ms" } as CSSProperties}
+              className="hero-fade mt-6"
+              style={{ "--delay": "620ms" } as CSSProperties}
             >
               <ul className="flex flex-wrap gap-2">
                 {ZONES.map((zone) => (
