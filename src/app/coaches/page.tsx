@@ -36,7 +36,11 @@ export default function CoachesPage() {
 
       <SplitHeader
         id="coaches-title"
-        title="The right guidance can change how you train."
+        title={
+          <>
+            The right guidance can <span className="text-gold">change how you train.</span>
+          </>
+        }
         intro="Meet our certified fitness coaches. Whether you're building strength, improving performance, or starting your fitness journey, we're here to guide you."
       />
       <CoachesGrid coaches={COACHES} />

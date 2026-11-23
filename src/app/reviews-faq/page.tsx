@@ -40,7 +40,11 @@ export default function ReviewsFaqPage() {
 
         <SplitHeader
           id="reviews-title"
-          title="The floor is only part of the experience."
+          title={
+            <>
+              The floor is only part of <span className="text-gold">the experience.</span>
+            </>
+          }
           intro="Members say it better than we can. These are verified five-star reviews from Google."
         />
 
