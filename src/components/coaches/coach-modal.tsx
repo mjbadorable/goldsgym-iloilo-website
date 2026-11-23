@@ -41,9 +41,9 @@ const sectionTitle =
 const navLink =
   "inline-flex min-h-11 items-center gap-2 font-label text-[1.125rem] leading-none tracking-[0.08em] text-muted uppercase transition-colors duration-[160ms] hover:text-gold";
 
-function SpecializationIcon({ label }: { label: string }) {
+export function SpecializationIcon({ label, className }: { label: string; className?: string }) {
   const key = label.toLowerCase();
-  const cls = "size-[18px] shrink-0 text-gold";
+  const cls = className ?? "size-[18px] shrink-0 text-gold";
   if (key.includes("strength")) return <Dumbbell className={cls} />;
   if (key.includes("conditioning")) return <HeartPulse className={cls} />;
   if (key.includes("competition") || key.includes("prep")) return <Trophy className={cls} />;

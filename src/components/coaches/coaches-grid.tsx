@@ -6,7 +6,7 @@ import { useDayPass } from "@/components/day-pass/day-pass-provider";
 import { ArrowRight } from "@/components/ui/icons";
 import type { Coach } from "@/content/coaches";
 import { DIALOG_CLOSE_MS } from "@/lib/use-modal-dialog";
-import { CoachModal } from "./coach-modal";
+import { CoachModal, SpecializationIcon } from "./coach-modal";
 
 /** The three coach cards. Each card is a real button that opens that coach's profile modal. */
 export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
@@ -91,9 +91,10 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
                     {coach.specialties.map((s) => (
                       <span
                         key={s}
-                        className="border border-line-subtle px-3 py-1.5 font-mono text-[0.8125rem] text-fg"
+                        className="inline-flex items-center gap-2 border border-line-subtle bg-canvas/55 px-3 py-1.5 font-mono text-[0.8125rem] text-fg"
                       >
-                        {s}
+                        <SpecializationIcon label={s} className="size-3.5 shrink-0 text-gold" />
+                        <span>{s}</span>
                       </span>
                     ))}
                   </span>
