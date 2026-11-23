@@ -103,13 +103,7 @@ export function Footer() {
                 <span className={`${contactBadgeClass} mt-0.5`}>
                   <MapPin className="size-[18px]" strokeWidth={2} />
                 </span>
-                <address className="not-italic">
-                  {ADDRESS.lines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </address>
+                <address className="max-w-[40ch] not-italic">{ADDRESS.oneLine}</address>
               </a>
             </li>
           </ul>
