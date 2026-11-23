@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { DayPassButton } from "@/components/day-pass/day-pass-button";
 import { Accordion } from "@/components/faq/accordion";
 import { Stars } from "@/components/reviews/stars";
+import { Phone } from "@/components/ui/icons";
 import { SplitHeader } from "@/components/ui/split-header";
 import { StickyBar, StickySections } from "@/components/ui/sticky-sections";
 import { FAQ } from "@/content/faq";
 import { REVIEWS } from "@/content/reviews";
 import { pageMetadata } from "@/lib/page-metadata";
+import { CONTACT } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Reviews + FAQ",
@@ -95,18 +98,23 @@ export default function ReviewsFaqPage() {
               The questions everyone asks before walking in for the first time are answered, so there&rsquo;s
               nothing to figure out on the day.
             </p>
-            <div
-              aria-hidden="true"
-              className="relative mt-6 hidden aspect-square w-full max-w-[240px] overflow-hidden opacity-85 [mask-image:radial-gradient(closest-side,black_60%,transparent)] lg:block"
-            >
-              <Image
-                src="/images/golds-mesh-emblem.jpg"
-                alt=""
-                fill
-                sizes="240px"
-                quality={85}
-                className="object-cover object-center"
-              />
+            <div className="mt-8 max-w-[38ch] border border-line-subtle bg-elevated/70 p-6">
+              <h3 className="flex items-center gap-2.5 font-label text-[1.25rem] leading-none tracking-[0.08em] text-fg uppercase before:h-4 before:w-[3px] before:shrink-0 before:bg-gold">
+                Still have questions?
+              </h3>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
+                Reach our front desk directly or claim your free day pass to experience the floor.
+              </p>
+              <a
+                href={`tel:${CONTACT.phoneE164}`}
+                className="mt-4 inline-flex items-center gap-2.5 text-[0.9375rem] font-medium text-fg tabular-nums transition-colors duration-[160ms] hover:text-gold"
+              >
+                <Phone className="size-4 shrink-0 text-gold" />
+                {CONTACT.phoneDisplay}
+              </a>
+              <DayPassButton size="sm" className="mt-5 w-full">
+                Get your free day pass
+              </DayPassButton>
             </div>
           </div>
 

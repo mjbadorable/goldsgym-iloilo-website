@@ -32,11 +32,11 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line-subtle bg-canvas">
-      {/* Edge to edge: logo anchors left, links sit centred, the CTA anchors right (3-column grid on lg+). */}
-      <div className="shell-full flex h-[var(--nav-h)] items-center justify-between gap-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+      {/* Edge to edge: logo anchors left, primary links anchor right on lg+ (hamburger below lg). */}
+      <div className="shell-full flex h-[var(--nav-h)] items-center justify-between gap-6">
         <Link
           href="/"
-          className="flex items-center gap-3 lg:justify-self-start"
+          className="flex items-center gap-3"
           aria-label={`${SITE.name}, home`}
         >
           <Image
@@ -73,23 +73,17 @@ export function Navbar() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3 lg:justify-self-end">
-          {/* Wrapper handles visibility: a `hidden` class on the button itself would fight its inline-flex. */}
-          <div className="hidden lg:block">
-            <DayPassButton size="sm">Free day pass</DayPassButton>
-          </div>
-          <button
-            ref={toggleRef}
-            type="button"
-            className="inline-flex size-11 items-center justify-center border border-line-subtle text-fg transition-colors duration-[160ms] hover:border-gold hover:text-gold lg:hidden"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setOpenFor(menuOpen ? null : pathname)}
-          >
-            {menuOpen ? <Close className="size-6" /> : <Menu className="size-6" />}
-          </button>
-        </div>
+        <button
+          ref={toggleRef}
+          type="button"
+          className="inline-flex size-11 items-center justify-center border border-line-subtle text-fg transition-colors duration-[160ms] hover:border-gold hover:text-gold lg:hidden"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setOpenFor(menuOpen ? null : pathname)}
+        >
+          {menuOpen ? <Close className="size-6" /> : <Menu className="size-6" />}
+        </button>
       </div>
 
       <div
