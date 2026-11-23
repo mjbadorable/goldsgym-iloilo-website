@@ -6,9 +6,9 @@ import { COACHES } from "@/content/coaches";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Coaches",
+  title: "Personal Trainers & Fitness Coaches in Iloilo",
   description:
-    "Meet the coaches at Gold's Gym Iloilo: Andrew Miano, Vincent Loui Dorde and Jerry Perje. Strength, technique, conditioning and accountability.",
+    "Train with personal fitness coaches in Iloilo at Gold's Gym Iloilo: Andrew Miano, Vincent Loui Dorde, and Jerry Perje—specializing in strength and conditioning, weight loss, nutrition planning, and competition prep.",
   path: "/coaches",
 });
 

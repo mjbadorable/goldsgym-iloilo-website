@@ -18,6 +18,7 @@ const localBusiness = {
   "@context": "https://schema.org",
   "@type": "HealthClub",
   name: SITE.name,
+  description: SITE.description,
   image: new URL("/images/og-share.jpg", SITE_URL).toString(),
   url: SITE_URL,
   telephone: CONTACT.phoneE164,
@@ -26,7 +27,13 @@ const localBusiness = {
     "@type": "PostalAddress",
     streetAddress: "Saint Honore, G/F – Unit A-1A-5, Iloilo Business Park",
     addressLocality: "Mandurriao, Iloilo City",
+    addressRegion: "Iloilo",
+    postalCode: "5000",
     addressCountry: "PH",
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Iloilo City",
   },
   hasMap: ADDRESS.mapsUrl,
   openingHoursSpecification: HOURS.map((r) => ({

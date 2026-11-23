@@ -9,9 +9,9 @@ import { ZONES } from "@/content/zones";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Why Gold's Gym",
+  title: "Why Gold's Gym | Training Zones & Gym Equipment in Iloilo",
   description:
-    "Four training zones under one roof: Free Weights, Gym80 Strength, Cardio Bay and Functional Training, plus clean facilities, easy parking and quality equipment.",
+    "Explore four dedicated training zones at Gold's Gym Iloilo in Iloilo Business Park: Free Weights, Gym80 Strength, Cardio Bay, and Functional Training with clean facilities and convenient parking.",
   path: "/why-gold-s-gym",
 });
 

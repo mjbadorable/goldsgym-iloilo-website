@@ -11,6 +11,8 @@ export type FaqItem = {
   id: string;
   question: string;
   answer: React.ReactNode;
+  /** Plain-text version of the answer for FAQPage structured data. */
+  plainAnswer: string;
 };
 
 export const FAQ: FaqItem[] = [
@@ -27,6 +29,7 @@ export const FAQ: FaqItem[] = [
         and we will find a time that suits your schedule.
       </>
     ),
+    plainAnswer: `Start with a free day pass: request it on our website, send us a quick message, and the team will confirm your visit. If you would rather talk first, call or text ${CONTACT.phoneDisplay} and we will find a time that suits your schedule.`,
   },
   {
     id: "bring",
@@ -38,6 +41,8 @@ export const FAQ: FaqItem[] = [
         and we will sort it out.
       </>
     ),
+    plainAnswer:
+      "Wear what you normally train in: comfortable workout clothes and training shoes. Bring water, and a towel if you like having your own. If you are unsure about anything else, message us before you come and we will sort it out.",
   },
   {
     id: "look-around",
@@ -49,6 +54,8 @@ export const FAQ: FaqItem[] = [
         look first, message us and we will tell you the best time to drop by.
       </>
     ),
+    plainAnswer:
+      "That is a fair thing to want before you commit. The free day pass lets you see and try the floor for yourself: Free Weights, Gym80 Strength, Cardio Bay and Functional Training. If you only want a quick look first, message us and we will tell you the best time to drop by.",
   },
   {
     id: "parking",
@@ -68,6 +75,7 @@ export const FAQ: FaqItem[] = [
         or message us if you have a specific parking question.
       </>
     ),
+    plainAnswer: `Yes. Convenient parking and easy access are part of the visit. We are at ${ADDRESS.oneLine}. Message us if you have a specific parking question.`,
   },
   {
     id: "after-pass",
@@ -86,5 +94,6 @@ export const FAQ: FaqItem[] = [
         for current rates.
       </>
     ),
+    plainAnswer: `After your visit you can ask the team about membership options that fit your schedule and goals. We do not publish prices online, so message us at ${CONTACT.email} or call ${CONTACT.phoneDisplay} for current rates.`,
   },
 ];

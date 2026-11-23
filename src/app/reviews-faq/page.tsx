@@ -14,11 +14,24 @@ import { pageMetadata } from "@/lib/page-metadata";
 import { CONTACT } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Reviews + FAQ",
+  title: "Gym Reviews & First-Visit FAQ in Iloilo",
   description:
-    "What members say about Gold's Gym Iloilo on Google, and answers to the questions everyone asks before a first visit.",
+    "Read verified five-star Google reviews for Gold's Gym Iloilo and get answers to common first-visit questions—booking a free day pass, parking at Iloilo Business Park, and what to bring.",
   path: "/reviews-faq",
 });
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.plainAnswer,
+    },
+  })),
+};
 
 export default function ReviewsFaqPage() {
   return (
@@ -133,6 +146,10 @@ export default function ReviewsFaqPage() {
           </ScrollReveal>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+      />
     </StickySections>
   );
 }

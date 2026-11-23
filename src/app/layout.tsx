@@ -15,10 +15,19 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.name} | Free weights, Gym80 strength, cardio and coaches`,
+    default: `${SITE.name} | Fitness Gym in Iloilo City, Iloilo Business Park`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
+  keywords: [
+    "gym in Iloilo",
+    "fitness gym in Iloilo",
+    "Gold's Gym Iloilo",
+    "Iloilo Business Park gym",
+    "Mandurriao gym",
+    "personal trainer Iloilo",
+    "Gym80 Iloilo",
+  ],
   applicationName: SITE.name,
   openGraph: {
     type: "website",
