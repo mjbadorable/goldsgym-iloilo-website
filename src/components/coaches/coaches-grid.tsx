@@ -91,7 +91,7 @@ export function CoachesGrid({ coaches }: { coaches: Coach[] }) {
                     {coach.specialties.map((s) => (
                       <span
                         key={s}
-                        className="inline-flex items-center gap-1.5 border border-line-subtle bg-canvas/55 px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap text-fg"
+                        className="inline-flex items-center gap-1.5 border border-line-subtle bg-canvas/55 px-2.5 py-1.5 text-[0.75rem] font-medium whitespace-nowrap text-fg"
                       >
                         <SpecializationIcon label={s} className="size-3.5 shrink-0 text-gold" />
                         <span>{s}</span>
