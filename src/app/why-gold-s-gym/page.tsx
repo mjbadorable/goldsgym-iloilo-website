@@ -5,6 +5,7 @@ import { Experience } from "@/components/about/experience";
 import { Zones } from "@/components/about/zones";
 import { StickySections } from "@/components/ui/sticky-sections";
 import { VDivider } from "@/components/ui/v-divider";
+import { NamedIcon } from "@/components/ui/zone-icons";
 import { ZONES } from "@/content/zones";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -67,8 +68,9 @@ export default function AboutPage() {
                   <li key={zone.id}>
                     <a
                       href={`#${zone.id}`}
-                      className="inline-flex min-h-11 items-center border border-line bg-canvas px-4 font-mono text-[0.8125rem] text-fg transition-colors duration-[var(--dur-fast)] hover:border-gold hover:text-gold"
+                      className="inline-flex min-h-11 items-center gap-2.5 border border-line bg-canvas px-4 font-label text-[1.0625rem] leading-none tracking-[0.06em] text-fg uppercase transition-colors duration-[var(--dur-fast)] hover:border-gold hover:text-gold"
                     >
+                      <NamedIcon name={zone.icon} className="size-4 shrink-0 text-gold" />
                       {zone.name}
                     </a>
                   </li>
