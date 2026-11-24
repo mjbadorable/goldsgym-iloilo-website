@@ -77,8 +77,8 @@ export function DayPassDrawer() {
         </div>
 
         <p className="mt-5 max-w-[40ch] text-muted">
-          Tell us who is coming and when. One tap opens a message to the team with the details filled in.
-          Nothing is sent until you press send.
+          To avail your free day pass or schedule a visit, please contact us below. Pick your preferred date
+          and tap text, email, or call to send your details to our team.
         </p>
 
         <section id="dp-visit" aria-labelledby="dp-visit-title" className="mt-8">
