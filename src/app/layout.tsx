@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: SHARE_DESCRIPTION,
     images: [OG_IMAGE.url],
   },
-  // No `icons` here: src/app/icon.png (64px) and apple-icon.png (180px) are picked up by file convention.
+  // No `icons` here: src/app/icon.png (192px, 4x48px for Google Search) and apple-icon.png (180px) are picked up by file convention.
 };
 
 export const viewport: Viewport = {
