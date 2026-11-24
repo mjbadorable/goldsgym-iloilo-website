@@ -15,7 +15,7 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.name} | Fitness Gym in Iloilo City, Iloilo Business Park`,
+    default: `${SITE.name} — Fitness Gym in Iloilo Business Park`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
