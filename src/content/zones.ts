@@ -90,9 +90,9 @@ export const EXPERIENCES: Experience[] = [
       "Convenient parking and easy access make it simple to get in, train, and get back on your day.",
     icon: "car",
     image: {
-      src: "/images/storefront-sign.jpg",
-      alt: "The glowing Gold's Gym sign above the glass entrance",
-      position: "45% 28%",
+      src: "/images/parking-lot.jpg",
+      alt: "Covered ground-floor parking bays beneath Gold's Gym Iloilo at Saint Honore, Iloilo Business Park",
+      position: "50% 72%",
     },
   },
   {

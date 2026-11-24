@@ -90,7 +90,7 @@ export function WatchGymButton({ className }: { className?: string }) {
               </figcaption>
             </figure>
 
-            <div role="group" aria-label="Choose a photo" className="mt-4 grid grid-cols-6 gap-2">
+            <div role="group" aria-label="Choose a photo" className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-7">
               {TOUR_PHOTOS.map((p, i) => (
                 <button
                   key={p.id}

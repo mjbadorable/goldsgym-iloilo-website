@@ -53,6 +53,13 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     alt: "Two members running on treadmills in the Cardio Bay",
     position: "50% 55%",
   },
+  {
+    id: "parking",
+    src: "/images/parking-lot-bay.jpg",
+    label: "Covered parking",
+    alt: "Covered parking bay with car and motorcycle slots at Gold's Gym Iloilo",
+    position: "50% 62%",
+  },
 ];
 
 // The gym's promotional video: a portrait (9:16) file hosted on the owner's Google Drive.
