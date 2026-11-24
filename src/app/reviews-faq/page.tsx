@@ -15,7 +15,7 @@ import { CONTACT } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Gym Reviews & First-Visit FAQ in Iloilo",
   description:
-    "Read verified five-star Google reviews for Gold's Gym Iloilo and get answers to common first-visit questions—booking a free day pass, parking at Iloilo Business Park, and what to bring.",
+    "Read verified five-star Google reviews for Gold's Gym Iloilo and get answers to common first-visit questions—scheduling a visit, parking at Iloilo Business Park, and what to bring.",
   path: "/reviews-faq",
 });
 
@@ -125,7 +125,7 @@ export default function ReviewsFaqPage() {
                 Still have questions?
               </h3>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
-                Reach our front desk directly or claim your free day pass to experience the floor.
+                Reach our front desk directly or send us a message to schedule your visit.
               </p>
               <a
                 href={`tel:${CONTACT.phoneE164}`}
@@ -135,7 +135,7 @@ export default function ReviewsFaqPage() {
                 {CONTACT.phoneDisplay}
               </a>
               <DayPassButton size="sm" className="mt-5 w-full">
-                Get your free day pass
+                Contact us
               </DayPassButton>
             </div>
           </div>

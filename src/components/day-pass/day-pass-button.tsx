@@ -24,8 +24,8 @@ export function DayPassTextButton({ children }: { children: ReactNode }) {
   );
 }
 
-/** Every "Get your free day pass" button on the site is this component. It opens the drawer. */
-export function DayPassButton({ children = "Get your free day pass", variant, size, className, onOpen }: Props) {
+/** Every "Contact us" button on the site is this component. It opens the contact drawer. */
+export function DayPassButton({ children = "Contact us", variant, size, className, onOpen }: Props) {
   const { open } = useDayPass();
   return (
     <Button

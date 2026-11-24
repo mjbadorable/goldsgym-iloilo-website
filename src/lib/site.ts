@@ -14,7 +14,7 @@ export const SITE = {
   name: "Gold's Gym Iloilo",
   tagline: "Your strongest starts here.",
   description:
-    "Looking for a fitness gym in Iloilo City? Train at Gold's Gym Iloilo in Iloilo Business Park, Mandurriao—free weights, Gym80 strength equipment, cardio bay, functional training, and personal coaches. Claim a free day pass.",
+    "Looking for a fitness gym in Iloilo City? Train at Gold's Gym Iloilo in Iloilo Business Park, Mandurriao—free weights, Gym80 strength equipment, cardio bay, functional training, and personal coaches. Contact us to schedule a visit.",
 } as const;
 
 export const CONTACT = {

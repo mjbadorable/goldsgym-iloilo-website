@@ -44,7 +44,7 @@ export function DayPassDrawer() {
 
   const message = buildVisitMessage({ siteName: SITE.name, name, date: preferredDate });
   const smsLink = smsHref(CONTACT.phoneE164, message);
-  const mailLink = mailtoHref(CONTACT.email, "Free day pass request", message);
+  const mailLink = mailtoHref(CONTACT.email, "Gym visit inquiry", message);
 
   async function copyNumber() {
     if (copyTimer.current) clearTimeout(copyTimer.current);
@@ -63,7 +63,7 @@ export function DayPassDrawer() {
       <StickySections ids={["dp-visit", "dp-send", "dp-contact"]} scope="panel" enabled={isOpen}>
         <div className="flex items-start justify-between gap-6">
           <h2 id="day-pass-title" className="font-display text-[2.5rem] leading-[0.95] uppercase">
-            Get your free day pass
+            Contact us
           </h2>
           <button
             type="button"

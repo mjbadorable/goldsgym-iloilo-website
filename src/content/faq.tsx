@@ -21,15 +21,15 @@ export const FAQ: FaqItem[] = [
     question: "Do I need to book?",
     answer: (
       <>
-        Start with a free day pass: <DayPassTextButton>request it here</DayPassTextButton>, send us a quick
-        message, and the team will confirm your visit. If you would rather talk first, call or text{" "}
+        You can <DayPassTextButton>contact us here</DayPassTextButton>, send us a quick message, and the team
+        will confirm your visit. If you would rather talk first, call or text{" "}
         <a className="link-underline text-gold" href={`tel:${CONTACT.phoneE164}`}>
           {CONTACT.phoneDisplay}
         </a>{" "}
         and we will find a time that suits your schedule.
       </>
     ),
-    plainAnswer: `Start with a free day pass: request it on our website, send us a quick message, and the team will confirm your visit. If you would rather talk first, call or text ${CONTACT.phoneDisplay} and we will find a time that suits your schedule.`,
+    plainAnswer: `You can contact us on our website, send us a quick message, and the team will confirm your visit. If you would rather talk first, call or text ${CONTACT.phoneDisplay} and we will find a time that suits your schedule.`,
   },
   {
     id: "bring",
@@ -49,13 +49,13 @@ export const FAQ: FaqItem[] = [
     question: "Can I just look around?",
     answer: (
       <>
-        That is a fair thing to want before you commit. The free day pass lets you see and try the floor for
-        yourself: Free Weights, Gym80 Strength, Cardio Bay and Functional Training. If you only want a quick
-        look first, message us and we will tell you the best time to drop by.
+        That is a fair thing to want before you commit. You are welcome to visit and see the floor for
+        yourself: Free Weights, Gym80 Strength, Cardio Bay and Functional Training. If you want a quick look
+        first, message us and we will tell you the best time to drop by.
       </>
     ),
     plainAnswer:
-      "That is a fair thing to want before you commit. The free day pass lets you see and try the floor for yourself: Free Weights, Gym80 Strength, Cardio Bay and Functional Training. If you only want a quick look first, message us and we will tell you the best time to drop by.",
+      "That is a fair thing to want before you commit. You are welcome to visit and see the floor for yourself: Free Weights, Gym80 Strength, Cardio Bay and Functional Training. If you want a quick look first, message us and we will tell you the best time to drop by.",
   },
   {
     id: "parking",
@@ -79,7 +79,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     id: "after-pass",
-    question: "What happens after the free day pass?",
+    question: "What happens after my first visit?",
     answer: (
       <>
         After your visit you can ask the team about membership options that fit your schedule and goals. We

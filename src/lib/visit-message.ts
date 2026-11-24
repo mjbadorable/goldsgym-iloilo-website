@@ -15,7 +15,7 @@ export function buildVisitMessage({
 }): string {
   const cleanName = name.trim().slice(0, MAX_NAME_LENGTH);
   return [
-    `Hi ${siteName}, I'd like to claim a free day pass.`,
+    `Hi ${siteName}, I'd like to schedule a visit.`,
     cleanName ? `Name: ${cleanName}` : null,
     date ? `Preferred date: ${formatCalendarDate(date)}` : null,
   ]

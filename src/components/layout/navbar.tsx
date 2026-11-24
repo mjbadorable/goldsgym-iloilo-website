@@ -117,7 +117,7 @@ export function Navbar() {
               setOpenFor(null);
             }}
           >
-            Get your free day pass
+            Contact us
           </DayPassButton>
         </nav>
       </div>

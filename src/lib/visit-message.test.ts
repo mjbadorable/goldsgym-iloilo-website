@@ -8,14 +8,14 @@ const date = { year: 2026, month: 10, day: 23 };
 test("message with no name and no date is just the greeting", () => {
   assert.equal(
     buildVisitMessage({ siteName: SITE_NAME, name: "", date: null }),
-    "Hi Gold's Gym Iloilo, I'd like to claim a free day pass.",
+    "Hi Gold's Gym Iloilo, I'd like to schedule a visit.",
   );
 });
 
 test("message includes the name and date on their own lines", () => {
   assert.equal(
     buildVisitMessage({ siteName: SITE_NAME, name: "  Juan dela Cruz ", date }),
-    "Hi Gold's Gym Iloilo, I'd like to claim a free day pass.\nName: Juan dela Cruz\nPreferred date: Mon, Nov 23, 2026",
+    "Hi Gold's Gym Iloilo, I'd like to schedule a visit.\nName: Juan dela Cruz\nPreferred date: Mon, Nov 23, 2026",
   );
 });
 
@@ -42,9 +42,9 @@ test("sms link keeps the ?&body= form and round-trips awkward characters", () =>
 
 test("mailto link encodes subject and body separately", () => {
   const message = buildVisitMessage({ siteName: SITE_NAME, name: "Ann & Bob", date });
-  const href = mailtoHref("team@example.com", "Free day pass request", message);
-  assert.ok(href.startsWith("mailto:team@example.com?subject=Free%20day%20pass%20request&body="));
+  const href = mailtoHref("team@example.com", "Gym visit inquiry", message);
+  assert.ok(href.startsWith("mailto:team@example.com?subject=Gym%20visit%20inquiry&body="));
   const url = new URL(href);
-  assert.equal(url.searchParams.get("subject"), "Free day pass request");
+  assert.equal(url.searchParams.get("subject"), "Gym visit inquiry");
   assert.equal(url.searchParams.get("body"), message);
 });

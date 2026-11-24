@@ -177,7 +177,7 @@ export function WatchGymButton({ className }: { className?: string }) {
 
                 <div className="mt-6 space-y-3">
                   <Button variant="primary" className="w-full" onClick={claimPass}>
-                    Get your free day pass
+                    Contact us
                     <ArrowRight className="size-[1.1em]" />
                   </Button>
                   <p className="text-center">
