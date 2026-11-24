@@ -21,7 +21,7 @@ const structuredData = {
     {
       "@type": "WebSite",
       name: SITE.name,
-      alternateName: ["Gold's Gym Iloilo City", "goldsgym-iloilo.com"],
+      alternateName: "Gold's Gym Iloilo City",
       url: new URL("/", SITE_URL).toString(),
     },
     {
