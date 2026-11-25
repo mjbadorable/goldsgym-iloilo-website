@@ -1,6 +1,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { MAX_NAME_LENGTH, buildVisitMessage, mailtoHref, smsHref } from "./visit-message.ts";
+import {
+  MAX_NAME_LENGTH,
+  buildVisitMessage,
+  gmailComposeHref,
+  mailtoHref,
+  smsHref,
+} from "./visit-message.ts";
 
 const SITE_NAME = "Gold's Gym Iloilo";
 const date = { year: 2026, month: 10, day: 23 };
@@ -47,4 +53,18 @@ test("mailto link encodes subject and body separately", () => {
   const url = new URL(href);
   assert.equal(url.searchParams.get("subject"), "Gym visit inquiry");
   assert.equal(url.searchParams.get("body"), message);
+});
+
+test("gmail compose link targets Gmail's compose view and round-trips awkward characters", () => {
+  const message = buildVisitMessage({ siteName: SITE_NAME, name: 'Ann & Bob #1 100% "pro"?', date });
+  const href = gmailComposeHref("team@example.com", "Gym visit inquiry", message);
+  assert.ok(href.startsWith("https://mail.google.com/mail/?view=cm&fs=1&to=team%40example.com&su="));
+  const url = new URL(href);
+  assert.equal(url.origin, "https://mail.google.com");
+  assert.equal(url.searchParams.get("view"), "cm");
+  assert.equal(url.searchParams.get("to"), "team@example.com");
+  assert.equal(url.searchParams.get("su"), "Gym visit inquiry");
+  assert.equal(url.searchParams.get("body"), message);
+  // Nothing in the query can end it early.
+  assert.ok(!/[ \n"#]/.test(href));
 });

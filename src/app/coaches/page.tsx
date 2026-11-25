@@ -3,14 +3,10 @@ import Image from "next/image";
 import { CoachesGrid } from "@/components/coaches/coaches-grid";
 import { SplitHeader } from "@/components/ui/split-header";
 import { COACHES } from "@/content/coaches";
+import { PAGE_SEO } from "@/content/seo";
 import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Personal Trainers & Fitness Coaches in Iloilo",
-  description:
-    "Train with personal fitness coaches in Iloilo at Gold's Gym Iloilo: Andrew Miano, Vincent Loui Dorde, and Jerry Perje—specializing in strength and conditioning, weight loss, nutrition planning, and competition prep.",
-  path: "/coaches",
-});
+export const metadata: Metadata = pageMetadata(PAGE_SEO.coaches);
 
 export default function CoachesPage() {
   return (

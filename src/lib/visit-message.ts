@@ -28,6 +28,15 @@ export function smsHref(phoneE164: string, message: string): string {
   return `sms:${phoneE164}?&body=${encodeURIComponent(message)}`;
 }
 
+/**
+ * Opens Gmail's compose window with the message filled in. A desktop visitor with no default mail app
+ * set up gets nothing from mailto:, but can use this in any browser signed in to Gmail.
+ */
+export function gmailComposeHref(email: string, subject: string, message: string): string {
+  const q = (value: string) => encodeURIComponent(value);
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${q(email)}&su=${q(subject)}&body=${q(message)}`;
+}
+
 export function mailtoHref(email: string, subject: string, message: string): string {
   return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 }

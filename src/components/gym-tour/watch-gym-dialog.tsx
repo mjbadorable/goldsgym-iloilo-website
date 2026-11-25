@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDayPass } from "@/components/day-pass/day-pass-provider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowUpRight, Clock, Close, MapPin, Play } from "@/components/ui/icons";
@@ -13,21 +13,59 @@ import { cn } from "@/lib/cn";
 import { HOURS, formatMinutes } from "@/lib/hours";
 import { ADDRESS } from "@/lib/site";
 
+const PHOTO_COUNT = TOUR_PHOTOS.length;
+const wrapIndex = (i: number) => (i + PHOTO_COUNT) % PHOTO_COUNT;
+
 /**
  * "Explore the gym": a button plus a native stack-push view with a photo switcher and the gym's
- * portrait (9:16) promotional video. The Google Drive iframe mounts only after the 450ms stack
- * push finishes (keeping motion at 60fps) and unmounts immediately on close.
+ * portrait (9:16) promotional video. The Google Drive iframe mounts only after the stack push
+ * (STACK_PUSH_MS) finishes, keeping motion at 60fps, and unmounts immediately on close.
+ *
+ * Gallery: ArrowLeft / ArrowRight step through the photos (wrapping) while the view is open. The
+ * photos are stacked and cross-faded rather than swapped, and the photo being switched to is only
+ * revealed once it has loaded, so a switch never flashes blank. The two neighbours of the current
+ * photo are mounted ahead of time so the usual next / previous step is already loaded.
  */
 export function WatchGymButton({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  // "index" is the photo the visitor picked; "shown" is the one on screen, which lags behind until the
+  // picked photo has loaded. "visited" keeps every photo seen so far mounted (and so cached).
   const [index, setIndex] = useState(0);
+  const [shown, setShown] = useState(0);
+  const [loaded, setLoaded] = useState<number[]>([]);
+  const [visited, setVisited] = useState<number[]>([0]);
   const { open: openDayPass } = useDayPass();
   const photo = TOUR_PHOTOS[index];
+
+  const select = useCallback(
+    (next: number) => {
+      const i = wrapIndex(next);
+      setIndex(i);
+      setVisited((v) => (v.includes(i) ? v : [...v, i]));
+      if (loaded.includes(i)) setShown(i);
+    },
+    [loaded],
+  );
   const close = () => {
     setVideoReady(false);
     setIsOpen(false);
   };
+
+  // ArrowLeft / ArrowRight while the view is open, unless the visitor is typing or using a modifier key.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      const target = e.target as HTMLElement | null;
+      if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
+      e.preventDefault();
+      select(index + (e.key === "ArrowRight" ? 1 : -1));
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, index, select]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -74,30 +112,53 @@ export function WatchGymButton({ className }: { className?: string }) {
             </StickyBar>
             <figure className="mt-6">
               <div className="relative aspect-[16/10] overflow-hidden border border-line bg-canvas">
-                <Image
-                  key={photo.id}
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(min-width: 768px) 62rem, 100vw"
-                  quality={85}
-                  className="object-cover"
-                  style={{ objectPosition: photo.position }}
-                />
+                {TOUR_PHOTOS.map((p, i) => {
+                  const mounted =
+                    visited.includes(i) || i === wrapIndex(index + 1) || i === wrapIndex(index - 1);
+                  if (!mounted) return null;
+                  const isShown = i === shown;
+                  return (
+                    <Image
+                      key={p.id}
+                      src={p.src}
+                      alt={isShown ? p.alt : ""}
+                      aria-hidden={isShown ? undefined : true}
+                      fill
+                      sizes="(min-width: 768px) 62rem, 100vw"
+                      quality={85}
+                      onLoad={() => {
+                        setLoaded((l) => (l.includes(i) ? l : [...l, i]));
+                        if (i === index) setShown(i);
+                      }}
+                      // The incoming photo fades in on top; the outgoing one drops out once it is covered.
+                      className={cn(
+                        "object-cover",
+                        isShown
+                          ? "z-10 opacity-100 transition-opacity duration-[320ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                          : "opacity-0 transition-opacity delay-[320ms] duration-0",
+                      )}
+                      style={{ objectPosition: p.position }}
+                    />
+                  );
+                })}
               </div>
               <figcaption aria-live="polite" className="mt-3 font-mono text-[0.8125rem] text-muted">
                 {photo.label} ({index + 1} of {TOUR_PHOTOS.length})
               </figcaption>
             </figure>
 
-            <div role="group" aria-label="Choose a photo" className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-6">
+            <div
+              role="group"
+              aria-label="Choose a photo"
+              className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-6"
+            >
               {TOUR_PHOTOS.map((p, i) => (
                 <button
                   key={p.id}
                   type="button"
                   aria-label={`Show ${p.label}`}
                   aria-pressed={i === index}
-                  onClick={() => setIndex(i)}
+                  onClick={() => select(i)}
                   className={cn(
                     "relative aspect-square overflow-hidden border transition-[border-color,opacity] duration-[160ms]",
                     i === index ? "border-gold" : "border-line-subtle opacity-70 hover:opacity-100",

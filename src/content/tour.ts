@@ -8,6 +8,8 @@ export type TourPhoto = {
   alt: string;
   /** CSS object-position for the 16:10 stage. */
   position: string;
+  /** "gym" photos show the training floor; "amenities" show the facilities around it (lounge, parking, showers, restrooms). */
+  group: "gym" | "amenities";
 };
 
 export const TOUR_PHOTOS: TourPhoto[] = [
@@ -17,6 +19,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "The entrance",
     alt: "The glowing Gold's Gym sign above the glass entrance",
     position: "45% 30%",
+    group: "gym",
   },
   {
     id: "heritage-lounge",
@@ -24,6 +27,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "The heritage lounge",
     alt: "A leather sofa and chairs by a brick wall, beside a timeline wall of Gold's Gym history",
     position: "50% 50%",
+    group: "amenities",
   },
   {
     id: "training-floor",
@@ -31,6 +35,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "The training floor",
     alt: "Hexagon ceiling lights over dumbbell racks, power racks and benches on the training floor",
     position: "50% 32%",
+    group: "gym",
   },
   {
     id: "free-weights",
@@ -38,6 +43,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Free weights",
     alt: "Dumbbell rack in the foreground with colour-coded bumper plates stacked on power racks behind it",
     position: "50% 38%",
+    group: "gym",
   },
   {
     id: "gym80",
@@ -45,6 +51,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Gym80 strength",
     alt: "Two hands gripping a 45 lb Gym80 plate in front of strength machines",
     position: "50% 62%",
+    group: "gym",
   },
   {
     id: "cardio",
@@ -52,6 +59,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Cardio Bay",
     alt: "Two members running on treadmills in the Cardio Bay",
     position: "50% 55%",
+    group: "gym",
   },
   {
     id: "parking",
@@ -59,6 +67,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Covered parking",
     alt: "Covered parking bay with car and motorcycle slots at Gold's Gym Iloilo",
     position: "50% 62%",
+    group: "amenities",
   },
   {
     id: "showers",
@@ -66,6 +75,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Private shower suites",
     alt: "Row of three marble-tiled private frosted-glass rain shower suites at Gold's Gym Iloilo",
     position: "50% 50%",
+    group: "amenities",
   },
   {
     id: "restrooms-lockers",
@@ -73,6 +83,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Restrooms & lockers",
     alt: "Clean matte-black restroom cubicles with marble trim and an open doorway to the wooden locker room",
     position: "50% 50%",
+    group: "amenities",
   },
   {
     id: "comfort-room",
@@ -80,6 +91,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Smart comfort room",
     alt: "Modern marble-tiled comfort room stall with an automated smart toilet at Gold's Gym Iloilo",
     position: "50% 55%",
+    group: "amenities",
   },
   {
     id: "vanity-mirrors",
@@ -87,6 +99,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Marble vanity & sinks",
     alt: "Dual backlit marble vanity mirrors and stone basin sinks between the shower suites and restroom stalls",
     position: "50% 50%",
+    group: "amenities",
   },
   {
     id: "mens-restroom",
@@ -94,6 +107,7 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     label: "Restroom & locker room",
     alt: "Spacious dark-marble restroom interior with recessed lighting and doorway into the wooden locker room",
     position: "50% 50%",
+    group: "amenities",
   },
 ];
 

@@ -3,21 +3,18 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { DayPassButton } from "@/components/day-pass/day-pass-button";
 import { Accordion } from "@/components/faq/accordion";
+import { HashReveal } from "@/components/faq/hash-reveal";
 import { Stars } from "@/components/reviews/stars";
 import { Phone } from "@/components/ui/icons";
 import { SplitHeader } from "@/components/ui/split-header";
 import { StickyBar, StickySections } from "@/components/ui/sticky-sections";
 import { FAQ } from "@/content/faq";
 import { REVIEWS } from "@/content/reviews";
+import { PAGE_SEO } from "@/content/seo";
 import { pageMetadata } from "@/lib/page-metadata";
 import { CONTACT } from "@/lib/site";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Gym Reviews & First-Visit FAQ in Iloilo",
-  description:
-    "Read verified five-star Google reviews for Gold's Gym Iloilo and get answers to common first-visit questions—scheduling a visit, parking at Iloilo Business Park, and what to bring.",
-  path: "/reviews-faq",
-});
+export const metadata: Metadata = pageMetadata(PAGE_SEO.reviews);
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -109,7 +106,7 @@ export default function ReviewsFaqPage() {
       >
         <StickyBar sectionId="faq">First visit FAQ</StickyBar>
         <div className="shell grid gap-10 pt-10 pb-14 lg:grid-cols-12 lg:items-start lg:gap-8 lg:pt-14 lg:pb-16">
-          <div className="deck-reveal lg:col-span-5" style={{ "--delay": "960ms" } as CSSProperties}>
+          <HashReveal className="lg:col-span-5" delayMs={960} hashDelayMs={0}>
             <h2
               id="faq-title"
               className="font-display text-[length:var(--text-display)] leading-[1.06] uppercase"
@@ -138,11 +135,11 @@ export default function ReviewsFaqPage() {
                 Contact us
               </DayPassButton>
             </div>
-          </div>
+          </HashReveal>
 
-          <div className="deck-reveal lg:col-span-7" style={{ "--delay": "1120ms" } as CSSProperties}>
+          <HashReveal className="lg:col-span-7" delayMs={1120} hashDelayMs={140}>
             <Accordion items={FAQ} defaultOpenId={FAQ[0].id} />
-          </div>
+          </HashReveal>
         </div>
       </section>
       <script

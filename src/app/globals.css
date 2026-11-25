@@ -122,6 +122,11 @@ p {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+/* tabindex="-1" elements are only ever focused by script (a dialog heading on open), never by Tab, so
+   they get no ring. Unlayered like the rule above, so Tailwind's focus:outline-none could not win. */
+[tabindex="-1"]:focus-visible {
+  outline: none;
+}
 
 /* Tailwind v4 preflight no longer gives buttons a pointer cursor, so the browser's arrow shows.
    In @layer base so utilities (cursor-default, cursor-not-allowed ...) can still override it. */
@@ -156,6 +161,10 @@ p {
 }
 .deck-reveal {
   animation: deck-reveal-up 1050ms cubic-bezier(0.19, 1, 0.22, 1) var(--delay, 0ms) backwards;
+}
+/* Arriving at #faq (footer link, shared URL): the section is what they came for, so skip the wait. */
+#faq:target .deck-reveal {
+  animation-delay: var(--hash-delay, 0ms);
 }
 .scroll-reveal {
   opacity: 0;

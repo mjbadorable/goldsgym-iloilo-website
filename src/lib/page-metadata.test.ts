@@ -15,6 +15,10 @@ test("a sub-page keeps its own SEO title/description/URL and uses the unified br
   assert.equal(og.images.length, 1);
   assert.equal((m.twitter as { title: string }).title, SHARE_TITLE);
   assert.equal((m.twitter as { description: string }).description, SHARE_DESCRIPTION);
+  const tw = (m.twitter as { images: { url: string; alt: string }[] }).images;
+  assert.equal(tw[0].url, OG_IMAGE.url);
+  assert.equal(tw[0].alt, OG_IMAGE.alt);
+  assert.ok(OG_IMAGE.alt.length > 0);
 });
 
 test("the home page keeps the layout's default title but still gets og:url", () => {

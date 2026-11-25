@@ -6,15 +6,11 @@ import { Zones } from "@/components/about/zones";
 import { StickySections } from "@/components/ui/sticky-sections";
 import { VDivider } from "@/components/ui/v-divider";
 import { NamedIcon } from "@/components/ui/zone-icons";
+import { PAGE_SEO } from "@/content/seo";
 import { ZONES } from "@/content/zones";
 import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Why Gold's Gym | Training Zones & Gym Equipment in Iloilo",
-  description:
-    "Explore four dedicated training zones at Gold's Gym Iloilo in Iloilo Business Park: Free Weights, Gym80 Strength, Cardio Bay, and Functional Training with clean facilities and convenient parking.",
-  path: "/why-gold-s-gym",
-});
+export const metadata: Metadata = pageMetadata(PAGE_SEO.about);
 
 export default function AboutPage() {
   return (

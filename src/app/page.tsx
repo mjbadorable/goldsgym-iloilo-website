@@ -29,7 +29,8 @@ const structuredData = {
       name: SITE.name,
       description: SITE.description,
       image: new URL("/images/og-share.jpg", SITE_URL).toString(),
-      url: SITE_URL,
+      // Same form as the WebSite entry above (trailing slash).
+      url: new URL("/", SITE_URL).toString(),
       telephone: CONTACT.phoneE164,
       email: CONTACT.email,
       address: {

@@ -43,7 +43,8 @@ export function pageMetadata({
       card: "summary_large_image",
       title: SHARE_TITLE,
       description: SHARE_DESCRIPTION,
-      images: [OG_IMAGE.url],
+      // An object (not a bare URL) so Next also writes twitter:image:alt.
+      images: [{ url: OG_IMAGE.url, alt: OG_IMAGE.alt, width: OG_IMAGE.width, height: OG_IMAGE.height }],
     },
   };
 }
