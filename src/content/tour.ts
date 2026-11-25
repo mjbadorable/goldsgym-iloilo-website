@@ -81,6 +81,20 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     alt: "Modern marble-tiled comfort room stall with an automated smart toilet at Gold's Gym Iloilo",
     position: "50% 55%",
   },
+  {
+    id: "vanity-mirrors",
+    src: "/images/vanity-mirrors.jpg",
+    label: "Marble vanity & sinks",
+    alt: "Dual backlit marble vanity mirrors and stone basin sinks between the shower suites and restroom stalls",
+    position: "50% 50%",
+  },
+  {
+    id: "mens-restroom",
+    src: "/images/mens-restroom.jpg",
+    label: "Restroom & locker room",
+    alt: "Spacious dark-marble restroom interior with recessed lighting and doorway into the wooden locker room",
+    position: "50% 50%",
+  },
 ];
 
 // The gym's promotional video: a portrait (9:16) file hosted on the owner's Google Drive.
