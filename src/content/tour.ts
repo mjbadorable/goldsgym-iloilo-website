@@ -60,6 +60,13 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     alt: "Covered parking bay with car and motorcycle slots at Gold's Gym Iloilo",
     position: "50% 62%",
   },
+  {
+    id: "showers",
+    src: "/images/shower-suites.jpg",
+    label: "Private shower suites",
+    alt: "Row of three marble-tiled private frosted-glass rain shower suites at Gold's Gym Iloilo",
+    position: "50% 50%",
+  },
 ];
 
 // The gym's promotional video: a portrait (9:16) file hosted on the owner's Google Drive.

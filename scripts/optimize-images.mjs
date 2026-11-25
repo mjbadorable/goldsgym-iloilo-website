@@ -44,6 +44,7 @@ const jobs = [
     "golds-mesh-emblem.jpg",
     "parking-lot.jpg",
     "parking-lot-bay.jpg",
+    "shower-suites.jpg",
   ].map((file) => ({ dir: SUPPLIED, src: file, out: file, format: "jpeg", quality: 84 })),
 
   // Coach Andrew featured stage photo: crisp HD upscale + balanced clarity.
