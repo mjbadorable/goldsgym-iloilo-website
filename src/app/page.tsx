@@ -28,7 +28,12 @@ const structuredData = {
       "@type": "HealthClub",
       name: SITE.name,
       description: SITE.description,
-      image: new URL("/images/og-share.jpg", SITE_URL).toString(),
+      logo: new URL("/images/gold-logo.png", SITE_URL).toString(),
+      image: [
+        new URL("/images/og-share.jpg", SITE_URL).toString(),
+        new URL("/images/training-floor.jpg", SITE_URL).toString(),
+        new URL("/images/storefront-sign.jpg", SITE_URL).toString(),
+      ],
       // Same form as the WebSite entry above (trailing slash).
       url: new URL("/", SITE_URL).toString(),
       telephone: CONTACT.phoneE164,
@@ -45,6 +50,19 @@ const structuredData = {
         "@type": "City",
         name: "Iloilo City",
       },
+      amenityFeature: [
+        "Free Weights",
+        "Gym80 Strength Equipment",
+        "Cardio Bay",
+        "Functional Training",
+        "Covered Parking",
+        "Private Shower Suites",
+        "Restrooms & Lockers",
+      ].map((name) => ({
+        "@type": "LocationFeatureSpecification",
+        name,
+        value: true,
+      })),
       hasMap: ADDRESS.mapsUrl,
       openingHoursSpecification: HOURS.map((r) => ({
         "@type": "OpeningHoursSpecification",

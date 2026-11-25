@@ -8,6 +8,7 @@ import { VDivider } from "@/components/ui/v-divider";
 import { NamedIcon } from "@/components/ui/zone-icons";
 import { PAGE_SEO } from "@/content/seo";
 import { ZONES } from "@/content/zones";
+import { breadcrumbSchema } from "@/lib/breadcrumb-schema";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata(PAGE_SEO.about);
@@ -83,6 +84,12 @@ export default function AboutPage() {
         <VDivider />
         <Experience />
       </StickySections>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema("Why Gold's Gym", "/why-gold-s-gym")).replace(/</g, "\\u003c"),
+        }}
+      />
     </>
   );
 }

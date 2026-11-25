@@ -4,6 +4,7 @@ import { CoachesGrid } from "@/components/coaches/coaches-grid";
 import { SplitHeader } from "@/components/ui/split-header";
 import { COACHES } from "@/content/coaches";
 import { PAGE_SEO } from "@/content/seo";
+import { breadcrumbSchema } from "@/lib/breadcrumb-schema";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata(PAGE_SEO.coaches);
@@ -40,6 +41,12 @@ export default function CoachesPage() {
         intro="Meet our certified fitness coaches. Whether you're building strength, improving performance, or starting your fitness journey, we're here to guide you."
       />
       <CoachesGrid coaches={COACHES} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema("Coaches", "/coaches")).replace(/</g, "\\u003c"),
+        }}
+      />
     </div>
   );
 }

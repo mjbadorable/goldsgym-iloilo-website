@@ -36,6 +36,7 @@ export function Ticker() {
 
   return (
     <section
+      data-nosnippet
       aria-label="Gold's Gym Iloilo at a glance"
       className="ticker relative overflow-hidden bg-gold text-gold-ink"
       data-paused={paused}

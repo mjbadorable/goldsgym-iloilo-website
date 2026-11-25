@@ -30,7 +30,7 @@ function QuickLinkIcon({ href }: { href: string }) {
 
 export function Footer() {
   return (
-    <footer className="mt-auto bg-surface">
+    <footer data-nosnippet className="mt-auto bg-surface">
       <VDivider />
       <div className="shell grid gap-10 pt-6 pb-10 lg:grid-cols-[1.25fr_0.85fr_1.15fr] lg:items-start lg:gap-0 lg:pt-8 lg:pb-11">
         {/* Brand CTA column */}

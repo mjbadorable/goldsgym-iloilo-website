@@ -11,6 +11,7 @@ import { StickyBar, StickySections } from "@/components/ui/sticky-sections";
 import { FAQ } from "@/content/faq";
 import { REVIEWS } from "@/content/reviews";
 import { PAGE_SEO } from "@/content/seo";
+import { breadcrumbSchema } from "@/lib/breadcrumb-schema";
 import { pageMetadata } from "@/lib/page-metadata";
 import { CONTACT } from "@/lib/site";
 
@@ -145,6 +146,12 @@ export default function ReviewsFaqPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema("Reviews & FAQ", "/reviews-faq")).replace(/</g, "\\u003c"),
+        }}
       />
     </StickySections>
   );

@@ -108,7 +108,7 @@ export function FloorBand() {
             </h2>
             <OpenBadge className="mt-5" />
 
-            <dl className="mt-6 divide-y divide-line-subtle border-y border-line-subtle">
+            <dl data-nosnippet className="mt-6 divide-y divide-line-subtle border-y border-line-subtle">
               {HOURS.map((range) => {
                 const RangeIcon = range.days.includes(0) ? Sun : Calendar;
                 return (
