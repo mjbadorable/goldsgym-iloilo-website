@@ -67,6 +67,20 @@ export const TOUR_PHOTOS: TourPhoto[] = [
     alt: "Row of three marble-tiled private frosted-glass rain shower suites at Gold's Gym Iloilo",
     position: "50% 50%",
   },
+  {
+    id: "restrooms-lockers",
+    src: "/images/restrooms-lockers.jpg",
+    label: "Restrooms & lockers",
+    alt: "Clean matte-black restroom cubicles with marble trim and an open doorway to the wooden locker room",
+    position: "50% 50%",
+  },
+  {
+    id: "comfort-room",
+    src: "/images/comfort-room.jpg",
+    label: "Smart comfort room",
+    alt: "Modern marble-tiled comfort room stall with an automated smart toilet at Gold's Gym Iloilo",
+    position: "50% 55%",
+  },
 ];
 
 // The gym's promotional video: a portrait (9:16) file hosted on the owner's Google Drive.
