@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Anton, Bebas_Neue, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { DayPassProvider } from "@/components/day-pass/day-pass-provider";
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </div>
         </DayPassProvider>
+        <Analytics />
       </body>
     </html>
   );
